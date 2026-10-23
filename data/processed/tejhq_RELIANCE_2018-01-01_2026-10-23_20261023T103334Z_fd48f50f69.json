@@ -1,0 +1,37 @@
+{
+  "provider_name": "TejHQ keyless OHLCV API",
+  "endpoint": "https://api.tejhq.dev/v1/ohlcv/nse/RELIANCE?from=2018-01-01&to=2026-10-23",
+  "exchange": "NSE",
+  "symbol": "RELIANCE",
+  "requested_date_range": [
+    "2018-01-01",
+    "2026-10-23"
+  ],
+  "actual_date_range": [
+    "2018-01-01",
+    "2026-10-22"
+  ],
+  "retrieved_at_utc": "2026-10-23T10:33:34.376451+00:00",
+  "raw_file": "data\\raw\\nse\\tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.json",
+  "raw_file_sha256": "fd48f50f69338ee1f9b705bd889af7e7f0c8767751dfa0ab5126be6c7e502633",
+  "normalized_file": "data\\processed\\tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.csv",
+  "schema_version": "1.0",
+  "row_count": 2166,
+  "adjustment_status": "raw_unadjusted; endpoint is /v1/ohlcv, not /v1/adjusted",
+  "normalization": {
+    "field_mapping": {
+      "date": "session_date",
+      "open": "open",
+      "high": "high",
+      "low": "low",
+      "close": "close",
+      "volume": "volume"
+    },
+    "symbol": "requested NSE path symbol applied to all rows (single-symbol endpoint)",
+    "ordering": "ascending session_date",
+    "session_timestamp": "15:30 Asia/Kolkata, assigned by canonical loader",
+    "adjustment_policy": "raw_unadjusted; no price adjustment applied",
+    "provider_extra_fields": "preserved only in unchanged raw JSON"
+  },
+  "raw_source_preserved": true
+}

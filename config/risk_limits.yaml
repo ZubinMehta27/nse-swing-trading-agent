@@ -1,0 +1,4 @@
+equity: "1000000.00"
+risk_fraction: "0.005"
+max_position_fraction: "0.20"
+stop_atr_multiple: "2.0"

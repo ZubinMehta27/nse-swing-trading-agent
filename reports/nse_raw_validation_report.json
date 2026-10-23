@@ -1,0 +1,37 @@
+{
+  "inspection_date": "2026-10-23",
+  "requested_directory": "data/raw/nse/",
+  "directory_exists": false,
+  "files": [],
+  "parent_observation": {
+    "path": "data/raw/",
+    "files": ["README.md"],
+    "README_is_dataset": false
+  },
+  "status": "not_run_no_input",
+  "backtest_run": false,
+  "profitability_evaluation_run": false,
+  "source": null,
+  "format": null,
+  "columns": null,
+  "date_range": null,
+  "symbols": [],
+  "verified_ohlcv_fields": [],
+  "corporate_action_policy": null,
+  "row_quality": "not_assessable_without_source_rows",
+  "indicator_warmup": "not_assessable_without_dated_observations",
+  "canonical_schema": {
+    "required": ["symbol", "session_date", "open", "high", "low", "close", "volume"],
+    "optional": ["adjustment_factor", "adjustment_policy"]
+  },
+  "validator_attempt": {
+    "command": "python -m nse_swing_agent validate data\\raw\\nse --cache-dir data\\cache",
+    "message": "error: input file does not exist: data\\raw\\nse",
+    "cli_main_return_code": 2,
+    "powershell_reported_process_exit_code": 1,
+    "result": "rejected before row parsing; no dataset was validated"
+  },
+  "transformations": [],
+  "raw_files_modified": false,
+  "next_step": "Place original authorized dataset files under data/raw/nse/ unchanged; verify source field meanings before mapping; rerun validation."
+}

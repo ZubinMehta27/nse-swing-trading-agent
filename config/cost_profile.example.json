@@ -1,0 +1,14 @@
+{
+  "version": "unverified-placeholder-v1",
+  "effective_from": "1900-01-01",
+  "effective_to": null,
+  "source": "UNVERIFIED: replace with primary source and applicable broker schedule",
+  "verification_status": "unverified",
+  "brokerage_rate": "0",
+  "stt_buy_rate": "0",
+  "stt_sell_rate": "0",
+  "exchange_rate": "0",
+  "gst_rate": "0",
+  "stamp_buy_rate": "0",
+  "dp_charge_per_share": "0"
+}

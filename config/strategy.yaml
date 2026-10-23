@@ -1,0 +1,5 @@
+sma_fast_period: 50
+sma_slow_period: 200
+rsi_period: 14
+rsi_pullback_min: "40"
+rsi_pullback_max: "60"

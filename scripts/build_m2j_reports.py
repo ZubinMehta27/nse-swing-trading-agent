@@ -23,10 +23,12 @@ def write_once(path: Path, content: bytes) -> None:
         path.write_bytes(content)
 
 
-def readiness(candidate: dict[str, Any], profile_path: Path) -> dict[str, Any]:
+def readiness(
+    candidate: dict[str, Any], profile_path: Path, milestone: str = "2J"
+) -> dict[str, Any]:
     current = candidate["overall_evaluation_readiness"]
     return {
-        "milestone": "2J",
+        "milestone": milestone,
         "paper_only": True,
         "profitability_evaluation_run": False,
         "real_data_backtest_ready": False,
@@ -91,7 +93,7 @@ def render_markdown(report: dict[str, Any]) -> str:
     dates = ", ".join(candidate["dates"])
     unsupported = ", ".join(action["unsupported_event_types"])
     lines = [
-        "# Milestone 2J Readiness",
+        f"# Milestone {report['milestone']} Readiness",
         "",
         "**Decision: BLOCKED.** No real-data backtest or profitability evaluation was run.",
         "",
@@ -159,13 +161,14 @@ def main() -> int:
         default=ROOT / "data/validation/recovery_candidates/milestone_2j_v2/recovery_manifest.json",
     )
     parser.add_argument("--output-dir", type=Path, default=ROOT / "reports/milestone_2j_v2")
+    parser.add_argument("--milestone", default="2J", choices=("2J", "2J-A"))
     args = parser.parse_args()
     candidate_path = args.candidate.resolve()
     candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
     profile_path = (
         ROOT / "config/cost_profiles/zerodha_resident_individual_nse_delivery_hypothetical.json"
     )
-    report = readiness(candidate, profile_path)
+    report = readiness(candidate, profile_path, args.milestone)
     dataset_path = candidate_path.parent / candidate["candidate_dataset_path"]
     try:
         report["candidate_recovery"]["path"] = dataset_path.relative_to(ROOT).as_posix()

@@ -16,6 +16,7 @@ from nse_swing_agent.backtest import (
 )
 from nse_swing_agent.cli import main
 from nse_swing_agent.corporate_actions import ActionCoverage
+from nse_swing_agent.cost_profiles import load_cost_profile
 from nse_swing_agent.historical_data import (
     DataValidationError,
     HistoricalBar,
@@ -89,6 +90,7 @@ def load_rows_in_memory(rows: list[list[str]]) -> list[HistoricalBar]:
 
 def run_backtest(records, config=None, **kwargs):
     # These hand-built unit series are explicit complete toy datasets, not market history.
+    kwargs.setdefault("synthetic_fixture", True)
     kwargs.setdefault(
         "action_coverage",
         ActionCoverage(
@@ -415,6 +417,49 @@ def test_cost_inclusive_requires_verified_sourced_nonzero_profile_and_date_cover
     )
     with pytest.raises(ValueError, match="do not cover"):
         run_backtest(records, config(cost_inclusive_evaluation=True, costs=expired))
+
+
+def test_non_synthetic_backtest_requires_versioned_component_cost_profile():
+    records = rising_records()
+    coverage = ActionCoverage(
+        min(item.session_date for item in records),
+        max(item.session_date for item in records),
+        True,
+        True,
+        "test source",
+        "0" * 64,
+    )
+    with pytest.raises(ValueError, match="explicit, complete effective-dated CostProfile"):
+        _run_backtest(records, config(), action_coverage=coverage, synthetic_fixture=False)
+
+
+def test_partial_profile_cannot_override_real_data_cost_gate():
+    records = rising_records()
+    coverage = ActionCoverage(
+        min(item.session_date for item in records),
+        max(item.session_date for item in records),
+        True,
+        True,
+        "test source",
+        "0" * 64,
+    )
+    profile = load_cost_profile(
+        Path(__file__).parents[1]
+        / "config/cost_profiles/zerodha_resident_individual_delivery_v2_partial.json"
+    )
+    with pytest.raises(ValueError, match="complete non-synthetic"):
+        _run_backtest(
+            records,
+            config(
+                cost_inclusive_evaluation=True,
+                cost_profile=profile,
+                cost_exchange="NSE",
+                cost_account_category="resident_individual",
+                cost_dp_holder_category="male_primary",
+            ),
+            action_coverage=coverage,
+            synthetic_fixture=False,
+        )
 
 
 def test_cli_rejects_verified_cost_profile_missing_explicit_rate_fields(tmp_path: Path, capsys):

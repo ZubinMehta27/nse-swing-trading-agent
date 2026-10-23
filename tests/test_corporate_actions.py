@@ -66,6 +66,7 @@ def test_pending_buy_quantity_and_protective_price_transform_on_event_date():
         config(),
         corporate_actions=(action(ActionKind.SPLIT, ex=date(2025, 1, 4), ratio=D(2)),),
         action_coverage=coverage(records),
+        synthetic_fixture=True,
     )
     transformed = next(row for row in result.corporate_action_ledger if row["status"] == "applied")
     assert transformed["pending_quantity_before"] is not None
@@ -105,6 +106,7 @@ def test_action_date_split_discontinuity_does_not_trigger_old_scale_stop():
         config(),
         corporate_actions=(event,),
         action_coverage=coverage(adjusted),
+        synthetic_fixture=True,
     )
     assert all(trade.exit_date != event.ex_date for trade in result.trades)
     assert any(row["type"] == "split" for row in result.corporate_action_ledger)
@@ -150,6 +152,7 @@ def test_split_and_bonus_rebase_position_and_stop_before_exdate_bar(kind):
         config(),
         corporate_actions=(action(kind, ratio=ratio),),
         action_coverage=coverage(records),
+        synthetic_fixture=True,
     )
     applied = next(row for row in result.corporate_action_ledger if row["status"] == "applied")
     entry = next(row for row in result.ledger if row.side == "BUY" and row.status == "filled")
@@ -176,6 +179,7 @@ def test_dividend_entitlement_uses_prior_close_and_cash_waits_for_payment_date()
         config(),
         corporate_actions=(action(ActionKind.DIVIDEND, cash=D("0.25"), payment=date(2025, 1, 6)),),
         action_coverage=coverage(records),
+        synthetic_fixture=True,
     )
     entitlement = next(
         row for row in result.corporate_action_ledger if row["status"] == "receivable"
@@ -208,6 +212,7 @@ def test_dividend_does_not_entitle_position_entered_after_exdate_close():
             ),
         ),
         action_coverage=coverage(records),
+        synthetic_fixture=True,
     )
     assert result.metrics["gross_dividend_income"] == "0"
     assert not any(row["type"] == "dividend_entitlement" for row in result.corporate_action_ledger)
@@ -279,7 +284,11 @@ def test_future_action_does_not_apply_to_earlier_signal_session():
     records = rising_records()
     later = action(ActionKind.BONUS, ex=date(2025, 1, 6), ratio=D(2))
     result = run_backtest(
-        records, config(), corporate_actions=(later,), action_coverage=coverage(records)
+        records,
+        config(),
+        corporate_actions=(later,),
+        action_coverage=coverage(records),
+        synthetic_fixture=True,
     )
     pending = next(row for row in result.ledger if row.status == "pending")
     assert pending.session_date < later.ex_date

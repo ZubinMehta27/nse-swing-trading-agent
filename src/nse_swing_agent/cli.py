@@ -11,6 +11,7 @@ from pathlib import Path
 
 from .backtest import BacktestConfig, CostSchedule, export_result, run_backtest
 from .corporate_actions import load_action_manifest
+from .cost_profiles import CostProfileError, load_cost_profile
 from .gap_audit import audit_gaps
 from .historical_data import DataValidationError, import_to_cache, load_historical_file
 from .risk import RiskConfig
@@ -86,6 +87,14 @@ def _parser() -> argparse.ArgumentParser:
     backtest.add_argument("--end", type=date.fromisoformat, help="evaluation end YYYY-MM-DD")
     backtest.add_argument(
         "--costs-json", type=Path, help="JSON mapping CostSchedule field names to versioned rates"
+    )
+    backtest.add_argument(
+        "--cost-profile", type=Path, help="versioned, effective-dated component cost profile"
+    )
+    backtest.add_argument("--cost-exchange", choices=("NSE", "BSE"))
+    backtest.add_argument("--account-category", choices=("resident_individual",), default=None)
+    backtest.add_argument(
+        "--dp-holder-category", choices=("male_primary", "female_primary"), default=None
     )
     backtest.add_argument(
         "--cost-inclusive",
@@ -254,6 +263,10 @@ def main(argv: list[str] | None = None) -> int:
             risk=risk,
             costs=costs,
             cost_inclusive_evaluation=args.cost_inclusive,
+            cost_profile=(load_cost_profile(args.cost_profile) if args.cost_profile else None),
+            cost_exchange=args.cost_exchange,
+            cost_account_category=args.account_category,
+            cost_dp_holder_category=args.dp_holder_category,
         )
         actions, action_coverage = (
             load_action_manifest(args.actions_manifest) if args.actions_manifest else ((), None)
@@ -291,6 +304,7 @@ def main(argv: list[str] | None = None) -> int:
         TejHQError,
         ValueError,
         TypeError,
+        CostProfileError,
         OSError,
         json.JSONDecodeError,
     ) as exc:

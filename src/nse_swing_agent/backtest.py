@@ -21,6 +21,7 @@ from .corporate_actions import (
     unsupported_action_reason,
     validate_actions,
 )
+from .cost_profiles import CostProfile, CostTransaction
 from .historical_data import HistoricalBar
 from .indicators import atr
 from .models import OHLCVBar, PortfolioState, Position, ProposedOrder, TradeSignal
@@ -113,6 +114,10 @@ class BacktestConfig:
     risk: RiskConfig = RiskConfig()
     costs: CostSchedule = CostSchedule()
     cost_inclusive_evaluation: bool = False
+    cost_profile: CostProfile | None = None
+    cost_exchange: str | None = None
+    cost_account_category: str | None = None
+    cost_dp_holder_category: str | None = None
 
     def __post_init__(self) -> None:
         if self.initial_cash <= 0 or self.max_positions <= 0:
@@ -129,6 +134,10 @@ class BacktestConfig:
             and self.evaluation_start > self.evaluation_end
         ):
             raise ValueError("evaluation_start must be on or before evaluation_end")
+        if self.cost_profile is not None and not self.cost_inclusive_evaluation:
+            raise ValueError("a versioned CostProfile requires cost_inclusive_evaluation=True")
+        if self.cost_exchange is not None and self.cost_exchange not in {"NSE", "BSE"}:
+            raise ValueError("cost_exchange must be NSE or BSE")
 
 
 @dataclass(frozen=True, slots=True)
@@ -143,6 +152,7 @@ class LedgerEntry:
     cost: Decimal
     status: str
     reason: str = ""
+    cost_breakdown: dict[str, Any] | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -188,6 +198,47 @@ def _slipped(price: Decimal, side: str, bps: Decimal) -> Decimal:
     if result <= 0:
         raise ValueError("slippage parameters produce a nonpositive execution price")
     return result
+
+
+def _execution_cost(
+    config: BacktestConfig,
+    *,
+    transaction_id: str,
+    order_id: str,
+    symbol: str,
+    side: str,
+    session: date,
+    notional: Decimal,
+    quantity: int,
+) -> tuple[Decimal, dict[str, Any] | None]:
+    """Resolve a fill cost from the versioned profile, or use toy legacy config."""
+    if config.cost_profile is None:
+        return (
+            config.costs.calculate(
+                side=side, notional=notional, quantity=quantity, session=session
+            ),
+            None,
+        )
+    if not config.cost_exchange or not config.cost_account_category:
+        raise ValueError("versioned cost profile requires explicit exchange and account category")
+    breakdown = config.cost_profile.quote(
+        [
+            CostTransaction(
+                transaction_id,
+                session,
+                symbol,
+                side,
+                notional,
+                quantity,
+                order_id=order_id,
+                exchange=config.cost_exchange,
+                segment="cash_delivery",
+                account_category=config.cost_account_category,
+                dp_holder_category=config.cost_dp_holder_category,
+            )
+        ]
+    )
+    return breakdown.total, breakdown.as_dict()
 
 
 def _metrics(
@@ -321,7 +372,48 @@ def run_backtest(
             "backtest supports only raw_unadjusted execution data; adjusted-price conversion "
             "for indicators, OHLC execution, and positions is not implemented"
         )
-    if config.cost_inclusive_evaluation:
+    if not synthetic_fixture and (
+        not config.cost_inclusive_evaluation or config.cost_profile is None
+    ):
+        raise ValueError(
+            "real-data backtests require an explicit, complete effective-dated CostProfile"
+        )
+    if not synthetic_fixture and config.cost_profile is not None:
+        if config.cost_profile.status != "complete" or config.cost_profile.synthetic:
+            raise ValueError("real-data backtests require a complete non-synthetic CostProfile")
+        if not any(
+            (rule.basis != "component_sum" and rule.rate is not None and rule.rate > 0)
+            or (rule.fixed_amount is not None and rule.fixed_amount > 0)
+            for rule in config.cost_profile.rules
+        ):
+            raise ValueError("real-data cost profile must include non-zero transaction charges")
+    if config.cost_profile is not None:
+        if not config.cost_inclusive_evaluation:
+            raise ValueError("a versioned CostProfile requires cost-inclusive evaluation")
+        if not config.cost_exchange or not config.cost_account_category:
+            raise ValueError("versioned CostProfile requires explicit exchange/account category")
+        evaluated_sessions = sorted(
+            {
+                item.session_date
+                for item in ordered
+                if (config.evaluation_start is None or item.session_date >= config.evaluation_start)
+                and (config.evaluation_end is None or item.session_date <= config.evaluation_end)
+            }
+        )
+        for session in evaluated_sessions:
+            errors = config.cost_profile.coverage_errors(
+                session,
+                exchange=config.cost_exchange,
+                segment="cash_delivery",
+                account_category=config.cost_account_category,
+                dp_holder_category=config.cost_dp_holder_category,
+            )
+            if errors:
+                raise ValueError(
+                    f"cost profile {config.cost_profile.version} incomplete on {session}: "
+                    + "; ".join(errors)
+                )
+    elif config.cost_inclusive_evaluation:
         profile = config.costs
         rates = (
             profile.brokerage_rate,
@@ -553,8 +645,15 @@ def run_backtest(
             if exit_price is not None:
                 execution = _slipped(exit_price, "SELL", config.slippage_bps)
                 notional = execution * pos.quantity
-                cost = config.costs.calculate(
-                    side="SELL", notional=notional, quantity=pos.quantity, session=session
+                cost, cost_detail = _execution_cost(
+                    config,
+                    transaction_id=pos.order_id + f"-EXIT-{session}",
+                    order_id=pos.order_id + "-EXIT",
+                    symbol=symbol,
+                    side="SELL",
+                    session=session,
+                    notional=notional,
+                    quantity=pos.quantity,
                 )
                 cash += notional - cost
                 gross = (execution - pos.entry_price) * pos.quantity
@@ -585,6 +684,7 @@ def run_backtest(
                         cost,
                         "filled",
                         reason,
+                        cost_detail,
                     )
                 )
                 del positions[symbol]
@@ -647,8 +747,15 @@ def run_backtest(
                 )
                 continue
             notional = execution * order.quantity
-            cost = config.costs.calculate(
-                side="BUY", notional=notional, quantity=order.quantity, session=session
+            cost, cost_detail = _execution_cost(
+                config,
+                transaction_id=order.client_order_id + f"-BUY-{session}",
+                order_id=order.client_order_id,
+                symbol=symbol,
+                side="BUY",
+                session=session,
+                notional=notional,
+                quantity=order.quantity,
             )
             if notional + cost > cash:
                 ledger.append(
@@ -693,6 +800,7 @@ def run_backtest(
                     cost,
                     "filled",
                     "next_session_open",
+                    cost_detail,
                 )
             )
             # Daily-bar ambiguity applies immediately after entry too; stop wins if both touched.
@@ -712,8 +820,15 @@ def run_backtest(
                 )
                 exit_execution = _slipped(raw_exit, "SELL", config.slippage_bps)
                 exit_notional = exit_execution * order.quantity
-                exit_cost = config.costs.calculate(
-                    side="SELL", notional=exit_notional, quantity=order.quantity, session=session
+                exit_cost, exit_cost_detail = _execution_cost(
+                    config,
+                    transaction_id=order.client_order_id + f"-EXIT-{session}",
+                    order_id=order.client_order_id + "-EXIT",
+                    symbol=symbol,
+                    side="SELL",
+                    session=session,
+                    notional=exit_notional,
+                    quantity=order.quantity,
                 )
                 cash += exit_notional - exit_cost
                 gross = (exit_execution - execution) * order.quantity
@@ -743,6 +858,7 @@ def run_backtest(
                         exit_cost,
                         "filled",
                         reason,
+                        exit_cost_detail,
                     )
                 )
                 del positions[symbol]
@@ -864,6 +980,29 @@ def run_backtest(
         "schema_version": "1.0",
         "adjustment_policies": sorted({item.adjustment_policy for item in ordered}),
         "cost_profile": {
+            "engine": "versioned_component_cost_profile"
+            if config.cost_profile is not None
+            else "legacy_cost_schedule",
+            "resolver_version": config.cost_profile.version
+            if config.cost_profile is not None
+            else None,
+            "resolver_status": config.cost_profile.status
+            if config.cost_profile is not None
+            else None,
+            "exchange": config.cost_exchange,
+            "account_category": config.cost_account_category,
+            "dp_holder_category": config.cost_dp_holder_category,
+            "source_evidence": [
+                {
+                    "source_id": source_id,
+                    "url": url,
+                    "status": status,
+                    "sha256": fingerprint,
+                }
+                for source_id, url, status, fingerprint in (
+                    config.cost_profile.source_metadata if config.cost_profile else ()
+                )
+            ],
             "version": config.costs.version,
             "effective_from": config.costs.effective_from.isoformat(),
             "effective_to": (
@@ -927,6 +1066,8 @@ def _config_dict(config: BacktestConfig) -> dict[str, Any]:
             return str(value)
         if isinstance(value, date):
             return value.isoformat()
+        if isinstance(value, Path):
+            return str(value)
         if hasattr(value, "__dataclass_fields__"):
             return {key: convert(val) for key, val in asdict(value).items()}
         if isinstance(value, dict):
@@ -965,6 +1106,7 @@ def export_result(result: BacktestResult, output_dir: Path) -> None:
             "cost",
             "status",
             "reason",
+            "cost_breakdown",
         ],
         "corporate_actions.csv": [
             "symbol",
@@ -1018,7 +1160,15 @@ def export_result(result: BacktestResult, output_dir: Path) -> None:
     write_rows(
         "ledger.csv",
         [
-            {**asdict(entry), "session_date": entry.session_date.isoformat()}
+            {
+                **asdict(entry),
+                "session_date": entry.session_date.isoformat(),
+                "cost_breakdown": (
+                    json.dumps(entry.cost_breakdown, sort_keys=True)
+                    if entry.cost_breakdown is not None
+                    else ""
+                ),
+            }
             for entry in result.ledger
         ],
     )

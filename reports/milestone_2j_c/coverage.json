@@ -1,0 +1,112 @@
+{
+  "backtest_executed": false,
+  "bse_dependency": "A current headline BSE rate is not applied as a historical daily rate; date-specific scrip-group/exclusivity and monthly turnover basis remain missing.",
+  "component_coverage": {
+    "brokerage": {
+      "coverage": "no historical effective interval",
+      "status": "partially_verified"
+    },
+    "bse_transaction": {
+      "coverage": "no date-complete instrument-specific schedule",
+      "status": "partially_verified; group and monthly turnover unresolved"
+    },
+    "cdsl_dp": {
+      "coverage": "2024-10-01 through 2026-03-31 source-edition interval",
+      "status": "verified_within_source_edition"
+    },
+    "gst": {
+      "coverage": "current 18% taxable bases observed; historical applicability/rounding incomplete",
+      "status": "partially_verified"
+    },
+    "nse_transaction": {
+      "coverage": "2024-10-01 through 2026-10-23; two archived circular intervals",
+      "status": "verified_rates_unverified_rounding"
+    },
+    "sebi_turnover": {
+      "coverage": "2018-01-01 through 2026-10-23 in documented intervals",
+      "status": "verified_rates_unverified_client_rounding"
+    },
+    "stamp_duty": {
+      "coverage": "delivery buyer rate content-supported from 2020-07-01; earlier state-specific schedule not modeled",
+      "rounding": "unverified",
+      "status": "partially_verified"
+    },
+    "stt": {
+      "coverage": "rate content-supported from 2005-06-01; profile window 2018-01-01 through 2026-10-23",
+      "rounding": "unverified",
+      "status": "partially_verified"
+    },
+    "zerodha_dp": {
+      "coverage": "current charge observed; historical effective interval unavailable",
+      "status": "partially_verified"
+    }
+  },
+  "evidence_scope": "Zerodha resident-individual NSE/BSE cash-equity delivery; available archived evidence plus official content observations with failed local retrievals",
+  "independent_readiness_blockers": [
+    "historical session/bar evidence",
+    "corporate-action coverage and accounting evidence"
+  ],
+  "known_blockers": [
+    "Brokerage effective-date history, contract-note minimums and rounding remain unsupported.",
+    "STT delivery rate is content-corroborated at 0.1% for the covered historical window, but local primary bytes, customer billing precision and rounding are unresolved.",
+    "Stamp duty 0.015% buyer-side is content-corroborated from 2020-07-01 only; the pre-central-regime state-specific treatment and billing rounding are unresolved.",
+    "NSE exchange charges are evidenced only from 2024-10-01; earlier coverage and charge rounding remain unavailable.",
+    "BSE tariff depends on date-specific scrip group/exclusivity and monthly turnover; no validated historical RELIANCE group series or full schedule is configured.",
+    "SEBI turnover fee rates are sourced, but billing aggregation/rounding is unresolved.",
+    "GST 18% current taxable bases are observed; full historical effective-date, billing precision and component rounding evidence is incomplete.",
+    "Zerodha DP effective history and GST billing treatment are incomplete; CDSL evidence is bounded by the 2026-03-31 manual edition.",
+    "Corporate-action completeness and independent historical-bar recovery remain separate readiness blockers."
+  ],
+  "milestone": "2J-C",
+  "nse_ipft_reconciliation": "FA73061 represents exchange transaction charges and IPFT as distinct lines; profile keeps them separate and does not add IPFT a second time to the exchange rate.",
+  "profile_status": "partial",
+  "profile_version": "zerodha-resident-individual-delivery-2026-10-partial-v2",
+  "profitability_evaluation": false,
+  "readiness": "BLOCKED",
+  "report_type": "historical_tariff_evidence_reconciliation",
+  "retrieval_failures": [
+    {
+      "applicability": "Historical delivery-equity STT; observed circular states 0.1% on purchases and sales from 2005-06-01. Current Section 98 separately corroborates current rate.",
+      "archive_file": null,
+      "content_validation": "partial; no locally archived bytes to independently revalidate",
+      "effective_date": "2005-06-01",
+      "error": "Official PDF request returned HTTP 403; document text was available through official-site search/open results.",
+      "publication_date": "2005-05-13",
+      "retrieved_at_utc": "2026-10-23T13:18:14.479663Z",
+      "sha256": null,
+      "source_id": "income_tax_stt_delivery_2005",
+      "status": "content_observed_archive_failed",
+      "title": "Income Tax Department explanatory circular, Finance Act 2005",
+      "url": "https://www.incometaxindia.gov.in/documents/20117/14628360/ExplanatoryCircularFinanceAct2005-Compiled-Recast_2_.pdf/96027428-3563-b168-0386-408400394790?t=1767814850389"
+    },
+    {
+      "applicability": "Delivery equity stamp duty buyer-side rate 0.015%; official DEA report corroborates central implementation on 2020-07-01.",
+      "archive_file": null,
+      "content_validation": "partial; no locally archived bytes to independently revalidate",
+      "effective_date": "2020-07-01",
+      "error": "Official PDF request timed out after 20 seconds; a separate official India Code search result exposed Schedule I text.",
+      "publication_date": null,
+      "retrieved_at_utc": "2026-10-23T13:18:14.613966Z",
+      "sha256": null,
+      "source_id": "india_stamp_act_schedule_56a",
+      "status": "content_observed_archive_failed",
+      "title": "India Code Indian Stamp Act, Schedule I, Item 56A",
+      "url": "https://www.indiacode.nic.in/bitstream/123456789/15510/5/A1899-2%20.pdf"
+    },
+    {
+      "applicability": "Corroborates implementation date only; not tariff calculation or rounding.",
+      "archive_file": null,
+      "content_validation": "partial; no locally archived bytes to independently revalidate",
+      "effective_date": "2020-07-01",
+      "error": "Official PDF TLS connection could not be established.",
+      "publication_date": "2021-03-31",
+      "retrieved_at_utc": "2026-10-23T13:18:34.654808Z",
+      "sha256": null,
+      "source_id": "dea_stamp_duty_implementation_2020",
+      "status": "content_observed_archive_failed",
+      "title": "Department of Economic Affairs Annual Report 2020-2021",
+      "url": "https://dea.gov.in/files/annual_reports_documents/Annual_Report_2020_2021_English.pdf"
+    }
+  ],
+  "rounding_policy": "No fee rounding is inferred from displayed examples. Any unverified rule remains unusable by quote resolver."
+}

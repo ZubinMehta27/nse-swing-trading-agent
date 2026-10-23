@@ -16,6 +16,7 @@ from .historical_data import DataValidationError, load_historical_file
 NSE_FIELDS = {
     "date": "TradDt",
     "symbol": "TckrSymb",
+    "series": "SctySrs",
     "isin": "ISIN",
     "open": "OpnPric",
     "high": "HghPric",
@@ -26,6 +27,7 @@ NSE_FIELDS = {
 LEGACY_FIELDS = {
     "date": "TIMESTAMP",
     "symbol": "SYMBOL",
+    "series": "SERIES",
     "isin": "ISIN",
     "open": "OPEN",
     "high": "HIGH",
@@ -45,6 +47,7 @@ class SourceRow:
     low: Decimal
     close: Decimal
     volume: int
+    series: str
     source: str
 
 
@@ -90,7 +93,7 @@ def _parse_source_csv(handle, path: Path, member: str) -> list[SourceRow]:
         raise DataValidationError(f"{path}: source CSV has no header")
     if set(NSE_FIELDS.values()).issubset(reader.fieldnames):
         fields = NSE_FIELDS
-    elif set(LEGACY_FIELDS.values()) - {"ISIN"} <= set(reader.fieldnames):
+    elif set(LEGACY_FIELDS.values()) <= set(reader.fieldnames):
         fields = LEGACY_FIELDS
     else:
         raise DataValidationError(
@@ -104,7 +107,7 @@ def _parse_source_csv(handle, path: Path, member: str) -> list[SourceRow]:
             item.get("FinInstrmTp") != "STK" or item.get("SctySrs") != "EQ"
         ):
             continue
-        if fields is LEGACY_FIELDS and item.get("SERIES") not in {None, "EQ"}:
+        if fields is LEGACY_FIELDS and item.get("SERIES") != "EQ":
             continue
         try:
             day = (
@@ -133,6 +136,7 @@ def _parse_source_csv(handle, path: Path, member: str) -> list[SourceRow]:
                     values["low"],
                     values["close"],
                     volume,
+                    item[fields["series"]].strip().upper(),
                     f"{path.name}::{member}",
                 )
             )

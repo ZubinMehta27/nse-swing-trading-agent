@@ -1,0 +1,789 @@
+{
+  "account_category": "resident_individual",
+  "assumptions": [
+    "This profile is intentionally incomplete and must not produce a total cost quote.",
+    "No current rate is extrapolated outside its evidenced interval.",
+    "BSE calculation additionally requires historical scrip group/exclusivity and monthly turnover tariff inputs, not modeled here.",
+    "Account-level AMC and optional account fees are excluded; they require an explicit allocation policy.",
+    "Rates do not imply current or historical client billing rounding unless explicitly verified.",
+    "Exact rounding is used only for fixed CDSL tariff amounts; it is not a general currency rounding claim."
+  ],
+  "exchanges": [
+    "NSE",
+    "BSE"
+  ],
+  "market": "India",
+  "provenance_manifest": "../../data/reference/cost_profiles/milestone_2j_c/provenance_manifest.json",
+  "required_components": [
+    {
+      "component": "brokerage",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    {
+      "component": "stt",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    {
+      "component": "exchange_transaction",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    {
+      "component": "sebi_turnover",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    {
+      "component": "ipft",
+      "exchanges": [
+        "NSE"
+      ],
+      "sides": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    {
+      "component": "stamp_duty",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "BUY"
+      ]
+    },
+    {
+      "component": "gst_services",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    {
+      "component": "dp_zerodha",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "SELL"
+      ]
+    },
+    {
+      "component": "dp_cdsl",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "SELL"
+      ]
+    },
+    {
+      "component": "gst_dp",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "sides": [
+        "SELL"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "broker",
+      "component": "brokerage",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Current delivery brokerage is reported as zero; no historical effective interval and contract-note minimum requires reconciliation.",
+      "rate": "0",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "stt",
+      "effective_from": "2018-01-01",
+      "effective_to": "2026-10-23",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Official 2005 circular content states 0.1% delivery STT from 2005-06-01, with current Section 98 corroboration; local source bytes unavailable and client-side rounding unverified. No quote is permitted.",
+      "rate": "0.001",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "income_tax_stt_delivery_2005",
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "sebi_turnover",
+      "effective_from": "2018-01-01",
+      "effective_to": "2019-03-31",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Cash-segment rate before 2019 substitution; client billing/rounding unresolved.",
+      "rate": "0.0000015",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "sebi_turnover",
+      "effective_from": "2019-04-01",
+      "effective_to": "2020-05-31",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Cash-segment schedule; client billing/rounding unresolved.",
+      "rate": "0.000001",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "sebi_turnover",
+      "effective_from": "2020-06-01",
+      "effective_to": "2021-03-31",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Temporary 50% cash-segment fee relief; client billing/rounding unresolved.",
+      "rate": "0.0000005",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "sebi_turnover",
+      "effective_from": "2021-04-01",
+      "effective_to": "2026-10-23",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Current consolidated schedule through source edition date; client billing/rounding unresolved.",
+      "rate": "0.000001",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "stamp_duty",
+      "effective_from": "2020-07-01",
+      "effective_to": "2026-10-23",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Official India Code Schedule I search content and DEA annual-report content support 0.015% delivery buyer rate from 2020-07-01; source bytes could not be archived, earlier state-specific periods are not modeled, and rounding is unverified. No quote is permitted.",
+      "rate": "0.00015",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY"
+      ],
+      "source_id": "india_stamp_act_schedule_56a",
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "component_sum",
+      "cap_amount": null,
+      "category": "tax",
+      "component": "gst_services",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "Current 18% base reported by Zerodha; historical GST effective dates and per-component rounding unverified.",
+      "rate": "0.18",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "taxable_components": [
+        "brokerage",
+        "exchange_transaction",
+        "sebi_turnover",
+        "ipft"
+      ],
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_day_symbol",
+      "basis": "fixed",
+      "cap_amount": null,
+      "category": "depository",
+      "component": "dp_zerodha",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "fixed_amount": "9.50",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "Current Zerodha component reported; no historical effective interval.",
+      "rounding": "exact",
+      "segment": "cash_delivery",
+      "sides": [
+        "SELL"
+      ],
+      "source_id": "zerodha_dp_charges",
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_day_symbol",
+      "basis": "fixed",
+      "cap_amount": null,
+      "category": "depository",
+      "component": "dp_cdsl",
+      "dp_holder_category": "male_primary",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-03-31",
+      "exchange": "NSE",
+      "fixed_amount": "3.50",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "CDSL flat debit charge effective 2024-10-01; female first-holder discount applies. Source edition ends 2026-03-31.",
+      "rounding": "exact",
+      "segment": "cash_delivery",
+      "sides": [
+        "SELL"
+      ],
+      "source_id": "cdsl_dp_instructions_2026",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_day_symbol",
+      "basis": "fixed",
+      "cap_amount": null,
+      "category": "depository",
+      "component": "dp_cdsl",
+      "dp_holder_category": "female_primary",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-03-31",
+      "exchange": "NSE",
+      "fixed_amount": "3.25",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "CDSL flat debit charge effective 2024-10-01; female first-holder discount applies. Source edition ends 2026-03-31.",
+      "rounding": "exact",
+      "segment": "cash_delivery",
+      "sides": [
+        "SELL"
+      ],
+      "source_id": "cdsl_dp_instructions_2026",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_day_symbol",
+      "basis": "component_sum",
+      "cap_amount": null,
+      "category": "tax",
+      "component": "gst_dp",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "Current DP GST shown by Zerodha; date coverage and grouped billing rounding are incomplete.",
+      "rate": "0.18",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "taxable_components": [
+        "dp_zerodha",
+        "dp_cdsl"
+      ],
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "broker",
+      "component": "brokerage",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Current delivery brokerage is reported as zero; no historical effective interval and contract-note minimum requires reconciliation.",
+      "rate": "0",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "stt",
+      "effective_from": "2018-01-01",
+      "effective_to": "2026-10-23",
+      "exchange": "BSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Official 2005 circular content states 0.1% delivery STT from 2005-06-01, with current Section 98 corroboration; local source bytes unavailable and client-side rounding unverified. No quote is permitted.",
+      "rate": "0.001",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "income_tax_stt_delivery_2005",
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "sebi_turnover",
+      "effective_from": "2018-01-01",
+      "effective_to": "2019-03-31",
+      "exchange": "BSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Cash-segment rate before 2019 substitution; client billing/rounding unresolved.",
+      "rate": "0.0000015",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "sebi_turnover",
+      "effective_from": "2019-04-01",
+      "effective_to": "2020-05-31",
+      "exchange": "BSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Cash-segment schedule; client billing/rounding unresolved.",
+      "rate": "0.000001",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "sebi_turnover",
+      "effective_from": "2020-06-01",
+      "effective_to": "2021-03-31",
+      "exchange": "BSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Temporary 50% cash-segment fee relief; client billing/rounding unresolved.",
+      "rate": "0.0000005",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "sebi_turnover",
+      "effective_from": "2021-04-01",
+      "effective_to": "2026-10-23",
+      "exchange": "BSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Current consolidated schedule through source edition date; client billing/rounding unresolved.",
+      "rate": "0.000001",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "statutory",
+      "component": "stamp_duty",
+      "effective_from": "2020-07-01",
+      "effective_to": "2026-10-23",
+      "exchange": "BSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Official India Code Schedule I search content and DEA annual-report content support 0.015% delivery buyer rate from 2020-07-01; source bytes could not be archived, earlier state-specific periods are not modeled, and rounding is unverified. No quote is permitted.",
+      "rate": "0.00015",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY"
+      ],
+      "source_id": "india_stamp_act_schedule_56a",
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "component_sum",
+      "cap_amount": null,
+      "category": "tax",
+      "component": "gst_services",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "Current 18% base reported by Zerodha; historical GST effective dates and per-component rounding unverified.",
+      "rate": "0.18",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "taxable_components": [
+        "brokerage",
+        "exchange_transaction",
+        "sebi_turnover",
+        "ipft"
+      ],
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_day_symbol",
+      "basis": "fixed",
+      "cap_amount": null,
+      "category": "depository",
+      "component": "dp_zerodha",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "fixed_amount": "9.50",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "Current Zerodha component reported; no historical effective interval.",
+      "rounding": "exact",
+      "segment": "cash_delivery",
+      "sides": [
+        "SELL"
+      ],
+      "source_id": "zerodha_dp_charges",
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_day_symbol",
+      "basis": "fixed",
+      "cap_amount": null,
+      "category": "depository",
+      "component": "dp_cdsl",
+      "dp_holder_category": "male_primary",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-03-31",
+      "exchange": "BSE",
+      "fixed_amount": "3.50",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "CDSL flat debit charge effective 2024-10-01; female first-holder discount applies. Source edition ends 2026-03-31.",
+      "rounding": "exact",
+      "segment": "cash_delivery",
+      "sides": [
+        "SELL"
+      ],
+      "source_id": "cdsl_dp_instructions_2026",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_day_symbol",
+      "basis": "fixed",
+      "cap_amount": null,
+      "category": "depository",
+      "component": "dp_cdsl",
+      "dp_holder_category": "female_primary",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-03-31",
+      "exchange": "BSE",
+      "fixed_amount": "3.25",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "CDSL flat debit charge effective 2024-10-01; female first-holder discount applies. Source edition ends 2026-03-31.",
+      "rounding": "exact",
+      "segment": "cash_delivery",
+      "sides": [
+        "SELL"
+      ],
+      "source_id": "cdsl_dp_instructions_2026",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_day_symbol",
+      "basis": "component_sum",
+      "cap_amount": null,
+      "category": "tax",
+      "component": "gst_dp",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "gst_treatment": "separately_modelled",
+      "minimum_amount": null,
+      "note": "Current DP GST shown by Zerodha; date coverage and grouped billing rounding are incomplete.",
+      "rate": "0.18",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "taxable_components": [
+        "dp_zerodha",
+        "dp_cdsl"
+      ],
+      "verification_status": "partially_verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "exchange",
+      "component": "exchange_transaction",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-02-28",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "NSE cash-market charge, fractional rate from circular; fee rounding basis not established.",
+      "rate": "0.0000297",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "nse_fa64232_2024",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "exchange",
+      "component": "exchange_transaction",
+      "effective_from": "2026-03-01",
+      "effective_to": "2026-10-23",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "NSE cash-market transaction charge from circular; rounding not established.",
+      "rate": "0.000030699",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "nse_fa73061_2026",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "exchange",
+      "component": "ipft",
+      "effective_from": "2026-03-01",
+      "effective_to": "2026-10-23",
+      "exchange": "NSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "NSE IPFT charge; rounding not established.",
+      "rate": "0.000000001",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "nse_fa73061_2026",
+      "verification_status": "verified"
+    },
+    {
+      "account_category": "resident_individual",
+      "aggregation": "per_fill",
+      "basis": "notional",
+      "cap_amount": null,
+      "category": "exchange",
+      "component": "exchange_transaction",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "gst_treatment": "unresolved",
+      "minimum_amount": null,
+      "note": "Current Zerodha snapshot rate only; BSE charges vary with scrip group/exclusivity and monthly turnover, so a single daily rate is not sufficient.",
+      "rate": "0.0000375",
+      "rounding": "unverified",
+      "segment": "cash_delivery",
+      "sides": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "verification_status": "partially_verified"
+    }
+  ],
+  "schema_version": "2.0",
+  "segment": "cash_delivery",
+  "status": "partial",
+  "synthetic": false,
+  "version": "zerodha-resident-individual-delivery-2026-10-partial-v2"
+}

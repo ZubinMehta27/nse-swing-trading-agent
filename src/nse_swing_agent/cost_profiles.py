@@ -21,7 +21,7 @@ STATUSES = {"verified", "partially_verified", "unverified", "synthetic_test_only
 CATEGORIES = {"statutory", "exchange", "broker", "depository", "tax"}
 BASIS = {"notional", "fixed", "component_sum"}
 AGGREGATION = {"per_fill", "per_order", "per_day_symbol", "per_settlement_symbol"}
-ROUNDING = {"half_up_paise", "unverified"}
+ROUNDING = {"exact", "half_up_paise", "unverified"}
 GST_TREATMENT = {"taxable", "not_taxable", "separately_modelled", "unresolved"}
 
 
@@ -78,6 +78,10 @@ class CostRule:
     minimum_amount: Decimal | None = None
     cap_amount: Decimal | None = None
     gst_treatment: str = "unresolved"
+    exchange: str | None = None
+    segment: str | None = None
+    account_category: str | None = None
+    dp_holder_category: str | None = None
 
     def __post_init__(self) -> None:
         if not self.component.strip():
@@ -90,8 +94,16 @@ class CostRule:
             raise CostProfileError("unsupported cost verification status")
         if self.rounding not in ROUNDING:
             raise CostProfileError("unsupported cost rounding policy")
+        if self.rounding == "exact" and self.basis != "fixed":
+            raise CostProfileError("exact rounding is only valid for fixed-amount rules")
         if self.gst_treatment not in GST_TREATMENT:
             raise CostProfileError("unsupported GST treatment")
+        for name in ("exchange", "segment", "account_category", "dp_holder_category"):
+            value = getattr(self, name)
+            if value is not None and (not isinstance(value, str) or not value.strip()):
+                raise CostProfileError(f"rule {name} must be a non-empty string or None")
+        if self.exchange is not None and self.exchange not in {"NSE", "BSE"}:
+            raise CostProfileError("exchange must be NSE, BSE or None")
         if not self.sides or any(side not in SIDES for side in self.sides):
             raise CostProfileError("cost rule requires BUY and/or SELL sides")
         if len(self.sides) != len(set(self.sides)):
@@ -143,6 +155,10 @@ class CostTransaction:
     quantity: int
     order_id: str | None = None
     settlement_id: str | None = None
+    exchange: str | None = None
+    segment: str | None = None
+    account_category: str | None = None
+    dp_holder_category: str | None = None
 
     def __post_init__(self) -> None:
         if not self.transaction_id or not self.symbol.strip():
@@ -160,6 +176,10 @@ class CostTransaction:
             or self.quantity <= 0
         ):
             raise CostProfileError("notional and quantity must be positive")
+        for name in ("exchange", "segment", "account_category", "dp_holder_category"):
+            value = getattr(self, name)
+            if value is not None and (not isinstance(value, str) or not value.strip()):
+                raise CostProfileError(f"{name} must be a non-empty string or None")
 
 
 @dataclass(frozen=True, slots=True)
@@ -171,6 +191,12 @@ class CostLine:
     basis: str
     amount: Decimal
     source_id: str | None
+    source_url: str | None = None
+    source_status: str | None = None
+    source_sha256: str | None = None
+    effective_from: date | None = None
+    effective_to: date | None = None
+    exchange: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -195,6 +221,14 @@ class CostBreakdown:
                     "basis": line.basis,
                     "amount": str(line.amount),
                     "source_id": line.source_id,
+                    "source_url": line.source_url,
+                    "source_status": line.source_status,
+                    "source_sha256": line.source_sha256,
+                    "effective_from": (
+                        line.effective_from.isoformat() if line.effective_from else None
+                    ),
+                    "effective_to": line.effective_to.isoformat() if line.effective_to else None,
+                    "exchange": line.exchange,
                 }
                 for line in self.lines
             ],
@@ -206,12 +240,21 @@ class CostProfile:
     version: str
     market: str
     segment: str
-    required_components: tuple[tuple[str, tuple[str, ...]], ...]
+    required_components: tuple[tuple[str, tuple[str, ...], tuple[str, ...]], ...]
     rules: tuple[CostRule, ...]
     status: str
     synthetic: bool = False
     assumptions: tuple[str, ...] = ()
     provenance_manifest: Path | None = None
+    source_metadata: tuple[tuple[str, str | None, str | None, str | None], ...] = ()
+    exchanges: tuple[str, ...] = ()
+    account_category: str | None = None
+
+    def _source_fields(self, source_id: str | None) -> tuple[str | None, str | None, str | None]:
+        for identifier, url, status, fingerprint in self.source_metadata:
+            if identifier == source_id:
+                return url, status, fingerprint
+        return None, None, None
 
     def __post_init__(self) -> None:
         if not self.version or not self.market or not self.segment:
@@ -224,19 +267,29 @@ class CostProfile:
             raise CostProfileError("synthetic profile flag and status disagree")
         if not self.required_components:
             raise CostProfileError("required_components cannot be empty")
-        names = [name for name, _ in self.required_components]
+        names = [name for name, _, _ in self.required_components]
         if len(names) != len(set(names)):
             raise CostProfileError("required component names must be unique")
-        for name, sides in self.required_components:
+        for name, sides, _exchanges in self.required_components:
             if not name.strip() or not sides or any(side not in SIDES for side in sides):
                 raise CostProfileError("required components need a name and valid sides")
         self._validate_intervals()
 
     def _validate_intervals(self) -> None:
-        by_key: dict[tuple[str, str], list[CostRule]] = {}
+        by_key: dict[
+            tuple[str, str, str | None, str | None, str | None, str | None], list[CostRule]
+        ] = {}
         for rule in self.rules:
             for side in rule.sides:
-                by_key.setdefault((rule.component, side), []).append(rule)
+                key = (
+                    rule.component,
+                    side,
+                    rule.exchange,
+                    rule.segment,
+                    rule.account_category,
+                    rule.dp_holder_category,
+                )
+                by_key.setdefault(key, []).append(rule)
         for key, rules in by_key.items():
             dated = sorted(
                 (rule for rule in rules if rule.effective_from is not None),
@@ -246,20 +299,84 @@ class CostProfile:
                 if left.effective_to is None or left.effective_to >= right.effective_from:
                     raise CostProfileError(f"overlapping intervals for {key[0]} {key[1]}")
 
-    def _rule_for(self, component: str, side: str, session: date) -> CostRule:
+    def _rule_for(
+        self,
+        component: str,
+        side: str,
+        session: date,
+        *,
+        exchange: str | None = None,
+        segment: str | None = None,
+        account_category: str | None = None,
+        dp_holder_category: str | None = None,
+    ) -> CostRule:
+        context = {
+            "exchange": exchange,
+            "segment": segment,
+            "account_category": account_category,
+            "dp_holder_category": dp_holder_category,
+        }
+        context_requirements = {
+            "exchange": "exchange is required to resolve this component",
+            "segment": "segment is required to resolve this component",
+            "account_category": "account category is required to resolve this component",
+            "dp_holder_category": "DP holder category is required to resolve this component",
+        }
+        applicable_rules = [
+            rule for rule in self.rules if rule.component == component and side in rule.sides
+        ]
+        for field, message in context_requirements.items():
+            if context[field] is None and any(
+                getattr(rule, field) is not None for rule in applicable_rules
+            ):
+                raise CostCoverageError(f"{component} {side}: {message}")
+        scoped = [
+            rule
+            for rule in applicable_rules
+            if all(
+                getattr(rule, field) is None or getattr(rule, field) == context[field]
+                for field in context
+            )
+        ]
+        if self.exchanges and exchange not in self.exchanges:
+            raise CostCoverageError(
+                f"{exchange or 'unspecified exchange'} is outside profile exchange scope"
+            )
+        if self.account_category and account_category != self.account_category:
+            raise CostCoverageError(
+                f"{account_category or 'unspecified account category'} does not match profile"
+            )
+        dated = [rule for rule in scoped if rule.effective_from is not None]
         matching = [
             rule
-            for rule in self.rules
-            if rule.component == component
-            and side in rule.sides
-            and rule.effective_from is not None
-            and rule.effective_from <= session
+            for rule in dated
+            if rule.effective_from <= session
             and (rule.effective_to is None or session <= rule.effective_to)
         ]
         if len(matching) != 1:
-            raise CostCoverageError(
-                f"{component} {side} has no unique effective tariff on {session}"
-            )
+            if not matching and not dated:
+                reason = "has no effective-dated schedule"
+            elif not matching and session < min(rule.effective_from for rule in dated):
+                first = min(rule.effective_from for rule in dated)
+                reason = f"is unsupported before first verified interval {first}"
+            elif not matching:
+                prior = max(
+                    (rule for rule in dated if rule.effective_from <= session),
+                    key=lambda rule: rule.effective_from,
+                )
+                if prior.effective_to is not None and session > prior.effective_to:
+                    later = min(
+                        (rule.effective_from for rule in dated if rule.effective_from > session),
+                        default=None,
+                    )
+                    reason = f"has an unsupported interval after {prior.effective_to}" + (
+                        f" and before {later}" if later else ""
+                    )
+                else:
+                    reason = "has conflicting effective-dated rules"
+            else:
+                reason = "has conflicting effective-dated rules"
+            raise CostCoverageError(f"{component} {side} {reason} for {session}")
         rule = matching[0]
         if rule.verification_status not in {"verified", "synthetic_test_only"}:
             raise CostCoverageError(
@@ -269,12 +386,36 @@ class CostProfile:
             raise CostCoverageError(f"rounding for {component} is not verified")
         return rule
 
-    def coverage_errors(self, session: date) -> list[str]:
+    def coverage_errors(
+        self,
+        session: date,
+        *,
+        exchange: str | None = None,
+        segment: str | None = None,
+        account_category: str | None = None,
+        dp_holder_category: str | None = None,
+    ) -> list[str]:
+        if segment is not None and segment != self.segment:
+            return [f"segment {segment} does not match profile segment {self.segment}"]
         errors = []
-        for component, sides in self.required_components:
+        for component, sides, applicable_exchanges in self.required_components:
+            if (
+                exchange is not None
+                and applicable_exchanges
+                and exchange not in applicable_exchanges
+            ):
+                continue
             for side in sides:
                 try:
-                    self._rule_for(component, side, session)
+                    self._rule_for(
+                        component,
+                        side,
+                        session,
+                        exchange=exchange,
+                        segment=segment,
+                        account_category=account_category,
+                        dp_holder_category=dp_holder_category,
+                    )
                 except CostProfileError as exc:
                     errors.append(str(exc))
         return errors
@@ -286,20 +427,51 @@ class CostProfile:
         ids = [transaction.transaction_id for transaction in transactions]
         if len(ids) != len(set(ids)):
             raise CostProfileError("duplicate transaction_id in cost quote")
-        selected: dict[tuple[str, str, date], CostRule] = {}
+        selected: dict[tuple[str, str], CostRule] = {}
         for transaction in transactions:
-            for component, sides in self.required_components:
+            if transaction.segment is not None and transaction.segment != self.segment:
+                raise CostCoverageError(
+                    f"transaction segment {transaction.segment} does not match profile segment "
+                    f"{self.segment}"
+                )
+            if self.account_category and transaction.account_category != self.account_category:
+                raise CostCoverageError(
+                    "transaction account category is missing or differs from selected profile"
+                )
+            if self.exchanges and transaction.exchange not in self.exchanges:
+                raise CostCoverageError(
+                    "transaction exchange is missing or outside selected profile scope"
+                )
+            for component, sides, applicable_exchanges in self.required_components:
+                if (
+                    transaction.exchange is not None
+                    and applicable_exchanges
+                    and transaction.exchange not in applicable_exchanges
+                ):
+                    continue
                 if transaction.side not in sides:
                     continue
-                selected[(component, transaction.side, transaction.session_date)] = self._rule_for(
-                    component, transaction.side, transaction.session_date
+                selected[(transaction.transaction_id, component)] = self._rule_for(
+                    component,
+                    transaction.side,
+                    transaction.session_date,
+                    exchange=transaction.exchange,
+                    segment=transaction.segment,
+                    account_category=transaction.account_category,
+                    dp_holder_category=transaction.dp_holder_category,
                 )
         grouped: dict[tuple[str, str], list[CostTransaction]] = {}
         for transaction in transactions:
-            for component, sides in self.required_components:
+            for component, sides, applicable_exchanges in self.required_components:
+                if (
+                    transaction.exchange is not None
+                    and applicable_exchanges
+                    and transaction.exchange not in applicable_exchanges
+                ):
+                    continue
                 if transaction.side not in sides:
                     continue
-                rule = selected[(component, transaction.side, transaction.session_date)]
+                rule = selected[(transaction.transaction_id, component)]
                 if rule.aggregation == "per_fill":
                     key = (component, transaction.transaction_id)
                 elif rule.aggregation == "per_order":
@@ -327,8 +499,7 @@ class CostProfile:
         lines: list[CostLine] = []
         deferred: list[tuple[CostRule, list[CostTransaction], str]] = []
         for (component, aggregation_key), members in grouped.items():
-            side = members[0].side
-            rule = selected[(component, side, members[0].session_date)]
+            rule = selected[(members[0].transaction_id, component)]
             if rule.basis == "component_sum":
                 deferred.append((rule, members, aggregation_key))
                 continue
@@ -351,6 +522,10 @@ class CostProfile:
                 rule.basis,
                 amount,
                 rule.source_id,
+                *self._source_fields(rule.source_id),
+                rule.effective_from,
+                rule.effective_to,
+                members[0].exchange,
             )
             lines.append(line)
             for transaction_id in transaction_ids:
@@ -377,6 +552,10 @@ class CostProfile:
                     "component_sum:" + "+".join(rule.taxable_components),
                     amount,
                     rule.source_id,
+                    *self._source_fields(rule.source_id),
+                    rule.effective_from,
+                    rule.effective_to,
+                    members[0].exchange,
                 )
             )
         lines.sort(key=lambda item: (item.aggregation_key, item.component))
@@ -384,6 +563,8 @@ class CostProfile:
 
 
 def _round(value: Decimal, mode: str) -> Decimal:
+    if mode == "exact":
+        return value
     if mode != "half_up_paise":
         raise CostCoverageError("fee rounding is not verified")
     return value.quantize(CENT, rounding=ROUND_HALF_UP)
@@ -412,17 +593,40 @@ def load_cost_profile(path: Path, *, allow_synthetic: bool = False) -> CostProfi
     missing = required_top - payload.keys()
     if missing:
         raise CostProfileError("missing profile fields: " + ", ".join(sorted(missing)))
-    if payload["schema_version"] != "1.0" or not isinstance(payload["rules"], list):
-        raise CostProfileError("cost profile requires schema_version 1.0 and rules array")
+    schema_version = payload["schema_version"]
+    if schema_version not in {"1.0", "2.0"} or not isinstance(payload["rules"], list):
+        raise CostProfileError("cost profile requires schema_version 1.0 or 2.0 and rules array")
+    if schema_version == "2.0":
+        exchanges = payload.get("exchanges")
+        account_category = payload.get("account_category")
+        if (
+            not isinstance(exchanges, list)
+            or not exchanges
+            or any(exchange not in {"NSE", "BSE"} for exchange in exchanges)
+            or account_category != "resident_individual"
+        ):
+            raise CostProfileError(
+                "schema 2.0 requires explicit NSE/BSE exchange scope and resident_individual "
+                "account"
+            )
     if payload["synthetic"] is True and not allow_synthetic:
         raise CostProfileError("synthetic-only cost profile requires explicit allow_synthetic=True")
     if not isinstance(payload["required_components"], list):
         raise CostProfileError("required_components must be an array")
     requirements = []
     for item in payload["required_components"]:
-        if not isinstance(item, dict) or set(item) != {"component", "sides"}:
-            raise CostProfileError("each required component requires exactly component and sides")
-        requirements.append((str(item["component"]), tuple(item["sides"])))
+        if (
+            not isinstance(item, dict)
+            or not {"component", "sides"}.issubset(item)
+            or item.keys() - {"component", "sides", "exchanges"}
+        ):
+            raise CostProfileError(
+                "required component needs component/sides and optional exchanges"
+            )
+        requirement_exchanges = tuple(item.get("exchanges", []))
+        if any(value not in {"NSE", "BSE"} for value in requirement_exchanges):
+            raise CostProfileError("required component exchanges must be NSE and/or BSE")
+        requirements.append((str(item["component"]), tuple(item["sides"]), requirement_exchanges))
     rules = tuple(_parse_rule(row, index) for index, row in enumerate(payload["rules"], 1))
     provenance_path = payload["provenance_manifest"]
     provenance = None
@@ -441,6 +645,16 @@ def load_cost_profile(path: Path, *, allow_synthetic: bool = False) -> CostProfi
             for item in provenance["sources"]
             if isinstance(item, dict) and isinstance(item.get("source_id"), str)
         }
+        source_metadata = []
+        for source_id, source in source_index.items():
+            source_metadata.append(
+                (
+                    source_id,
+                    source.get("url"),
+                    source.get("archive_status", source.get("status")),
+                    source.get("sha256"),
+                )
+            )
         for rule in rules:
             if rule.verification_status == "verified" and not rule.source_id:
                 raise CostProfileError(f"verified rule {rule.component} requires a source_id")
@@ -464,7 +678,9 @@ def load_cost_profile(path: Path, *, allow_synthetic: bool = False) -> CostProfi
                     raise CostProfileError(f"cannot read verified source {source_file}") from exc
                 if hashlib.sha256(source_bytes).hexdigest() != source.get("sha256"):
                     raise CostProfileError(f"source fingerprint mismatch for {rule.source_id}")
-    elif any(rule.verification_status == "verified" for rule in rules):
+    else:
+        source_metadata = []
+    if provenance_path is None and any(rule.verification_status == "verified" for rule in rules):
         raise CostProfileError("verified cost rules require provenance_manifest")
     assumptions = payload["assumptions"]
     if not isinstance(assumptions, list) or any(
@@ -481,6 +697,9 @@ def load_cost_profile(path: Path, *, allow_synthetic: bool = False) -> CostProfi
         payload["synthetic"],
         tuple(assumptions),
         provenance_file if provenance_path is not None else None,
+        tuple(source_metadata),
+        tuple(payload.get("exchanges", [])),
+        payload.get("account_category"),
     )
 
 
@@ -505,7 +724,18 @@ def _parse_rule(row: Any, index: int) -> CostRule:
     missing = required - row.keys()
     if missing:
         raise CostProfileError(f"rule {index} missing fields: {', '.join(sorted(missing))}")
-    unknown = row.keys() - required - {"rate", "fixed_amount", "taxable_components", "note"}
+    dimensional = {"exchange", "segment", "account_category", "dp_holder_category"}
+    unknown = (
+        row.keys()
+        - required
+        - {
+            "rate",
+            "fixed_amount",
+            "taxable_components",
+            "note",
+        }
+        - dimensional
+    )
     if unknown:
         raise CostProfileError(f"rule {index} has unknown fields: {', '.join(sorted(unknown))}")
     return CostRule(
@@ -528,4 +758,8 @@ def _parse_rule(row: Any, index: int) -> CostRule:
         ),
         cap_amount=_decimal(row["cap_amount"], f"rule {index} cap_amount", optional=True),
         gst_treatment=str(row["gst_treatment"]),
+        exchange=row.get("exchange"),
+        segment=row.get("segment"),
+        account_category=row.get("account_category"),
+        dp_holder_category=row.get("dp_holder_category"),
     )

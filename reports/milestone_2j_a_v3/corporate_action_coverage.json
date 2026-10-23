@@ -1,0 +1,1252 @@
+{
+  "schema_version": "1.0",
+  "report_type": "corporate_action_coverage_audit",
+  "sources": {
+    "registry": {
+      "path": "G:\\My Drive\\nse-swing-trading-agent\\reports\\milestone_2h\\corporate_action_evidence_registry.json",
+      "sha256": "208eb5dddd8ef2c1161aca0a0d9e29a50eab5ad628c30f800c6463b8397b4592"
+    },
+    "provider_raw_response": {
+      "path": "G:\\My Drive\\nse-swing-trading-agent\\data\\raw\\nse\\tejhq_actions_RELIANCE_20261023T103451Z_4b305e0765.json",
+      "sha256": "4b305e0765bd8a1b0e32ee4074d7343c81cefd99e8231e1275a9e793952bf777",
+      "provider": "TejHQ",
+      "retrieved_at_utc": "2026-10-23T10:34:51.675000+00:00",
+      "coverage_limit": "Feed completeness not guaranteed; rows are discovery only."
+    }
+  },
+  "summary": {
+    "decision": "BLOCKED",
+    "complete_historical_coverage": false,
+    "discovery_feed_completeness_guaranteed": false,
+    "event_count": 25,
+    "event_type_counts": {
+      "bonus": 3,
+      "demerger": 1,
+      "dividend": 20,
+      "rights": 1
+    },
+    "verification_status_counts": {
+      "partially_verified": 4,
+      "unverified": 21
+    },
+    "missing_accounting_term_counts": {
+      "bonus.effective_date": 3,
+      "demerger.consideration": 1,
+      "demerger.effective_date": 1,
+      "dividend.currency": 20,
+      "dividend.payment_date": 20,
+      "dividend.record_date": 6,
+      "rights.subscription_price": 1
+    },
+    "unresolved_event_dates": [
+      {
+        "source_row_id": "tejhq-actions-row-01",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-01",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-02",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-02",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-03",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-03",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-04",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-04",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-05",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-05",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-06",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-06",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-07",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-07",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-08",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-08",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-09",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-09",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-10",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-10",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-11",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-11",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-12",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-12",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-13",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-13",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-14",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-14",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-15",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-15",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-16",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-16",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-17",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-17",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-18",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-18",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-19",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-19",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-20",
+        "field": "record_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-20",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-20",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-21",
+        "field": "record_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-21",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-21",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-22",
+        "field": "record_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-22",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-22",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-23",
+        "field": "record_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-23",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-23",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-24",
+        "field": "record_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-24",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-24",
+        "field": "effective_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-25",
+        "field": "record_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-25",
+        "field": "payment_date"
+      },
+      {
+        "source_row_id": "tejhq-actions-row-25",
+        "field": "effective_date"
+      }
+    ],
+    "duplicate_event_group_count": 4,
+    "unsupported_event_record_counts": {
+      "rights": 1,
+      "demerger": 1,
+      "merger": 0,
+      "buyback": 0,
+      "delisting": 0
+    },
+    "unsupported_types_absent_from_feed_are_not_proven_absent": [
+      "merger",
+      "buyback",
+      "delisting"
+    ],
+    "blockers": [
+      "TejHQ action endpoint states historical feed completeness is not guaranteed.",
+      "Provider discoveries are not independent evidence of complete event terms.",
+      "Some known action types are unsupported by portfolio accounting.",
+      "An absent event type is not evidence that no such event occurred."
+    ]
+  },
+  "duplicate_event_groups": {
+    "fa6f158c9b9364de": [
+      [
+        "BSE",
+        "2026-06-05",
+        "dividend"
+      ],
+      [
+        "NSE",
+        "2026-06-05",
+        "dividend"
+      ]
+    ],
+    "0f93df511080e00c": [
+      [
+        "BSE",
+        "2025-08-14",
+        "dividend"
+      ],
+      [
+        "NSE",
+        "2025-08-14",
+        "dividend"
+      ]
+    ],
+    "93dd6caa7648cd70": [
+      [
+        "BSE",
+        "2024-10-28",
+        "bonus"
+      ],
+      [
+        "NSE",
+        "2024-10-28",
+        "bonus"
+      ]
+    ],
+    "0cced65e2e86064d": [
+      [
+        "BSE",
+        "2024-08-19",
+        "dividend"
+      ],
+      [
+        "NSE",
+        "2024-08-19",
+        "dividend"
+      ]
+    ]
+  },
+  "events": [
+    {
+      "source_row_id": "tejhq-actions-row-01",
+      "exchange": "BSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2026-06-05",
+      "record_date": "2026-06-05",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 6,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "fa6f158c9b9364de",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-01",
+        "tejhq-actions-row-02"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-02",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2026-06-05",
+      "record_date": "2026-06-05",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 6,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "fa6f158c9b9364de",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-01",
+        "tejhq-actions-row-02"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-03",
+      "exchange": "BSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2025-08-14",
+      "record_date": "2025-08-14",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 5.5,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "0f93df511080e00c",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-03",
+        "tejhq-actions-row-04"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-04",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2025-08-14",
+      "record_date": "2025-08-14",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 5.5,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "0f93df511080e00c",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-03",
+        "tejhq-actions-row-04"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-05",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2024-10-28",
+      "record_date": "2024-10-28",
+      "type": "bonus",
+      "reported_terms": {
+        "cash_amount": null,
+        "currency": null,
+        "ratio_num": 1,
+        "ratio_den": 1,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "effective_date"
+      ],
+      "event_group": "93dd6caa7648cd70",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-05",
+        "tejhq-actions-row-06"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "partially_verified",
+      "coverage_classification": "partial_external_corroboration",
+      "independent_evidence": {
+        "url": "https://nsearchives.nseindia.com/corporate/RELIANCE_16102024200409_SE_16102024.pdf",
+        "status": "partially_verified",
+        "publication_date": "2024-10-16",
+        "retrieval_status": "official web-indexed filing inspected; direct PDF archive attempt timed out before response validation",
+        "local_sha256": null,
+        "notes": "Issuer filing extract corroborates 1:1 bonus and record date 2024-10-28; allotment/adjustment implementation is not independently reconciled here."
+      },
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-06",
+      "exchange": "BSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2024-10-28",
+      "record_date": "2024-10-28",
+      "type": "bonus",
+      "reported_terms": {
+        "cash_amount": null,
+        "currency": null,
+        "ratio_num": 1,
+        "ratio_den": 1,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "effective_date"
+      ],
+      "event_group": "93dd6caa7648cd70",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-05",
+        "tejhq-actions-row-06"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "partially_verified",
+      "coverage_classification": "partial_external_corroboration",
+      "independent_evidence": {
+        "url": "https://nsearchives.nseindia.com/corporate/RELIANCE_16102024200409_SE_16102024.pdf",
+        "status": "partially_verified",
+        "publication_date": "2024-10-16",
+        "retrieval_status": "official web-indexed filing inspected; direct PDF archive attempt timed out before response validation",
+        "local_sha256": null,
+        "notes": "Issuer filing extract corroborates 1:1 bonus and record date 2024-10-28; allotment/adjustment implementation is not independently reconciled here."
+      },
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-07",
+      "exchange": "BSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2024-08-19",
+      "record_date": "2024-08-19",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 10,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "0cced65e2e86064d",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-07",
+        "tejhq-actions-row-08"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-08",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2024-08-19",
+      "record_date": "2024-08-19",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 10,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "0cced65e2e86064d",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-07",
+        "tejhq-actions-row-08"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-09",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2023-08-21",
+      "record_date": "2023-08-21",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 9,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "101cb3f69c1a30a8",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-09"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-10",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2023-07-20",
+      "record_date": "2023-07-20",
+      "type": "demerger",
+      "reported_terms": {
+        "cash_amount": null,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "effective_date",
+        "consideration"
+      ],
+      "event_group": "2f1a1dc95cd07ecc",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-10"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "partially_verified",
+      "coverage_classification": "partial_external_corroboration",
+      "independent_evidence": {
+        "url": "https://nsearchives.nseindia.com/annual_reports/AR_24850_RELIANCE_2023_2024_07082024143222.pdf",
+        "status": "partially_verified",
+        "publication_date": "2024-08-07",
+        "retrieval_status": "official web-indexed annual report inspected; direct PDF archive attempt timed out before response validation",
+        "local_sha256": null,
+        "notes": "NSE-hosted issuer annual report extract states JFSL 1-for-1 consideration, appointed date 2023-03-31 and record date 2023-07-20; event-specific valuation/accounting is unsupported."
+      },
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-11",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2022-08-18",
+      "record_date": "2022-08-19",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 8,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "fee5296415988348",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-11"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-12",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2021-06-11",
+      "record_date": "2021-06-14",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 7,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "29f1f82bd2810436",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-12"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-13",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2020-07-02",
+      "record_date": "2020-07-03",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 6.5,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "7dfd54e43a715f44",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-13"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-14",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2020-05-13",
+      "record_date": "2020-05-14",
+      "type": "rights",
+      "reported_terms": {
+        "cash_amount": null,
+        "currency": null,
+        "ratio_num": 1,
+        "ratio_den": 15,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "subscription_price"
+      ],
+      "event_group": "614c97cd36da2831",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-14"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "partially_verified",
+      "coverage_classification": "partial_external_corroboration",
+      "independent_evidence": {
+        "url": "https://nsearchives.nseindia.com/content/circulars/FAOP44356.pdf",
+        "status": "partially_verified",
+        "publication_date": "2020-05-12",
+        "retrieval_status": "official web-indexed circular inspected; direct PDF archive attempt timed out before response validation",
+        "local_sha256": null,
+        "notes": "NSE circular extract corroborates reported 1:15 rights ratio, issue price Rs 1,257 and record date May 14, 2020; complete terms and accounting remain unreviewed."
+      },
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-15",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2019-08-02",
+      "record_date": "2019-08-05",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 6.5,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "d0c254b4bfbb3d57",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-15"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-16",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2018-06-27",
+      "record_date": "2018-06-28",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 6,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "7ca5e80968974ac8",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-16"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-17",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2017-09-07",
+      "record_date": "2017-09-09",
+      "type": "bonus",
+      "reported_terms": {
+        "cash_amount": null,
+        "currency": null,
+        "ratio_num": 1,
+        "ratio_den": 1,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "effective_date"
+      ],
+      "event_group": "35e6a5796137b8bd",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-17"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-18",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2017-07-13",
+      "record_date": "2017-07-14",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 11,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "5d631d33531750f4",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-18"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-19",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2016-03-17",
+      "record_date": "2016-03-18",
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 10.5,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "payment_date"
+      ],
+      "event_group": "81f9fd66fb26d912",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-19"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-20",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2015-05-08",
+      "record_date": null,
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 10,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "record_date",
+        "payment_date"
+      ],
+      "event_group": "4f529ec69b4f9334",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-20"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-21",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2014-05-16",
+      "record_date": null,
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 9.5,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "record_date",
+        "payment_date"
+      ],
+      "event_group": "2c68822d5e3e356e",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-21"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-22",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2013-05-10",
+      "record_date": null,
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 9,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "record_date",
+        "payment_date"
+      ],
+      "event_group": "f7496fa4b1303950",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-22"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-23",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2012-05-31",
+      "record_date": null,
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 8.5,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "record_date",
+        "payment_date"
+      ],
+      "event_group": "fa850ca0911204ff",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-23"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-24",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2011-05-05",
+      "record_date": null,
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 8,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "record_date",
+        "payment_date"
+      ],
+      "event_group": "1c7d0b26786fda6e",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-24"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    },
+    {
+      "source_row_id": "tejhq-actions-row-25",
+      "exchange": "NSE",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2010-05-10",
+      "record_date": null,
+      "type": "dividend",
+      "reported_terms": {
+        "cash_amount": 7,
+        "currency": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "entitlement_ratio": null,
+        "effective_date": null,
+        "payment_date": null,
+        "consideration": null
+      },
+      "missing_accounting_terms": [
+        "currency",
+        "record_date",
+        "payment_date"
+      ],
+      "event_group": "5061a9fcd61e1c1b",
+      "exchange_duplicate_row_ids": [
+        "tejhq-actions-row-25"
+      ],
+      "provider_row_verified_against_raw": true,
+      "verification_status": "unverified",
+      "coverage_classification": "provider_discovery_only",
+      "independent_evidence": null,
+      "independent_source_bytes_verified": false,
+      "provider_source_is_completeness_proof": false,
+      "backtest_eligibility": "blocked_pending_complete_verified_action_coverage"
+    }
+  ]
+}

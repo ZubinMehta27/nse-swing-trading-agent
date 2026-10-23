@@ -193,3 +193,27 @@ python -m pytest tests/test_milestone_2i.py tests/test_corporate_actions.py
 ```
 
 `reports/milestone_2i/validation_report.md` separates provider facts, the one exchange-verified calendar fact, synthetic accounting test cases and unverified assumptions. It does not run the strategy or backtester. Split, bonus and dividend accounting tests use synthetic unit fixtures; they do not verify any real event terms. `docs/cost_model_specification.md` lists the missing effective-date, tariff, calculation-base, aggregation and rounding inputs. The existing Milestone 2H real-data readiness gate remains blocked; validating this fixture cannot override it.
+
+## Milestone 2J-A controlled recovery and action coverage
+
+The eight source-reconciled NSE RELIANCE bars from Milestone 2H can be revalidated into a **separate candidate-only** dataset. Use a new output directory for this milestone so the earlier Milestone 2J evidence stays unchanged:
+
+```powershell
+$env:PYTHONPATH = "src"
+python scripts/build_m2j_recovery_candidate.py --output data/validation/recovery_candidates/milestone_2j_a_v2
+python scripts/audit_corporate_action_coverage.py --output reports/milestone_2j_a_v4
+python scripts/build_m2j_reports.py --milestone 2J-A --candidate data/validation/recovery_candidates/milestone_2j_a_v2/recovery_manifest.json --output-dir reports/milestone_2j_a_v4
+```
+
+The candidate builder verifies preserved report-file hashes, report date, NSE EQ series, RELIANCE/INE002A01018 identity, OHLCV and absence from the provider dataset, then validates candidate rows against the canonical loader. Its manifest carries raw-source and input fingerprints; unavailable or changed source bytes are marked incomplete. Candidate bars are not merged, and existing outputs are write-once. `reports/milestone_2j_a_v4/corporate_action_coverage.json` checks each registry row against the immutable TejHQ response and distinguishes provider discovery, partial corroboration and independently fingerprinted verified terms; missing accounting terms and applicable unresolved event dates are listed. The action feed explicitly does not guarantee complete historical coverage; an event absent from that feed is not evidence that the event did not occur. The report therefore retains a blocked decision. Neither command runs a strategy or backtest, verifies every event term, or changes cost assumptions.
+# Versioned delivery-cost evidence
+
+Milestone 2J-B adds a Decimal, effective-dated Zerodha delivery-cost profile scoped to NSE/BSE resident-individual cash delivery. The supplied profile is intentionally **partial** and fails closed; it does not establish complete historical fees or enable a real-data backtest. See [`docs/milestone_2j_b_cost_model.md`](docs/milestone_2j_b_cost_model.md), the [profile](config/cost_profiles/zerodha_resident_individual_delivery_v2_partial.json), [provenance manifest](data/reference/cost_profiles/milestone_2j_b/provenance_manifest.json), and [coverage report](reports/milestone_2j_b/readiness.md).
+
+The CLI accepts an explicit versioned profile with `--cost-profile`, `--cost-exchange`, `--account-category resident_individual`, and `--dp-holder-category`. The profile currently refuses total-cost quotes because historical coverage, BSE tariff inputs, and multiple rounding/tax details remain unresolved. A non-synthetic backtest remains blocked by cost and independent data/corporate-action readiness checks. No profitability evaluation was run.
+
+## Milestone 2J-C tariff evidence
+
+The historical Zerodha delivery tariff reconciliation is documented in [docs/milestone_2j_c_tariff_reconciliation.md](docs/milestone_2j_c_tariff_reconciliation.md). Its versioned profile, [coverage report](reports/milestone_2j_c/readiness.md), and provenance manifest are partial and fail closed. No real-data backtest or profitability evaluation was run; source retrieval failures and missing rounding/BSE inputs keep readiness BLOCKED.
+
+\n

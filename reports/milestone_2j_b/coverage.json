@@ -1,0 +1,540 @@
+{
+  "account_category": "resident_individual",
+  "backtest_executed": false,
+  "exchanges": [
+    "NSE",
+    "BSE"
+  ],
+  "known_blockers": [
+    "Brokerage current zero rate has no verified historical effective interval and contract-note minimum is unresolved.",
+    "STT source result was observed but direct bytes were not archived; historical intervals and billing rounding are not resolved.",
+    "NSE exchange-charge schedules are dated from 2024-10-01; fractional charge rounding is unverified, and earlier history is uncovered.",
+    "BSE charges vary by historical scrip group/exclusivity and monthly turnover; no symbol/date lookup or complete tariff model is configured.",
+    "SEBI turnover rate dates are sourced, but customer billing/rounding treatment is not verified.",
+    "Stamp-duty official PDF retrieval timed out after 30 seconds; a search extract was observed, but source bytes and effective-date extraction were not validated.",
+    "GST taxable-base coverage and historical dates/rounding remain incomplete.",
+    "Zerodha DP base charge lacks historical effective dates; CDSL evidence is limited to the 2026-03-31 manual edition, and DP GST grouping/rounding is incomplete.",
+    "Corporate-action, historical-bar recovery, source-completeness and other real-data readiness blockers remain independent."
+  ],
+  "limitations": [
+    "No partial cost total is exposed; the resolver only returns a quote when every required component is supported.",
+    "Account-level AMC and non-trading fees are excluded pending an explicit allocation policy.",
+    "The audit does not run a strategy backtest or calculate performance."
+  ],
+  "market": "India",
+  "milestone": "2J-B",
+  "profile_status": "partial",
+  "profile_version": "zerodha-resident-individual-delivery-2026-10-partial-v1",
+  "profitability_evaluation": false,
+  "readiness": "BLOCKED",
+  "report_type": "tariff_coverage_audit",
+  "rules": [
+    {
+      "component": "brokerage",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Current delivery brokerage is reported as zero; no historical effective interval and contract-note minimum requires reconciliation.",
+      "rate": "0",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "status": "partially_verified"
+    },
+    {
+      "component": "stt",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Official current Section 98 rate observed; source bytes not archived and historic schedule/rounding not independently established in this profile.",
+      "rate": "0.001",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "income_tax_section_98",
+      "status": "partially_verified"
+    },
+    {
+      "component": "sebi_turnover",
+      "effective_from": "2018-01-01",
+      "effective_to": "2019-03-31",
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Cash-segment rate before 2019 substitution; client billing/rounding unresolved.",
+      "rate": "0.0000015",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "verified"
+    },
+    {
+      "component": "sebi_turnover",
+      "effective_from": "2019-04-01",
+      "effective_to": "2020-05-31",
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Cash-segment schedule; client billing/rounding unresolved.",
+      "rate": "0.000001",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "verified"
+    },
+    {
+      "component": "sebi_turnover",
+      "effective_from": "2020-06-01",
+      "effective_to": "2021-03-31",
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Temporary 50% cash-segment fee relief; client billing/rounding unresolved.",
+      "rate": "5E-7",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "verified"
+    },
+    {
+      "component": "sebi_turnover",
+      "effective_from": "2021-04-01",
+      "effective_to": "2026-10-23",
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Current consolidated schedule through source edition date; client billing/rounding unresolved.",
+      "rate": "0.000001",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "verified"
+    },
+    {
+      "component": "stamp_duty",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Current delivery rate observed in official consolidated Schedule I search extract; direct source bytes and effective rule extraction were not validated for this profile.",
+      "rate": "0.00015",
+      "rounding": "unverified",
+      "side": [
+        "BUY"
+      ],
+      "source_id": "indian_stamp_act_schedule_i",
+      "status": "partially_verified"
+    },
+    {
+      "component": "gst_services",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Current 18% base reported by Zerodha; historical GST effective dates and per-component rounding unverified.",
+      "rate": "0.18",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "status": "partially_verified"
+    },
+    {
+      "component": "dp_zerodha",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "fixed_amount": "9.50",
+      "note": "Current Zerodha component reported; no historical effective interval.",
+      "rate": null,
+      "rounding": "exact",
+      "side": [
+        "SELL"
+      ],
+      "source_id": "zerodha_dp_charges",
+      "status": "partially_verified"
+    },
+    {
+      "component": "dp_cdsl",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-03-31",
+      "exchange": "NSE",
+      "fixed_amount": "3.50",
+      "note": "CDSL flat debit charge effective 2024-10-01; female first-holder discount applies. Source edition ends 2026-03-31.",
+      "rate": null,
+      "rounding": "exact",
+      "side": [
+        "SELL"
+      ],
+      "source_id": "cdsl_dp_instructions_2026",
+      "status": "verified"
+    },
+    {
+      "component": "dp_cdsl",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-03-31",
+      "exchange": "NSE",
+      "fixed_amount": "3.25",
+      "note": "CDSL flat debit charge effective 2024-10-01; female first-holder discount applies. Source edition ends 2026-03-31.",
+      "rate": null,
+      "rounding": "exact",
+      "side": [
+        "SELL"
+      ],
+      "source_id": "cdsl_dp_instructions_2026",
+      "status": "verified"
+    },
+    {
+      "component": "gst_dp",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "Current DP GST shown by Zerodha; date coverage and grouped billing rounding are incomplete.",
+      "rate": "0.18",
+      "rounding": "unverified",
+      "side": [
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "status": "partially_verified"
+    },
+    {
+      "component": "brokerage",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Current delivery brokerage is reported as zero; no historical effective interval and contract-note minimum requires reconciliation.",
+      "rate": "0",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "status": "partially_verified"
+    },
+    {
+      "component": "stt",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Official current Section 98 rate observed; source bytes not archived and historic schedule/rounding not independently established in this profile.",
+      "rate": "0.001",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "income_tax_section_98",
+      "status": "partially_verified"
+    },
+    {
+      "component": "sebi_turnover",
+      "effective_from": "2018-01-01",
+      "effective_to": "2019-03-31",
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Cash-segment rate before 2019 substitution; client billing/rounding unresolved.",
+      "rate": "0.0000015",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "verified"
+    },
+    {
+      "component": "sebi_turnover",
+      "effective_from": "2019-04-01",
+      "effective_to": "2020-05-31",
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Cash-segment schedule; client billing/rounding unresolved.",
+      "rate": "0.000001",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "verified"
+    },
+    {
+      "component": "sebi_turnover",
+      "effective_from": "2020-06-01",
+      "effective_to": "2021-03-31",
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Temporary 50% cash-segment fee relief; client billing/rounding unresolved.",
+      "rate": "5E-7",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "verified"
+    },
+    {
+      "component": "sebi_turnover",
+      "effective_from": "2021-04-01",
+      "effective_to": "2026-10-23",
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Current consolidated schedule through source edition date; client billing/rounding unresolved.",
+      "rate": "0.000001",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "verified"
+    },
+    {
+      "component": "stamp_duty",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Current delivery rate observed in official consolidated Schedule I search extract; direct source bytes and effective rule extraction were not validated for this profile.",
+      "rate": "0.00015",
+      "rounding": "unverified",
+      "side": [
+        "BUY"
+      ],
+      "source_id": "indian_stamp_act_schedule_i",
+      "status": "partially_verified"
+    },
+    {
+      "component": "gst_services",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Current 18% base reported by Zerodha; historical GST effective dates and per-component rounding unverified.",
+      "rate": "0.18",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "status": "partially_verified"
+    },
+    {
+      "component": "dp_zerodha",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "fixed_amount": "9.50",
+      "note": "Current Zerodha component reported; no historical effective interval.",
+      "rate": null,
+      "rounding": "exact",
+      "side": [
+        "SELL"
+      ],
+      "source_id": "zerodha_dp_charges",
+      "status": "partially_verified"
+    },
+    {
+      "component": "dp_cdsl",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-03-31",
+      "exchange": "BSE",
+      "fixed_amount": "3.50",
+      "note": "CDSL flat debit charge effective 2024-10-01; female first-holder discount applies. Source edition ends 2026-03-31.",
+      "rate": null,
+      "rounding": "exact",
+      "side": [
+        "SELL"
+      ],
+      "source_id": "cdsl_dp_instructions_2026",
+      "status": "verified"
+    },
+    {
+      "component": "dp_cdsl",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-03-31",
+      "exchange": "BSE",
+      "fixed_amount": "3.25",
+      "note": "CDSL flat debit charge effective 2024-10-01; female first-holder discount applies. Source edition ends 2026-03-31.",
+      "rate": null,
+      "rounding": "exact",
+      "side": [
+        "SELL"
+      ],
+      "source_id": "cdsl_dp_instructions_2026",
+      "status": "verified"
+    },
+    {
+      "component": "gst_dp",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Current DP GST shown by Zerodha; date coverage and grouped billing rounding are incomplete.",
+      "rate": "0.18",
+      "rounding": "unverified",
+      "side": [
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "status": "partially_verified"
+    },
+    {
+      "component": "exchange_transaction",
+      "effective_from": "2024-10-01",
+      "effective_to": "2026-02-28",
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "NSE cash-market charge, fractional rate from circular; fee rounding basis not established.",
+      "rate": "0.0000297",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "nse_fa64232_2024",
+      "status": "verified"
+    },
+    {
+      "component": "exchange_transaction",
+      "effective_from": "2026-03-01",
+      "effective_to": "2026-10-23",
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "NSE cash-market transaction charge from circular; rounding not established.",
+      "rate": "0.000030699",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "nse_fa73061_2026",
+      "status": "verified"
+    },
+    {
+      "component": "ipft",
+      "effective_from": "2026-03-01",
+      "effective_to": "2026-10-23",
+      "exchange": "NSE",
+      "fixed_amount": null,
+      "note": "NSE IPFT charge; rounding not established.",
+      "rate": "1E-9",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "nse_fa73061_2026",
+      "status": "verified"
+    },
+    {
+      "component": "exchange_transaction",
+      "effective_from": null,
+      "effective_to": null,
+      "exchange": "BSE",
+      "fixed_amount": null,
+      "note": "Current Zerodha snapshot rate only; BSE charges vary with scrip group/exclusivity and monthly turnover, so a single daily rate is not sufficient.",
+      "rate": "0.0000375",
+      "rounding": "unverified",
+      "side": [
+        "BUY",
+        "SELL"
+      ],
+      "source_id": "zerodha_charges",
+      "status": "partially_verified"
+    }
+  ],
+  "segment": "cash_delivery",
+  "sources": [
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "3a77f7d0487550efbc70065645da9262e09059303acbfb145abfade496bda1fd",
+      "source_id": "zerodha_charges",
+      "url": "https://zerodha.com/charges"
+    },
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "bce7409fc17980907f22c86b49c05403a99c6427a8ef985adac437aea3caef73",
+      "source_id": "zerodha_dp_charges",
+      "url": "https://support.zerodha.com/category/account-opening/resident-individual/ri-charges/articles/what-do-dp-charges-mean"
+    },
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "35f2778bd5783fb1056638db02948830af02363c33cd57953d2ca037272f401a",
+      "source_id": "zerodha_gst_sebi",
+      "url": "https://support.zerodha.com/category/account-opening/resident-individual/ri-charges/articles/gst-on-sebi-charges"
+    },
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "85b816208f33bdd1c6c0d827b1ba996aba1fe08fe883a6d31c6a2c0ad55304a4",
+      "source_id": "nse_fa64232_2024",
+      "url": "https://nsearchives.nseindia.com/content/circulars/FA64232.pdf"
+    },
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "6085601a26177ed61e37e5347960b936d71464ab625d6a0d9fe72b2ec838ac09",
+      "source_id": "nse_fa73061_2026",
+      "url": "https://nsearchives.nseindia.com/content/circulars/FA73061.pdf"
+    },
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "7e372d1b57c266545d13549c66bc1e5df5ab5203d2e412d041b64cc03e781a2a",
+      "source_id": "sebi_true_to_label_2024",
+      "url": "https://www.sebi.gov.in/legal/circulars/jul-2024/charges-levied-by-market-infrastructure-institutions-true-to-label_84506.html"
+    },
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "6e4dcc7cf8cc522fbfa894f1fe6eb75fb50f69ad22e0d0880535c5a6c7711013",
+      "source_id": "sebi_broker_regulations_2025",
+      "url": "https://www.sebi.gov.in/sebi_data/attachdocs/mar-2025/1741147425621.pdf"
+    },
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "ed8a653d85b988d071bbded9d3a32f902b5fa3343857bd0caf19084fb2aba00d",
+      "source_id": "bse_master_circular_2023",
+      "url": "https://www.bseindia.com/markets/MarketInfo/DownloadAttach.aspx?attachedId=cb125690-a0f8-452a-ba6b-86cab98004bc&id=20230630-19"
+    },
+    {
+      "archive_status": "retrieved_bytes_archived",
+      "sha256": "48993d832c35aa86d5ca322b928ff156279e43bec2fbeea1de3e054a42420df5",
+      "source_id": "cdsl_dp_instructions_2026",
+      "url": "https://www.cdslindia.com/DP/OperatingInstructions.html"
+    },
+    {
+      "archive_status": "retrieval_failed",
+      "sha256": null,
+      "source_id": "income_tax_section_98",
+      "url": "https://www.incometaxindia.gov.in/w/section-98-55"
+    },
+    {
+      "archive_status": "retrieval_failed",
+      "sha256": null,
+      "source_id": "indian_stamp_act_schedule_i",
+      "url": "https://www.indiacode.nic.in/bitstream/123456789/15510/1/a1899-2%20.pdf"
+    }
+  ]
+}

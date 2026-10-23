@@ -6,14 +6,15 @@ import csv
 import hashlib
 import io
 import json
+import tempfile
 from datetime import date
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
 from .cost_profiles import CostProfile
 from .gap_audit import read_official_bhavcopy
-from .historical_data import load_historical_file
+from .historical_data import DataValidationError, load_historical_file
 
 RECOVERY_DATES = (
     "2018-11-07",
@@ -71,11 +72,39 @@ def build_recovery_candidate(
     wanted = set(expected_dates)
     if len(wanted) != len(expected_dates) or not wanted:
         raise RecoveryError("expected recovery dates must be unique and non-empty")
-    comparison_by_date = {str(row.get("date")): row for row in comparisons}
+    for requested_date in expected_dates:
+        try:
+            if date.fromisoformat(requested_date).isoformat() != requested_date:
+                raise ValueError
+        except (TypeError, ValueError) as exc:
+            raise RecoveryError(f"invalid expected recovery date: {requested_date!r}") from exc
+    ordered_dates = tuple(sorted(wanted))
+    comparison_by_date: dict[str, dict[str, Any]] = {}
+    for row_number, row in enumerate(comparisons, 1):
+        if not isinstance(row, dict) or not isinstance(row.get("date"), str):
+            raise RecoveryError(f"bar reconciliation row {row_number} has no ISO date")
+        if row["date"] in comparison_by_date:
+            raise RecoveryError(f"duplicate reconciliation date: {row['date']}")
+        try:
+            if date.fromisoformat(row["date"]).isoformat() != row["date"]:
+                raise ValueError
+        except ValueError as exc:
+            raise RecoveryError(f"invalid reconciliation date: {row['date']!r}") from exc
+        comparison_by_date[row["date"]] = row
     if set(comparison_by_date).intersection(wanted) != wanted:
         raise RecoveryError(
             "Milestone 2H reconciliation does not cover exactly the requested dates"
         )
+    readiness_evidence = _json(readiness_path)
+    dataset_evidence = readiness_evidence.get("dataset")
+    if not isinstance(dataset_evidence, dict):
+        raise RecoveryError("Milestone 2H readiness has no dataset provenance")
+    expected_provider_path = (root / str(dataset_evidence.get("path", ""))).resolve()
+    if provider_path.resolve() != expected_provider_path:
+        raise RecoveryError("provider path differs from the Milestone 2H dataset provenance")
+    provider_hash = _sha(provider_path)
+    if provider_hash != dataset_evidence.get("sha256"):
+        raise RecoveryError("provider dataset fingerprint differs from Milestone 2H readiness")
     provider_records = load_historical_file(provider_path)
     provider_by_date = {
         record.session_date.isoformat(): record
@@ -90,32 +119,24 @@ def build_recovery_candidate(
     bars: list[dict[str, Any]] = []
     rows: list[dict[str, Any]] = []
     problems: list[str] = []
-    for iso_day in expected_dates:
+    for iso_day in ordered_dates:
         comparison = comparison_by_date[iso_day]
-        source_rel = Path(comparison["source_path"])
+        source_value = comparison.get("source_path")
+        if not isinstance(source_value, str) or not source_value:
+            raise RecoveryError(f"reconciliation has no source path for {iso_day}")
+        source_rel = Path(source_value)
         if source_rel.is_absolute() or ".." in source_rel.parts:
             raise RecoveryError(f"unsafe source path for {iso_day}: {source_rel}")
-        source_path = root / source_rel
-        if not source_path.is_file():
-            raise RecoveryError(f"official source file missing for {iso_day}: {source_path}")
-        source_hash = _sha(source_path)
-        if source_hash != comparison.get("source_sha256"):
-            raise RecoveryError(f"source fingerprint mismatch for {iso_day}: {source_path}")
-        source_rows, parser_hash = read_official_bhavcopy(source_path)
-        if parser_hash != source_hash:
-            raise RecoveryError(f"source changed while reading {source_path}")
-        matches = [
-            row
-            for row in source_rows
-            if row.session_date == date.fromisoformat(iso_day)
-            and row.symbol == symbol.upper()
-            and row.isin == isin.upper()
-        ]
+        source_path = (root / source_rel).resolve()
+        raw_root = (root / "data/raw/nse").resolve()
+        if not source_path.is_relative_to(raw_root):
+            raise RecoveryError(f"official source must remain under data/raw/nse: {source_rel}")
         record: dict[str, Any] = {
             "date": iso_day,
             "source_path": source_rel.as_posix(),
             "source_filename": source_path.name,
-            "source_sha256": source_hash,
+            "source_sha256": None,
+            "expected_source_sha256": comparison.get("source_sha256"),
             "source_row_id": comparison.get("source_row_id"),
             "source_url": comparison.get("source_url"),
             "source_retrieved_at_utc": comparison.get("retrieved_at_utc"),
@@ -129,6 +150,42 @@ def build_recovery_candidate(
             "validation": "failed",
             "disposition": "omitted",
         }
+        if not source_path.is_file():
+            reason = f"{iso_day}: original source bytes are unavailable at {source_rel}"
+            record["error"] = reason
+            problems.append(reason)
+            bars.append(record)
+            continue
+        source_hash = _sha(source_path)
+        record["source_sha256"] = source_hash
+        if source_hash != comparison.get("source_sha256"):
+            reason = f"{iso_day}: source fingerprint differs from the preserved reconciliation"
+            record["source_sha256"] = source_hash
+            record["error"] = reason
+            problems.append(reason)
+            bars.append(record)
+            continue
+        try:
+            source_rows, parser_hash = read_official_bhavcopy(source_path)
+        except DataValidationError as exc:
+            reason = f"{iso_day}: source validation failed: {exc}"
+            record["error"] = reason
+            problems.append(reason)
+            bars.append(record)
+            continue
+        if parser_hash != source_hash:
+            reason = f"{iso_day}: source changed while reading"
+            record["error"] = reason
+            problems.append(reason)
+            bars.append(record)
+            continue
+        matches = [
+            row
+            for row in source_rows
+            if row.session_date == date.fromisoformat(iso_day)
+            and row.symbol == symbol.upper()
+            and row.isin == isin.upper()
+        ]
         if len(matches) != 1:
             reason = (
                 f"{iso_day}: expected exactly one source row for "
@@ -139,14 +196,30 @@ def build_recovery_candidate(
             bars.append(record)
             continue
         source_row = matches[0]
+        if source_row.series != "EQ":
+            reason = f"{iso_day}: source row is series {source_row.series!r}, expected EQ"
+            record["error"] = reason
+            problems.append(reason)
+            bars.append(record)
+            continue
         official = comparison.get("official", {})
+        try:
+            reconciled_ohlcv = (
+                Decimal(str(official["open"])),
+                Decimal(str(official["high"])),
+                Decimal(str(official["low"])),
+                Decimal(str(official["close"])),
+                int(official["volume"]),
+            )
+        except (KeyError, TypeError, ValueError, InvalidOperation) as exc:
+            raise RecoveryError(f"{iso_day}: malformed official reconciliation values") from exc
         if (
-            source_row.open != Decimal(str(official.get("open")))
-            or source_row.high != Decimal(str(official.get("high")))
-            or source_row.low != Decimal(str(official.get("low")))
-            or source_row.close != Decimal(str(official.get("close")))
-            or source_row.volume != int(official.get("volume"))
-        ):
+            source_row.open,
+            source_row.high,
+            source_row.low,
+            source_row.close,
+            source_row.volume,
+        ) != reconciled_ohlcv:
             reason = f"{iso_day}: parsed source OHLCV conflicts with Milestone 2H reconciliation"
             record["error"] = reason
             problems.append(reason)
@@ -231,16 +304,33 @@ def build_recovery_candidate(
         action_registry_path,
         provider_records,
         cost_profile,
-        [date.fromisoformat(value) for value in expected_dates],
+        [date.fromisoformat(value) for value in ordered_dates],
     )
+    with tempfile.TemporaryDirectory() as temporary_directory:
+        validation_path = Path(temporary_directory) / "candidate.csv"
+        validation_path.write_bytes(candidate_bytes)
+        validated_records = load_historical_file(validation_path) if rows else []
+        if not rows:
+            with validation_path.open(encoding="utf-8", newline="") as handle:
+                header = next(csv.reader(handle), [])
+            if tuple(header) != CANONICAL_COLUMNS:
+                raise RecoveryError("empty candidate does not retain canonical schema header")
+    if len(validated_records) != len(rows):
+        raise RecoveryError("canonical candidate validation changed the row count")
     manifest = {
         "schema_version": "1.0",
-        "milestone": "2J",
+        "milestone": "2J-A",
         "candidate_status": candidate_status,
         "candidate_rows": len(rows),
-        "requested_dates": list(expected_dates),
+        "requested_dates": list(ordered_dates),
         "candidate_dataset_path": "candidate_missing_bars.csv",
         "candidate_dataset_sha256": hashlib.sha256(candidate_bytes).hexdigest(),
+        "canonical_schema_validation": {
+            "status": "passed",
+            "schema_version": "canonical-ohlcv-v1",
+            "validated_rows": len(validated_records) if rows else 0,
+            "validation_method": "load_historical_file; empty candidate retains canonical header",
+        },
         "candidate_is_standalone": True,
         "source_data_modified": False,
         "automatic_merge_performed": False,
@@ -283,8 +373,16 @@ def build_recovery_candidate(
     }
     manifest_bytes = (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
     output_dir.mkdir(parents=True, exist_ok=True)
-    _write_once(output_dir / "candidate_missing_bars.csv", candidate_bytes)
-    _write_once(output_dir / "recovery_manifest.json", manifest_bytes)
+    outputs = {
+        output_dir / "candidate_missing_bars.csv": candidate_bytes,
+        output_dir / "recovery_manifest.json": manifest_bytes,
+    }
+    for path, payload in outputs.items():
+        if path.exists() and path.read_bytes() != payload:
+            raise FileExistsError(f"refusing to overwrite candidate evidence: {path}")
+    for path, payload in outputs.items():
+        if not path.exists():
+            path.write_bytes(payload)
     return manifest
 
 

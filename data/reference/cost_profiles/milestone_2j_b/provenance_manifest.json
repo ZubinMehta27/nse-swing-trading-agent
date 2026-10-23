@@ -1,0 +1,117 @@
+{
+  "profile_version": "zerodha-resident-individual-delivery-2026-10-partial-v1",
+  "purpose": "Evidence registry for a deliberately partial, fail-closed delivery cost model; not a complete historical tariff.",
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "archive_file": "../source_archive/zerodha_charges.html",
+      "note": "Archived source bytes; source content inspected for the cited component.",
+      "retrieved_at_utc": "2026-10-23T17:34:55.325230+05:30",
+      "sha256": "3a77f7d0487550efbc70065645da9262e09059303acbfb145abfade496bda1fd",
+      "source_id": "zerodha_charges",
+      "status": "retrieved_bytes_archived",
+      "title": "Zerodha charges schedule",
+      "url": "https://zerodha.com/charges"
+    },
+    {
+      "archive_file": "../source_archive/zerodha_dp_charges.html",
+      "note": "Archived source bytes; source content inspected for the cited component.",
+      "retrieved_at_utc": "2026-10-23T17:34:55.550979+05:30",
+      "sha256": "bce7409fc17980907f22c86b49c05403a99c6427a8ef985adac437aea3caef73",
+      "source_id": "zerodha_dp_charges",
+      "status": "retrieved_bytes_archived",
+      "title": "Zerodha DP charges",
+      "url": "https://support.zerodha.com/category/account-opening/resident-individual/ri-charges/articles/what-do-dp-charges-mean"
+    },
+    {
+      "archive_file": "../source_archive/zerodha_gst_sebi.html",
+      "note": "Archived source bytes; source content inspected for the cited component.",
+      "retrieved_at_utc": "2026-10-23T17:34:55.656595+05:30",
+      "sha256": "35f2778bd5783fb1056638db02948830af02363c33cd57953d2ca037272f401a",
+      "source_id": "zerodha_gst_sebi",
+      "status": "retrieved_bytes_archived",
+      "title": "Zerodha GST and SEBI charges",
+      "url": "https://support.zerodha.com/category/account-opening/resident-individual/ri-charges/articles/gst-on-sebi-charges"
+    },
+    {
+      "archive_file": "../source_archive/nse_fa64232_2024.pdf",
+      "note": "Archived source bytes; source content inspected for the cited component.",
+      "retrieved_at_utc": "2026-10-23T17:34:55.740536+05:30",
+      "sha256": "85b816208f33bdd1c6c0d827b1ba996aba1fe08fe883a6d31c6a2c0ad55304a4",
+      "source_id": "nse_fa64232_2024",
+      "status": "retrieved_bytes_archived",
+      "title": "NSE circular FA64232",
+      "url": "https://nsearchives.nseindia.com/content/circulars/FA64232.pdf"
+    },
+    {
+      "archive_file": "../source_archive/nse_fa73061_2026.pdf",
+      "note": "Archived source bytes; source content inspected for the cited component.",
+      "retrieved_at_utc": "2026-10-23T17:34:56.594251+05:30",
+      "sha256": "6085601a26177ed61e37e5347960b936d71464ab625d6a0d9fe72b2ec838ac09",
+      "source_id": "nse_fa73061_2026",
+      "status": "retrieved_bytes_archived",
+      "title": "NSE circular FA73061",
+      "url": "https://nsearchives.nseindia.com/content/circulars/FA73061.pdf"
+    },
+    {
+      "archive_file": "../source_archive/sebi_true_to_label_2024.html",
+      "note": "Archived source bytes; source content inspected for the cited component.",
+      "retrieved_at_utc": "2026-10-23T17:34:56.460997+05:30",
+      "sha256": "7e372d1b57c266545d13549c66bc1e5df5ab5203d2e412d041b64cc03e781a2a",
+      "source_id": "sebi_true_to_label_2024",
+      "status": "retrieved_bytes_archived",
+      "title": "SEBI true-to-label circular",
+      "url": "https://www.sebi.gov.in/legal/circulars/jul-2024/charges-levied-by-market-infrastructure-institutions-true-to-label_84506.html"
+    },
+    {
+      "archive_file": "source_archive/sebi_stock_brokers_regulations_2025-03-10.pdf",
+      "note": "Archived source bytes; source content inspected for the cited component. Retrieval timestamp was not retained.",
+      "retrieved_at_utc": null,
+      "sha256": "6e4dcc7cf8cc522fbfa894f1fe6eb75fb50f69ad22e0d0880535c5a6c7711013",
+      "source_id": "sebi_broker_regulations_2025",
+      "status": "retrieved_bytes_archived",
+      "title": "SEBI Stock Brokers Regulations consolidated 2025-03-10",
+      "url": "https://www.sebi.gov.in/sebi_data/attachdocs/mar-2025/1741147425621.pdf"
+    },
+    {
+      "archive_file": "source_archive/bse_equity_segment_master_circular_2023-06-30.pdf",
+      "note": "Archived source bytes; source content inspected for the cited component.",
+      "retrieved_at_utc": "2026-10-23T13:03:10.727Z",
+      "sha256": "ed8a653d85b988d071bbded9d3a32f902b5fa3343857bd0caf19084fb2aba00d",
+      "source_id": "bse_master_circular_2023",
+      "status": "retrieved_bytes_archived",
+      "title": "BSE equity segment master circular 2023-06-30",
+      "url": "https://www.bseindia.com/markets/MarketInfo/DownloadAttach.aspx?attachedId=cb125690-a0f8-452a-ba6b-86cab98004bc&id=20230630-19"
+    },
+    {
+      "archive_file": "source_archive/cdsl_dp_operating_instructions_2026-03-31.pdf",
+      "note": "Archived source bytes; source content inspected for the cited component.",
+      "retrieved_at_utc": "2026-10-23T13:03:06.848Z",
+      "sha256": "48993d832c35aa86d5ca322b928ff156279e43bec2fbeea1de3e054a42420df5",
+      "source_id": "cdsl_dp_instructions_2026",
+      "status": "retrieved_bytes_archived",
+      "title": "CDSL DP Operating Instructions 2026-03-31",
+      "url": "https://www.cdslindia.com/DP/OperatingInstructions.html"
+    },
+    {
+      "archive_file": null,
+      "note": "Direct archive attempt returned HTTP 403; official page result was observed separately; no source bytes or hash.",
+      "retrieved_at_utc": "2026-10-23T17:34:56.912892+05:30",
+      "sha256": null,
+      "source_id": "income_tax_section_98",
+      "status": "retrieval_failed",
+      "title": "Income Tax Act Section 98",
+      "url": "https://www.incometaxindia.gov.in/w/section-98-55"
+    },
+    {
+      "archive_file": null,
+      "note": "Direct official PDF GET timed out after 30 seconds; search result was observed separately; no source bytes or hash.",
+      "retrieved_at_utc": "2026-10-23T13:12:36.278764Z",
+      "sha256": null,
+      "source_id": "indian_stamp_act_schedule_i",
+      "status": "retrieval_failed",
+      "title": "India Code Indian Stamp Act Schedule I",
+      "url": "https://www.indiacode.nic.in/bitstream/123456789/15510/1/a1899-2%20.pdf"
+    }
+  ]
+}

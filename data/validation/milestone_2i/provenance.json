@@ -1,0 +1,200 @@
+{
+  "milestone": "2I",
+  "fixture_type": "bounded_provider_history_validation; not market-performance evidence",
+  "schema_version": "1.0",
+  "symbol": "RELIANCE",
+  "isin": null,
+  "identity_status": "symbol comes from single-symbol TejHQ NSE endpoint; ISIN unavailable and not independently verified",
+  "provider": "TejHQ keyless OHLCV API",
+  "endpoint": "https://api.tejhq.dev/v1/ohlcv/nse/RELIANCE?from=2018-01-01&to=2026-10-23",
+  "selected_dates": [
+    "2024-10-01",
+    "2024-10-03",
+    "2024-10-04",
+    "2024-10-07",
+    "2024-10-08",
+    "2024-10-09"
+  ],
+  "actual_date_range": [
+    "2024-10-01",
+    "2024-10-09"
+  ],
+  "adjustment_policy": "raw_unadjusted; no adjustment applied; provider action completeness is not established",
+  "source_files": [
+    {
+      "path": "data\\raw\\nse\\tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.json",
+      "sha256": "fd48f50f69338ee1f9b705bd889af7e7f0c8767751dfa0ab5126be6c7e502633",
+      "role": "unchanged original provider response"
+    },
+    {
+      "path": "data\\processed\\tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.csv",
+      "sha256": "916a10c4b0ad0fe856f3d78aad94374563dbbfb71f123eacf2e4114dfd94a045",
+      "role": "existing canonical provider dataset"
+    },
+    {
+      "path": "data/reference/nse_cm_calendar_2018_2024.csv",
+      "sha256": "b3632c83bd2e420ca4fe2739feafc03c32f2aeb0d9679c4c13c1e35ebf95e567",
+      "role": "existing derived exchange calendar"
+    },
+    {
+      "path": "data/reference/nse_cm_calendar_2018_2024.provenance.json",
+      "sha256": "98c14f077f6e6fbdf2f182627fceb4c0848898f8093c64ffc35e7570dbc3f61a",
+      "role": "calendar source registry"
+    }
+  ],
+  "calendar_excerpt_source": [
+    {
+      "year": 2018,
+      "provider": "NSE India holiday-master API, type=trading",
+      "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2018",
+      "applicable_year": 2018,
+      "retrieved_at_utc_file_mtime": "2026-10-23T10:46:56.709000+00:00",
+      "http_status": 200,
+      "file": "data\\raw\\nse\\nse_holiday_master_trading_2018_20261023.json",
+      "sha256": "ed7315abded78e4a64bdb40545613eb08a29ee5c8a5a2d4167d8d93c0abf4eea",
+      "cm_rows": 18,
+      "special_session_circulars": [
+        {
+          "url": "https://nsearchives.nseindia.com/content/circulars/CMTR36475.pdf",
+          "file": "data\\raw\\nse\\NSE_CMTR36475_2018_holidays.pdf",
+          "sha256": "d80ac64d32806f9ada629bc96ba91c6d85546dfde405f4468bbfcb194fdb22fb",
+          "retrieved_at_utc_file_mtime": "2026-10-23T10:47:57.935000+00:00"
+        }
+      ],
+      "special_session_reports": [
+        {
+          "file": "data\\raw\\nse\\cm07NOV2018bhav.csv.zip",
+          "sha256": "34cb7742d962b69efaf6da9606dbd0386a0361c884bddfc63c3248a4d9c2b939",
+          "retrieved_at_utc_file_mtime": "2026-10-23T10:47:15.924000+00:00",
+          "validation": "date and RELIANCE EQ row reviewed"
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "provider": "NSE India holiday-master API, type=trading",
+      "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2019",
+      "applicable_year": 2019,
+      "retrieved_at_utc_file_mtime": "2026-10-23T10:46:56.967000+00:00",
+      "http_status": 200,
+      "file": "data\\raw\\nse\\nse_holiday_master_trading_2019_20261023.json",
+      "sha256": "df86d24932c3ea1ad5b4d76cf0ebec2aab1f70403296555e15a0d541fed5183c",
+      "cm_rows": 21
+    },
+    {
+      "year": 2020,
+      "provider": "NSE India holiday-master API, type=trading",
+      "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2020",
+      "applicable_year": 2020,
+      "retrieved_at_utc_file_mtime": "2026-10-23T10:46:57.206000+00:00",
+      "http_status": 200,
+      "file": "data\\raw\\nse\\nse_holiday_master_trading_2020_20261023.json",
+      "sha256": "592f334da08629c3a18d870f644288638d259502b96b8845ae656734de2914cf",
+      "cm_rows": 19
+    },
+    {
+      "year": 2021,
+      "provider": "NSE India holiday-master API, type=trading",
+      "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2021",
+      "applicable_year": 2021,
+      "retrieved_at_utc_file_mtime": "2026-10-23T10:46:57.426000+00:00",
+      "http_status": 200,
+      "file": "data\\raw\\nse\\nse_holiday_master_trading_2021_20261023.json",
+      "sha256": "1cd27065bf5d8be5b6e8c6efbe2cc6857df569a4394d2779b77b91572f67a03b",
+      "cm_rows": 18,
+      "special_session_circulars": [
+        {
+          "url": "https://archives.nseindia.com/content/circulars/CMTR46623.pdf",
+          "file": "data\\raw\\nse\\NSE_CMTR46623_2021_holidays.pdf",
+          "sha256": "3c922e234ad2cbe8320cc34507e281477e0ce273ba9ee39d73da2a49d5629add",
+          "retrieved_at_utc_file_mtime": "2026-10-23T10:47:58.386000+00:00"
+        }
+      ],
+      "special_session_reports": [
+        {
+          "file": "data\\raw\\nse\\cm04NOV2021bhav.csv.zip",
+          "sha256": "3c6b0e631b0ff18946537ba98dd78a4307a9fbc60d70c85e8e529e8acd1de1d8",
+          "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.092000+00:00",
+          "validation": "date and RELIANCE EQ row reviewed"
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "provider": "NSE India holiday-master API, type=trading",
+      "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2022",
+      "applicable_year": 2022,
+      "retrieved_at_utc_file_mtime": "2026-10-23T10:46:57.684000+00:00",
+      "http_status": 200,
+      "file": "data\\raw\\nse\\nse_holiday_master_trading_2022_20261023.json",
+      "sha256": "911c09514539c033ca8528d33a86733743af1a2ec2e3dab5533ecfcab1bc54e2",
+      "cm_rows": 17,
+      "special_session_circulars": [
+        {
+          "url": "https://nsearchives.nseindia.com/content/circulars/CMTR54023.pdf",
+          "file": "data\\raw\\nse\\NSE_CMTR54023_2022_muhurat.pdf",
+          "sha256": "01e579eac8e2dd4a870a9ebc9f08d60bc26fae28d0d35cf58891bf2a2964e0c7",
+          "retrieved_at_utc_file_mtime": "2026-10-23T10:47:58.787000+00:00"
+        }
+      ],
+      "special_session_reports": [
+        {
+          "file": "data\\raw\\nse\\cm24OCT2022bhav.csv.zip",
+          "sha256": "c8aa044e671cdb4dd8d2f312d3894a30a3201d8bc17287963a88c937fcb8c208",
+          "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.226000+00:00",
+          "validation": "date and RELIANCE EQ row reviewed"
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "provider": "NSE India holiday-master API, type=trading",
+      "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2023",
+      "applicable_year": 2023,
+      "retrieved_at_utc_file_mtime": "2026-10-23T10:46:58.085000+00:00",
+      "http_status": 200,
+      "file": "data\\raw\\nse\\nse_holiday_master_trading_2023_20261023.json",
+      "sha256": "78a76bf4ea030e1c294ed9acd6255875d1eae4027bf9ea35ca5b5357e1b73797",
+      "cm_rows": 19
+    },
+    {
+      "year": 2024,
+      "provider": "NSE India holiday-master API, type=trading",
+      "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2024",
+      "applicable_year": 2024,
+      "retrieved_at_utc_file_mtime": "2026-10-23T10:46:58.336000+00:00",
+      "http_status": 200,
+      "file": "data\\raw\\nse\\nse_holiday_master_trading_2024_20261023.json",
+      "sha256": "362ccb232694b28865d1f0e61af3cc3df04e713ccb1769fc2b3bd19aa6614e20",
+      "cm_rows": 22,
+      "special_session_circulars": [
+        {
+          "url": "https://nsearchives.nseindia.com/content/circulars/CMTR64628.pdf",
+          "file": "data\\raw\\nse\\NSE_CMTR64628_2024_muhurat.pdf",
+          "sha256": "dd1b8bc34a4b3c2900002341c41e4b8f165af862a74fd2a5bfb1355b0afec4a8",
+          "retrieved_at_utc_file_mtime": "2026-10-23T10:47:59.031000+00:00"
+        }
+      ],
+      "special_session_reports": [
+        {
+          "file": "data\\raw\\nse\\BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+          "sha256": "f45f1ee610a8b1f823682e0c19bb2a51286d11175eb4b0f1194318394cde9b7c",
+          "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.437000+00:00",
+          "validation": "date and RELIANCE EQ row reviewed"
+        }
+      ]
+    }
+  ],
+  "calendar_limitations": [
+    "Ordinary weekday sessions are derived from NSE's general equities weekly schedule minus published holiday dates, not independently verified with an individual bhavcopy for every session.",
+    "Historical extraordinary closures not represented in the API could be missed; targeted date-specific source checks are available for the 104 gap dates.",
+    "Muhurat bars have a short special-session trading period and are not regular-session daily bars; they remain flagged SPECIAL_SESSION."
+  ],
+  "normalization": "Selected unchanged canonical values by explicit session dates; no fills, repairs, rounding or adjustment. Dates sorted ascending.",
+  "fixture_sha256": "b3d636401a6ba06fdc85e6fee2ac1f64d991d115bb0b1e0fca787ce408b61559",
+  "calendar_excerpt_sha256": "37c24b47f54e236895b49ad7038e7411ceb5ae0239d957f0a5cc90c054be0ee6",
+  "exchange_verification": "OHLCV rows are TejHQ-provider sourced only, not independently compared with official bhavcopy; 2024-10-02 holiday is sourced from the existing NSE annual holiday-master record.",
+  "corporate_actions": "No event is asserted for this fixture; accounting behaviors use separate labeled synthetic unit fixtures.",
+  "created_by": "scripts/build_m2i_fixture.py",
+  "created_at_utc": "2026-10-23T00:00:00+00:00"
+}

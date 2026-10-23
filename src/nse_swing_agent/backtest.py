@@ -12,6 +12,15 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
+from .corporate_actions import (
+    ActionCoverage,
+    ActionKind,
+    CorporateAction,
+    DividendReceivable,
+    split_quantity,
+    unsupported_action_reason,
+    validate_actions,
+)
 from .historical_data import HistoricalBar
 from .indicators import atr
 from .models import OHLCVBar, PortfolioState, Position, ProposedOrder, TradeSignal
@@ -158,6 +167,7 @@ class BacktestResult:
     metrics: dict[str, Any]
     manifest: dict[str, Any]
     warnings: tuple[str, ...]
+    corporate_action_ledger: tuple[dict[str, Any], ...] = ()
 
 
 @dataclass(slots=True)
@@ -258,6 +268,9 @@ def run_backtest(
     *,
     input_fingerprint: str | None = None,
     benchmark_symbol: str | None = None,
+    corporate_actions: tuple[CorporateAction, ...] = (),
+    action_coverage: ActionCoverage | None = None,
+    synthetic_fixture: bool = False,
 ) -> BacktestResult:
     """Simulate next eligible same-symbol session; input is never shuffled."""
     config = config or BacktestConfig()
@@ -277,6 +290,31 @@ def run_backtest(
         ordered = [item for item in ordered if item.bar.symbol != benchmark_symbol]
     if not ordered:
         raise ValueError("backtest needs at least one tradable symbol besides the benchmark")
+    validate_actions(corporate_actions)
+    if not synthetic_fixture:
+        if action_coverage is None:
+            raise ValueError("complete, verified corporate-action coverage is required")
+        data_start = min(item.session_date for item in ordered)
+        data_end = max(item.session_date for item in ordered)
+        if action_coverage.start > data_start or action_coverage.end < data_end:
+            raise ValueError("corporate-action coverage does not span all input history")
+    action_by_day: dict[date, list[CorporateAction]] = {}
+    first_input_date = min(item.session_date for item in ordered)
+    last_input_date = max(item.session_date for item in ordered)
+    for action in corporate_actions:
+        if action.symbol not in {item.bar.symbol for item in ordered}:
+            continue
+        if action.ex_date < first_input_date or action.ex_date > last_input_date:
+            continue
+        reason = unsupported_action_reason(action)
+        # These actions can alter the security/cash entitlement and therefore block even if
+        # the strategy would otherwise have entered on the same date.
+        if reason:
+            raise ValueError(
+                f"backtest blocked by unsupported {action.kind.value} for {action.symbol} "
+                f"on {action.ex_date}: {reason}"
+            )
+        action_by_day.setdefault(action.ex_date, []).append(action)
     adjustment_policies = {item.adjustment_policy for item in input_records}
     if any(policy != "raw_unadjusted" for policy in adjustment_policies):
         raise ValueError(
@@ -321,6 +359,12 @@ def run_backtest(
     data_by_day: dict[date, dict[str, HistoricalBar]] = {}
     for item in ordered:
         data_by_day.setdefault(item.session_date, {})[item.bar.symbol] = item
+    for action_day, day_actions in action_by_day.items():
+        for action in day_actions:
+            if action_day not in data_by_day or action.symbol not in data_by_day[action_day]:
+                raise ValueError(
+                    f"corporate action ex-date {action_day} has no observed bar for {action.symbol}"
+                )
     histories: dict[str, list[OHLCVBar]] = {symbol: [] for symbol in grouped}
     positions: dict[str, _OpenPosition] = {}
     pending: dict[str, ProposedOrder] = {}
@@ -329,6 +373,9 @@ def run_backtest(
     curve: list[dict[str, Any]] = []
     cash = config.initial_cash
     warnings: list[str] = []
+    action_ledger: list[dict[str, Any]] = []
+    receivables: list[DividendReceivable] = []
+    gross_dividend_income = D(0)
     insufficient = [
         symbol
         for symbol, values in grouped.items()
@@ -340,15 +387,9 @@ def run_backtest(
     if eligible_bars != len(ordered):
         warnings.append(f"{len(ordered) - eligible_bars} incomplete bars excluded from signals")
     all_symbols = set(grouped)
-    if any(item.adjustment_factor is None for item in ordered):
+    if not corporate_actions:
         warnings.append(
-            "adjustment metadata absent on one or more records; raw_unadjusted prices may contain "
-            "corporate-action discontinuities that distort results"
-        )
-    elif any(item.adjustment_policy == "raw_unadjusted" for item in ordered):
-        warnings.append(
-            "raw_unadjusted data can contain split/dividend discontinuities; "
-            "no corporate-action repair is applied"
+            "no corporate-action event rows supplied; consult the action coverage manifest"
         )
     session_sets = {
         symbol: {item.session_date for item in items} for symbol, items in grouped.items()
@@ -365,6 +406,133 @@ def run_backtest(
         if config.evaluation_end and session > config.evaluation_end:
             break
         todays = data_by_day[session]
+        # Effective-date events are applied before that day's OHLC can trigger ordinary stops.
+        for action in action_by_day.get(session, []):
+            if action.symbol not in todays:
+                raise ValueError(
+                    f"corporate action ex-date {session} has no observed bar for {action.symbol}"
+                )
+            pos = positions.get(action.symbol)
+            if action.kind in {ActionKind.SPLIT, ActionKind.BONUS}:
+                factor = action.ratio_new_per_old
+                assert factor is not None
+                quantity_before = pos.quantity if pos is not None else None
+                position_stop_before = pos.stop if pos is not None else None
+                position_target_before = pos.target if pos is not None else None
+                pending_quantity_before = (
+                    pending[action.symbol].quantity if action.symbol in pending else None
+                )
+                pending_reference_before = (
+                    pending[action.symbol].reference_price if action.symbol in pending else None
+                )
+                pending_stop_before = (
+                    pending[action.symbol].stop_price if action.symbol in pending else None
+                )
+                if pos is not None:
+                    pos.quantity = split_quantity(pos.quantity, factor)
+                    pos.entry_price /= factor
+                    pos.stop /= factor
+                    pos.target /= factor
+                order = pending.get(action.symbol)
+                if order is not None:
+                    quantity = split_quantity(order.quantity, factor)
+                    pending[action.symbol] = ProposedOrder(
+                        order.client_order_id,
+                        order.symbol,
+                        order.side,
+                        quantity,
+                        order.reference_price / factor,
+                        order.stop_price / factor,
+                        order.created_at,
+                    )
+                histories[action.symbol] = []  # raw-price indicators restart after ratio event
+                warnings.append(
+                    f"{action.symbol} {session}: split/bonus reset raw indicator history; "
+                    "signals wait for renewed warm-up"
+                )
+                action_ledger.append(
+                    {
+                        "symbol": action.symbol,
+                        "type": action.kind.value,
+                        "ex_date": session,
+                        "quantity_before": quantity_before,
+                        "quantity": pos.quantity if pos is not None else None,
+                        "stop_before": position_stop_before,
+                        "stop_after": pos.stop if pos is not None else None,
+                        "target_before": position_target_before,
+                        "target_after": pos.target if pos is not None else None,
+                        "pending_quantity_before": pending_quantity_before,
+                        "pending_quantity": (
+                            pending[action.symbol].quantity if action.symbol in pending else None
+                        ),
+                        "pending_reference_before": pending_reference_before,
+                        "pending_reference_after": (
+                            pending[action.symbol].reference_price
+                            if action.symbol in pending
+                            else None
+                        ),
+                        "pending_stop_before": pending_stop_before,
+                        "pending_stop_after": (
+                            pending[action.symbol].stop_price if action.symbol in pending else None
+                        ),
+                        "ratio_new_per_old": str(factor),
+                        "status": "applied",
+                        "source_fingerprint": action.source_fingerprint,
+                    }
+                )
+            elif action.kind == ActionKind.DIVIDEND:
+                if pos is not None:
+                    assert action.cash_per_share is not None and action.payment_date is not None
+                    amount = action.cash_per_share * pos.quantity
+                    # Entitlement is recognized separately; cash is credited only on payment date.
+                    receivables.append(
+                        DividendReceivable(
+                            action.symbol,
+                            session,
+                            action.payment_date,
+                            amount,
+                            action.source_fingerprint,
+                        )
+                    )
+                    gross_dividend_income += amount
+                    if pos.stop <= action.cash_per_share or pos.target <= action.cash_per_share:
+                        raise ValueError(
+                            "dividend adjustment would make protective level nonpositive"
+                        )
+                    pos.stop -= action.cash_per_share
+                    pos.target -= action.cash_per_share
+                    action_ledger.append(
+                        {
+                            "symbol": action.symbol,
+                            "type": "dividend_entitlement",
+                            "ex_date": session,
+                            "quantity": pos.quantity,
+                            "gross_amount": str(amount),
+                            "payment_date": action.payment_date,
+                            "status": "receivable",
+                            "source_fingerprint": action.source_fingerprint,
+                        }
+                    )
+                # Avoid carrying pre-ex-date raw closes across a known cash-price discontinuity.
+                histories[action.symbol] = []
+                warnings.append(
+                    f"{action.symbol} {session}: dividend reset raw indicator history; "
+                    "signals wait for renewed warm-up"
+                )
+        for receivable in list(receivables):
+            if receivable.payment_date <= session:
+                cash += receivable.amount
+                receivables.remove(receivable)
+                action_ledger.append(
+                    {
+                        "symbol": receivable.symbol,
+                        "type": "dividend_payment",
+                        "session_date": session,
+                        "amount": str(receivable.amount),
+                        "status": "paid",
+                        "source_fingerprint": receivable.source_fingerprint,
+                    }
+                )
         # First process existing stops using today's OHLC, then pending orders at today's open.
         for symbol in sorted(todays):
             item = todays[symbol]
@@ -595,6 +763,7 @@ def run_backtest(
             ),
             D(0),
         )
+        marked += sum((item.amount for item in receivables), D(0))
         # Carry the last observed close for valuation only; never fabricate an indicator bar.
         for symbol, position in positions.items():
             if symbol not in todays:
@@ -675,9 +844,11 @@ def run_backtest(
         else:
             warnings.append(f"benchmark {benchmark_symbol} has insufficient history")
     metrics = _metrics(curve, trades, ledger, config.initial_cash, exposure_days, benchmark_return)
+    metrics["gross_dividend_income"] = str(gross_dividend_income)
+    metrics["unpaid_dividend_receivables"] = str(sum((item.amount for item in receivables), D(0)))
     manifest = {
         "paper_only": True,
-        "synthetic": any(item.bar.symbol.startswith("SYNTH") for item in ordered),
+        "synthetic": synthetic_fixture,
         "input_fingerprint_sha256": input_fingerprint
         or hashlib.sha256(
             "\n".join(
@@ -715,6 +886,24 @@ def run_backtest(
                 )
             },
         },
+        "corporate_action_coverage": (
+            {
+                "source": action_coverage.source,
+                "source_fingerprint": action_coverage.source_fingerprint,
+                "start": action_coverage.start.isoformat(),
+                "end": action_coverage.end.isoformat(),
+                "complete": action_coverage.complete,
+                "verified": action_coverage.verified,
+            }
+            if action_coverage
+            else {"status": "synthetic_fixture_exception" if synthetic_fixture else "missing"}
+        ),
+        "corporate_action_policy": (
+            "splits/bonuses scale whole-share quantity and inversely scale price/cost basis; "
+            "fractional results block; dividends accrue on ex-date for prior-close holdings, "
+            "cash is credited on payment date; protective levels shift by the per-share dividend; "
+            "raw indicators reset after split/bonus/dividend ex-dates"
+        ),
         "config": _config_dict(config),
         "execution_policy": (
             "next eligible symbol session open; adverse slippage; gap stop fills at open; "
@@ -728,6 +917,7 @@ def run_backtest(
         metrics,
         manifest,
         tuple(dict.fromkeys(warnings)),
+        tuple(action_ledger),
     )
 
 
@@ -776,6 +966,30 @@ def export_result(result: BacktestResult, output_dir: Path) -> None:
             "status",
             "reason",
         ],
+        "corporate_actions.csv": [
+            "symbol",
+            "type",
+            "ex_date",
+            "session_date",
+            "quantity_before",
+            "quantity",
+            "stop_before",
+            "stop_after",
+            "target_before",
+            "target_after",
+            "pending_quantity_before",
+            "pending_quantity",
+            "pending_reference_before",
+            "pending_reference_after",
+            "pending_stop_before",
+            "pending_stop_after",
+            "ratio_new_per_old",
+            "gross_amount",
+            "payment_date",
+            "amount",
+            "status",
+            "source_fingerprint",
+        ],
     }
 
     def write_rows(name: str, rows: list[dict[str, Any]]) -> None:
@@ -806,6 +1020,22 @@ def export_result(result: BacktestResult, output_dir: Path) -> None:
         [
             {**asdict(entry), "session_date": entry.session_date.isoformat()}
             for entry in result.ledger
+        ],
+    )
+    write_rows(
+        "corporate_actions.csv",
+        [
+            {
+                **row,
+                "ex_date": row.get("ex_date").isoformat() if row.get("ex_date") else "",
+                "session_date": row.get("session_date").isoformat()
+                if row.get("session_date")
+                else "",
+                "payment_date": row.get("payment_date").isoformat()
+                if row.get("payment_date")
+                else "",
+            }
+            for row in result.corporate_action_ledger
         ],
     )
     (output_dir / "metrics.json").write_text(

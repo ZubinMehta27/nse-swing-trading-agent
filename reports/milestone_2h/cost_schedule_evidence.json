@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-10-23T12:00:00+00:00",
+  "paper_only": true,
+  "components": [
+    {
+      "component": "stt",
+      "value": "0.001 buy and sell",
+      "effective_from": "2026-04-01",
+      "effective_to": null,
+      "observed_on_source_updated": "2026-04-17",
+      "basis": "taxable delivery equity value; official page states VWAP basis",
+      "status": "partially_verified",
+      "source_url": "https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies",
+      "source_published_or_updated": "2026-04-17",
+      "limitations": "NSE table shows 0.100% from 2026-04-01 and the same rate through 2026-03-31; prior history and the exact model transaction basis are not established."
+    },
+    {
+      "component": "exchange_transaction",
+      "value": "0.0000297 each side",
+      "effective_from": "2024-10-01",
+      "effective_to": null,
+      "basis": "traded value per side; Rs 2.97 per lakh",
+      "status": "partially_verified",
+      "source_url": "https://nsearchives.nseindia.com/content/circulars/FA64232.pdf",
+      "source_publication_date": "2024-09-27",
+      "limitations": "Rate effective date is sourced; an end date is not verified. Earlier slab and volume-dependent rates require date-versioned schedules."
+    },
+    {
+      "component": "stamp_duty",
+      "value": "0.00015 buy side",
+      "effective_from": "2020-07-01",
+      "effective_to": null,
+      "basis": "delivery purchase",
+      "status": "partially_verified",
+      "source_url": "https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies",
+      "source_published_or_updated": "2026-04-17",
+      "limitations": "NSE page identifies nationwide collection effective date and rate; no end date or pre-2020 regime is sourced here."
+    },
+    {
+      "component": "gst",
+      "value": "0.18 on stock-broker services",
+      "effective_from": null,
+      "effective_to": null,
+      "basis": "broker service value",
+      "status": "partially_verified",
+      "source_url": "https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies",
+      "source_published_or_updated": "2026-04-17",
+      "limitations": "Exact historical applicability and assessable broker fee components require verification for selected broker."
+    },
+    {
+      "component": "brokerage",
+      "value": null,
+      "effective_from": null,
+      "effective_to": null,
+      "basis": null,
+      "status": "unverified",
+      "source_url": null,
+      "limitations": "No hypothetical broker/plan selected; per-order minimums and rounding unknown."
+    },
+    {
+      "component": "delivery_sale_dp",
+      "value": null,
+      "effective_from": null,
+      "effective_to": null,
+      "basis": null,
+      "status": "unverified",
+      "source_url": null,
+      "limitations": "Depository participant and tariff not selected; per-settlement/order rules unknown."
+    },
+    {
+      "component": "sebi_turnover",
+      "value": "0.000001 per side",
+      "effective_from": null,
+      "effective_to": null,
+      "basis": "purchase or sale price",
+      "status": "partially_verified",
+      "source_url": "https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies",
+      "source_published_or_updated": "2026-04-17",
+      "limitations": "NSE rate shown, but effective history and assessment/rounding conventions are not recorded in the existing CostSchedule."
+    }
+  ],
+  "source_inspection": [
+    {
+      "url": "https://nsearchives.nseindia.com/content/circulars/FA64232.pdf",
+      "published": "2024-09-27",
+      "inspection": "official web-indexed circular; Rs 2.97 per lakh per side effective 2024-10-01",
+      "local_sha256": null
+    },
+    {
+      "url": "https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies",
+      "updated": "2026-04-17",
+      "inspection": "official NSE levy guidance; no local HTML fingerprint",
+      "local_sha256": null
+    }
+  ],
+  "archive_download_attempt": {
+    "status": "failed",
+    "error": "Python urllib HTTPS request to official NSE PDF archive timed out after 20 seconds while reading the first response; no PDF file was created."
+  },
+  "validation_errors": [
+    "stt: source verification is incomplete",
+    "stt: effective-date coverage is incomplete",
+    "exchange_transaction: source verification is incomplete",
+    "exchange_transaction: effective-date coverage is incomplete",
+    "stamp_duty: source verification is incomplete",
+    "stamp_duty: effective-date coverage is incomplete",
+    "gst: source verification is incomplete",
+    "gst: effective-date coverage is incomplete",
+    "brokerage: source verification is incomplete",
+    "brokerage: effective-date coverage is incomplete",
+    "brokerage: charge value is unknown",
+    "delivery_sale_dp: source verification is incomplete",
+    "delivery_sale_dp: effective-date coverage is incomplete",
+    "delivery_sale_dp: charge value is unknown",
+    "sebi_turnover: source verification is incomplete",
+    "sebi_turnover: effective-date coverage is incomplete"
+  ],
+  "cost_inclusive_evaluation_ready": false
+}

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import io
 import json
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, time, timedelta, timezone
@@ -207,24 +208,63 @@ def import_to_cache(path: Path, cache_dir: Path, *, source: str | None = None) -
     basename = f"{path.stem}-{fingerprint[:12]}"
     cache_path = cache_dir / f"{basename}.csv"
     metadata_path = cache_dir / f"{basename}.json"
-    with cache_path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.writer(handle)
-        writer.writerow((*REQUIRED_COLUMNS, *OPTIONAL_COLUMNS))
-        for item in records:
-            bar = item.bar
-            writer.writerow(
-                (
-                    bar.symbol,
-                    item.session_date.isoformat(),
-                    str(bar.open),
-                    str(bar.high),
-                    str(bar.low),
-                    str(bar.close),
-                    bar.volume,
-                    "" if item.adjustment_factor is None else str(item.adjustment_factor),
-                    item.adjustment_policy,
-                )
+    cache_stream = io.StringIO(newline="")
+    writer = csv.writer(cache_stream)
+    writer.writerow((*REQUIRED_COLUMNS, *OPTIONAL_COLUMNS))
+    for item in records:
+        bar = item.bar
+        writer.writerow(
+            (
+                bar.symbol,
+                item.session_date.isoformat(),
+                str(bar.open),
+                str(bar.high),
+                str(bar.low),
+                str(bar.close),
+                bar.volume,
+                "" if item.adjustment_factor is None else str(item.adjustment_factor),
+                item.adjustment_policy,
             )
+        )
+    cache_bytes = cache_stream.getvalue().encode("utf-8")
+    if cache_path.exists() or metadata_path.exists():
+        if not cache_path.is_file() or not metadata_path.is_file():
+            raise DataValidationError(
+                f"incomplete cache entry for {path}: {cache_path.name} and "
+                f"{metadata_path.name} must both exist; refusing to overwrite"
+            )
+        try:
+            existing = json.loads(metadata_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise DataValidationError(
+                f"invalid existing cache metadata {metadata_path}; refusing to overwrite"
+            ) from exc
+        expected_source = source or str(path)
+        if (
+            existing.get("input_fingerprint_sha256") != fingerprint
+            or existing.get("source") != expected_source
+            or existing.get("schema_version") != SCHEMA_VERSION
+            or existing.get("row_count") != len(records)
+        ):
+            raise DataValidationError(
+                f"existing cache entry {basename} does not match this import; refusing to overwrite"
+            )
+        cached_records = load_historical_file(cache_path)
+        if len(cached_records) != len(records) or cache_path.read_bytes() != cache_bytes:
+            raise DataValidationError(
+                f"existing cache data {cache_path} differs from deterministic import output"
+            )
+        return ImportSummary(
+            str(path),
+            len(records),
+            len(existing.get("symbols", [])),
+            records[0].session_date,
+            records[-1].session_date,
+            fingerprint,
+            cache_path,
+            metadata_path,
+        )
+    cache_path.write_bytes(cache_bytes)
     payload = {
         "source": source or str(path),
         "input_fingerprint_sha256": fingerprint,

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "symbol": "RELIANCE",
+  "isin": "INE002A01018",
+  "observed_file": "data\\processed\\tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.csv",
+  "observed_sha256": "916a10c4b0ad0fe856f3d78aad94374563dbbfb71f123eacf2e4114dfd94a045",
+  "calendar_file": "data\\reference\\nse_gap_calendar_2018_2024.csv",
+  "calendar_sha256": "82a29ba30c2577c628f8d02c8e1e3b87631dee54ae5bf17004c26715af8627b4",
+  "source_files": [
+    {
+      "file": "data\\raw\\nse\\cm07NOV2018bhav.csv.zip",
+      "sha256": "34cb7742d962b69efaf6da9606dbd0386a0361c884bddfc63c3248a4d9c2b939",
+      "retrieved_at": null,
+      "retrieval_status": "local file supplied; consult source provenance manifest",
+      "validation_status": "valid"
+    },
+    {
+      "file": "data\\raw\\nse\\cm04NOV2021bhav.csv.zip",
+      "sha256": "3c6b0e631b0ff18946537ba98dd78a4307a9fbc60d70c85e8e529e8acd1de1d8",
+      "retrieved_at": null,
+      "retrieval_status": "local file supplied; consult source provenance manifest",
+      "validation_status": "valid"
+    },
+    {
+      "file": "data\\raw\\nse\\cm24OCT2022bhav.csv.zip",
+      "sha256": "c8aa044e671cdb4dd8d2f312d3894a30a3201d8bc17287963a88c937fcb8c208",
+      "retrieved_at": null,
+      "retrieval_status": "local file supplied; consult source provenance manifest",
+      "validation_status": "valid"
+    },
+    {
+      "file": "data\\raw\\nse\\BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+      "sha256": "f45f1ee610a8b1f823682e0c19bb2a51286d11175eb4b0f1194318394cde9b7c",
+      "retrieved_at": null,
+      "retrieval_status": "local file supplied; consult source provenance manifest",
+      "validation_status": "valid"
+    }
+  ],
+  "classifications": {
+    "confirmed_exchange_holiday": 100,
+    "provider_source_discrepancy": 4
+  },
+  "rows": 104,
+  "automatic_fills": 0
+}

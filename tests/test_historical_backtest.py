@@ -10,9 +10,12 @@ from nse_swing_agent.backtest import (
     BacktestConfig,
     CostSchedule,
     _metrics,
-    run_backtest,
+)
+from nse_swing_agent.backtest import (
+    run_backtest as _run_backtest,
 )
 from nse_swing_agent.cli import main
+from nse_swing_agent.corporate_actions import ActionCoverage
 from nse_swing_agent.historical_data import (
     DataValidationError,
     HistoricalBar,
@@ -82,6 +85,22 @@ def load_rows_in_memory(rows: list[list[str]]) -> list[HistoricalBar]:
             )
         )
     return sorted(records, key=lambda item: (item.session_date, item.bar.symbol))
+
+
+def run_backtest(records, config=None, **kwargs):
+    # These hand-built unit series are explicit complete toy datasets, not market history.
+    kwargs.setdefault(
+        "action_coverage",
+        ActionCoverage(
+            min(item.session_date for item in records),
+            max(item.session_date for item in records),
+            True,
+            True,
+            "synthetic unit-test action fixture",
+            "0" * 64,
+        ),
+    )
+    return _run_backtest(records, config, **kwargs)
 
 
 def config(**kwargs: object) -> BacktestConfig:
@@ -326,6 +345,7 @@ def test_export_cli_and_synthetic_label(tmp_path: Path) -> None:
     assert json.loads((output / "manifest.json").read_text(encoding="utf-8"))["synthetic"] is True
     assert (output / "equity_curve.csv").exists()
     assert (output / "trades.csv").exists()
+    assert (output / "corporate_actions.csv").exists()
     assert (output / "metrics.json").exists()
 
 

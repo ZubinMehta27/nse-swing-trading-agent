@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "version": "zerodha-resident-individual-nse-delivery-observed-2026-10-23-v1",
+  "market": "NSE",
+  "segment": "cash_delivery",
+  "status": "partial",
+  "synthetic": false,
+  "provenance_manifest": "../../data/reference/cost_profiles/source_archive/manifest.json",
+  "required_components": [
+    {"component": "brokerage", "sides": ["BUY", "SELL"]},
+    {"component": "stt", "sides": ["BUY", "SELL"]},
+    {"component": "exchange_transaction", "sides": ["BUY", "SELL"]},
+    {"component": "sebi_turnover", "sides": ["BUY", "SELL"]},
+    {"component": "ipft", "sides": ["BUY", "SELL"]},
+    {"component": "stamp_duty", "sides": ["BUY"]},
+    {"component": "gst_services", "sides": ["BUY", "SELL"]},
+    {"component": "dp_charge", "sides": ["SELL"]},
+    {"component": "gst_dp", "sides": ["SELL"]}
+  ],
+  "rules": [
+    {"component":"brokerage","category":"broker","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"partially_verified","rounding":"unverified","effective_from":null,"effective_to":null,"source_id":"zerodha_charges","rate":"0","minimum_amount":null,"cap_amount":null,"gst_treatment":"taxable","note":"Current page states zero equity-delivery brokerage for resident individual accounts; no dated historical validity interval or complete contract-note minimum treatment archived."},
+    {"component":"stt","category":"statutory","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"partially_verified","rounding":"unverified","effective_from":null,"effective_to":null,"source_id":"income_tax_section_98_stt","rate":"0.001","minimum_amount":null,"cap_amount":null,"gst_treatment":"not_taxable","note":"Section 98 was inspected through official web rendering but local retrieval returned HTTP 403; historical effective schedule and exact model basis/rounding remain unverified."},
+    {"component":"exchange_transaction","category":"exchange","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"verified","rounding":"unverified","effective_from":"2024-10-01","effective_to":"2026-02-28","source_id":"nse_fa64232_2024","rate":"0.0000297","minimum_amount":null,"cap_amount":null,"gst_treatment":"taxable","note":"NSE circular states Rs 2.97 per lakh traded value each side, effective 2024-10-01. Contract-note statutory rounding not verified."},
+    {"component":"exchange_transaction","category":"exchange","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"verified","rounding":"unverified","effective_from":"2026-03-01","effective_to":null,"source_id":"nse_fa73061_2026","rate":"0.000030699","minimum_amount":null,"cap_amount":null,"gst_treatment":"taxable","note":"NSE circular component Rs 306.99 per crore each side, effective 2026-03-01; IPFT is represented separately. Contract-note statutory rounding not verified."},
+    {"component":"sebi_turnover","category":"statutory","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"partially_verified","rounding":"unverified","effective_from":null,"effective_to":null,"source_id":"zerodha_charges","rate":"0.000001","minimum_amount":null,"cap_amount":null,"gst_treatment":"taxable","note":"Rs 10 per crore is reflected by current broker fee information, but historical effective intervals and statutory rounding/base are not archived and verified."},
+    {"component":"ipft","category":"exchange","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"verified","rounding":"unverified","effective_from":"2026-03-01","effective_to":null,"source_id":"nse_fa73061_2026","rate":"0.000000001","minimum_amount":null,"cap_amount":null,"gst_treatment":"taxable","note":"NSE circular supports Rs 0.01 per crore from 2026-03-01; historical rate before this interval is not inferred. Charge rounding remains unverified, so it is blocked from quotes."},
+    {"component":"stamp_duty","category":"statutory","basis":"notional","aggregation":"per_fill","sides":["BUY"],"verification_status":"partially_verified","rounding":"unverified","effective_from":null,"effective_to":null,"source_id":"zerodha_charges","rate":"0.00015","minimum_amount":null,"cap_amount":null,"gst_treatment":"not_taxable","note":"Current rate is published on broker charge information; the direct official schedule retrieval returned HTTP 403, so statutory effective intervals/base/rounding are incomplete."},
+    {"component":"gst_services","category":"tax","basis":"component_sum","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"partially_verified","rounding":"unverified","effective_from":null,"effective_to":null,"source_id":"zerodha_gst_sebi","rate":"0.18","taxable_components":["brokerage","exchange_transaction","sebi_turnover","ipft"],"minimum_amount":null,"cap_amount":null,"gst_treatment":"separately_modelled","note":"Provider help page says GST applies to brokerage, SEBI and exchange charges; source archive has no complete dated statutory record or verified rounding."},
+    {"component":"dp_charge","category":"depository","basis":"fixed","aggregation":"per_day_symbol","sides":["SELL"],"verification_status":"partially_verified","rounding":"unverified","effective_from":null,"effective_to":null,"source_id":"zerodha_dp_charges","fixed_amount":"13.00","minimum_amount":null,"cap_amount":null,"gst_treatment":"separately_modelled","note":"Male resident individual page lists Rs 13 pre-GST (Rs 9.50 broker + Rs 3.50 CDSL), once per scrip/day; account-holder category and tariff effective dates are not selected or verified."},
+    {"component":"gst_dp","category":"tax","basis":"component_sum","aggregation":"per_day_symbol","sides":["SELL"],"verification_status":"partially_verified","rounding":"unverified","effective_from":null,"effective_to":null,"source_id":"zerodha_dp_charges","rate":"0.18","taxable_components":["dp_charge"],"minimum_amount":null,"cap_amount":null,"gst_treatment":"separately_modelled","note":"GST modeled as a separate item on the stated pre-GST DP charge for explanatory completeness; effective dates/rounding not verified."}
+  ],
+  "assumptions": [
+    "Illustrative hypothetical resident-individual Zerodha NSE cash-delivery profile only; not selected for any user account.",
+    "This schedule is deliberately partial. Its date-effective coverage check fails closed, and it cannot support a cost-inclusive evaluation.",
+    "GST, statutory rounding, minimum charges, DP holder category, historical STT/stamp/SEBI rates, and pre-2026-03 IPFT intervals are not asserted as complete.",
+    "The existing backtest CostSchedule and zero/unverified defaults are unchanged."
+  ]
+}

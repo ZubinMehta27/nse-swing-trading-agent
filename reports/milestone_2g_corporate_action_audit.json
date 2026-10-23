@@ -1,0 +1,46 @@
+{
+  "milestone": "2G",
+  "paper_only": true,
+  "profitability_evaluation_run": false,
+  "raw_source": {
+    "provider": "TejHQ keyless /v1/actions/RELIANCE",
+    "endpoint": "https://api.tejhq.dev/v1/actions/RELIANCE",
+    "provider_documentation": "https://tejhq.dev/docs",
+    "path": "data/raw/nse/tejhq_actions_RELIANCE_20261023T103451Z_4b305e0765.json",
+    "sha256": "4b305e0765bd8a1b0e32ee4074d7343c81cefd99e8231e1275a9e793952bf777",
+    "retrieved_at_utc": "2026-10-23T10:34:51.675000+00:00",
+    "rows": 25,
+    "ex_date_range": ["2010-05-10", "2026-06-05"],
+    "row_types": {"dividend": 20, "bonus": 3, "demerger": 1, "rights": 1},
+    "fields_observed": ["exchange", "symbol", "isin", "ex_date", "record_date", "type", "cash_amount", "ratio_num", "ratio_den", "raw_subject"],
+    "adjustment_policy": "action terms only; no adjusted-price series or event terms inferred from adjustment factors",
+    "completeness": "unverified; provider documentation gives no completeness guarantee",
+    "limitations": [
+      "both NSE and BSE rows occur for the same events; no automatic cross-exchange deduplication is performed",
+      "dividend rows do not include payment_date or currency; canonical dividend accounting cannot be constructed from this payload alone",
+      "generic ratios are not interpreted as event terms without verified semantics",
+      "provider response does not establish coverage of unobserved action types"
+    ]
+  },
+  "accounting": {
+    "supported_and_tested": ["dividend with verified INR/share amount and payment date", "split with verified new-shares-per-old-share ratio", "bonus with verified new-shares-per-old-share ratio"],
+    "fractional_share_policy": "block action application until verified cash-in-lieu terms are modeled",
+    "dividend_holding_convention": "position held across prior close into ex-date is eligible; ex-date gross receivable, cash on payment date",
+    "dividend_stop_target_policy": "reduce stop and target by cash amount per share on ex-date",
+    "feature_policy": "raw indicators reset after split/bonus/dividend ex-dates and warm up from subsequent observed bars; unknown events remain a risk",
+    "blocked": ["rights", "demerger", "merger", "buyback", "delisting"],
+    "not_merged": "Four Milestone 2F candidate recovery bars remain unmerged; all raw source files remain unchanged."
+  },
+  "evaluation_gate": {
+    "real_data_backtest_ready": false,
+    "profitability_evaluation_run": false,
+    "blockers": [
+      "TejHQ action payload is not a complete, verified action history and lacks dividend payment dates/currency",
+      "RELIANCE rights and demerger events are unsupported and block overlapping evaluation",
+      "the exact 104 Milestone 2F dates are classified (100 holidays, 4 source discrepancies, 0 unresolved), but eight source-verified bars remain unmerged",
+      "eight source-verified bars remain unmerged: 2018-11-07, 2021-11-04, 2022-10-24, 2024-11-01, 2026-06-05, 2026-06-15, 2026-06-16, 2026-06-22",
+      "unknown/missing action discontinuities remain a feature risk",
+      "no sourced, verified, nonzero date-effective cost profile is configured"
+    ]
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "schema_version": "1.0",
+  "milestone": "2J",
+  "candidate_status": "complete",
+  "candidate_rows": 8,
+  "requested_dates": [
+    "2018-11-07",
+    "2021-11-04",
+    "2022-10-24",
+    "2024-11-01",
+    "2026-06-05",
+    "2026-06-15",
+    "2026-06-16",
+    "2026-06-22"
+  ],
+  "candidate_dataset_path": "candidate_missing_bars.csv",
+  "candidate_dataset_sha256": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8",
+  "candidate_is_standalone": true,
+  "source_data_modified": false,
+  "automatic_merge_performed": false,
+  "source_reconciliation": {
+    "path": "reports/milestone_2h/bar_reconciliation.json",
+    "sha256": "28ef9f8554dbd00a54877bab5571e9bbc665b7533db0c2181a064922a54e2134"
+  },
+  "provider_dataset": {
+    "path": "data/processed/tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.csv",
+    "sha256": "916a10c4b0ad0fe856f3d78aad94374563dbbfb71f123eacf2e4114dfd94a045"
+  },
+  "instrument": {
+    "symbol": "RELIANCE",
+    "isin": "INE002A01018",
+    "exchange": "NSE",
+    "series": "EQ"
+  },
+  "adjustment_policy": {
+    "provider": "raw_unadjusted per preserved Milestone 2H import metadata",
+    "nse_bhavcopy": "official exchange session OHLCV; no corporate-action adjustment applied by this builder",
+    "compatibility": "price conventions are raw; do not merge until corporate-action continuity and all-date action coverage are resolved",
+    "merge_authorized": false
+  },
+  "recovery_plan": {
+    "candidate_bars_only": true,
+    "proposed_source": "NSE official cash-market bhavcopy files named per bar below",
+    "required_migration_review": [
+      "verify each source fingerprint and canonical record",
+      "check candidate dates against action ex-dates and position/indicator policy",
+      "retain TejHQ response and all existing manifests unchanged",
+      "approve a separately versioned dataset migration before any use"
+    ],
+    "automatic_replacement_or_merge": false
+  },
+  "bars": [
+    {
+      "date": "2018-11-07",
+      "source_path": "data/raw/nse/cm07NOV2018bhav.csv.zip",
+      "source_filename": "cm07NOV2018bhav.csv.zip",
+      "source_sha256": "34cb7742d962b69efaf6da9606dbd0386a0361c884bddfc63c3248a4d9c2b939",
+      "source_row_id": "cm07NOV2018bhav.csv.zip::cm07NOV2018bhav.csv",
+      "source_url": "https://archives.nseindia.com/content/historical/EQUITIES/2018/NOV/cm07NOV2018bhav.csv.zip",
+      "source_retrieved_at_utc": null,
+      "source_timestamp_basis": "local_file_mtime_proxy_not_verified_download_time",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "series": "EQ",
+      "provider_value": null,
+      "provider_comparison": "no_provider_value",
+      "validation": "passed",
+      "disposition": "include_in_standalone_candidate_only",
+      "ohlcv": {
+        "open": "1115",
+        "high": "1115",
+        "low": "1106.7",
+        "close": "1110.7",
+        "volume": 1283997
+      },
+      "source_validation": [
+        "source SHA-256 matched the preserved Milestone 2H reconciliation",
+        "report date equals requested session date",
+        "parser selected NSE cash-market STK/EQ series rows where the UDiFF schema was present",
+        "symbol and ISIN matched the required RELIANCE identity",
+        "OHLC invariants and nonnegative volume passed source parser validation",
+        "source OHLCV exactly matches the previously reviewed Milestone 2H row"
+      ]
+    },
+    {
+      "date": "2021-11-04",
+      "source_path": "data/raw/nse/cm04NOV2021bhav.csv.zip",
+      "source_filename": "cm04NOV2021bhav.csv.zip",
+      "source_sha256": "3c6b0e631b0ff18946537ba98dd78a4307a9fbc60d70c85e8e529e8acd1de1d8",
+      "source_row_id": "cm04NOV2021bhav.csv.zip::cm04NOV2021bhav.csv",
+      "source_url": "https://archives.nseindia.com/content/historical/EQUITIES/2021/NOV/cm04NOV2021bhav.csv.zip",
+      "source_retrieved_at_utc": null,
+      "source_timestamp_basis": "local_file_mtime_proxy_not_verified_download_time",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "series": "EQ",
+      "provider_value": null,
+      "provider_comparison": "no_provider_value",
+      "validation": "passed",
+      "disposition": "include_in_standalone_candidate_only",
+      "ohlcv": {
+        "open": "2492.95",
+        "high": "2504.9",
+        "low": "2490",
+        "close": "2498.85",
+        "volume": 787160
+      },
+      "source_validation": [
+        "source SHA-256 matched the preserved Milestone 2H reconciliation",
+        "report date equals requested session date",
+        "parser selected NSE cash-market STK/EQ series rows where the UDiFF schema was present",
+        "symbol and ISIN matched the required RELIANCE identity",
+        "OHLC invariants and nonnegative volume passed source parser validation",
+        "source OHLCV exactly matches the previously reviewed Milestone 2H row"
+      ]
+    },
+    {
+      "date": "2022-10-24",
+      "source_path": "data/raw/nse/cm24OCT2022bhav.csv.zip",
+      "source_filename": "cm24OCT2022bhav.csv.zip",
+      "source_sha256": "c8aa044e671cdb4dd8d2f312d3894a30a3201d8bc17287963a88c937fcb8c208",
+      "source_row_id": "cm24OCT2022bhav.csv.zip::cm24OCT2022bhav.csv",
+      "source_url": "https://archives.nseindia.com/content/historical/EQUITIES/2022/OCT/cm24OCT2022bhav.csv.zip",
+      "source_retrieved_at_utc": null,
+      "source_timestamp_basis": "local_file_mtime_proxy_not_verified_download_time",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "series": "EQ",
+      "provider_value": null,
+      "provider_comparison": "no_provider_value",
+      "validation": "passed",
+      "disposition": "include_in_standalone_candidate_only",
+      "ohlcv": {
+        "open": "2460",
+        "high": "2502.5",
+        "low": "2455.3",
+        "close": "2479.85",
+        "volume": 1555270
+      },
+      "source_validation": [
+        "source SHA-256 matched the preserved Milestone 2H reconciliation",
+        "report date equals requested session date",
+        "parser selected NSE cash-market STK/EQ series rows where the UDiFF schema was present",
+        "symbol and ISIN matched the required RELIANCE identity",
+        "OHLC invariants and nonnegative volume passed source parser validation",
+        "source OHLCV exactly matches the previously reviewed Milestone 2H row"
+      ]
+    },
+    {
+      "date": "2024-11-01",
+      "source_path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+      "source_filename": "BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+      "source_sha256": "f45f1ee610a8b1f823682e0c19bb2a51286d11175eb4b0f1194318394cde9b7c",
+      "source_row_id": "BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip::BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv",
+      "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+      "source_retrieved_at_utc": null,
+      "source_timestamp_basis": "local_file_mtime_proxy_not_verified_download_time",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "series": "EQ",
+      "provider_value": null,
+      "provider_comparison": "no_provider_value",
+      "validation": "passed",
+      "disposition": "include_in_standalone_candidate_only",
+      "ohlcv": {
+        "open": "1333.05",
+        "high": "1341.95",
+        "low": "1333.00",
+        "close": "1338.65",
+        "volume": 2127335
+      },
+      "source_validation": [
+        "source SHA-256 matched the preserved Milestone 2H reconciliation",
+        "report date equals requested session date",
+        "parser selected NSE cash-market STK/EQ series rows where the UDiFF schema was present",
+        "symbol and ISIN matched the required RELIANCE identity",
+        "OHLC invariants and nonnegative volume passed source parser validation",
+        "source OHLCV exactly matches the previously reviewed Milestone 2H row"
+      ]
+    },
+    {
+      "date": "2026-06-05",
+      "source_path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20260605_F_0000.csv.zip",
+      "source_filename": "BhavCopy_NSE_CM_0_0_0_20260605_F_0000.csv.zip",
+      "source_sha256": "120156b35ac42eace0520882dd2efb376265f2e26139a7d6f32521074a6db903",
+      "source_row_id": "BhavCopy_NSE_CM_0_0_0_20260605_F_0000.csv.zip::BhavCopy_NSE_CM_0_0_0_20260605_F_0000.csv",
+      "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260605_F_0000.csv.zip",
+      "source_retrieved_at_utc": "2026-10-23T10:42:53.642000+00:00",
+      "source_timestamp_basis": "recorded_download_timestamp",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "series": "EQ",
+      "provider_value": null,
+      "provider_comparison": "no_provider_value",
+      "validation": "passed",
+      "disposition": "include_in_standalone_candidate_only",
+      "ohlcv": {
+        "open": "1304.50",
+        "high": "1306.00",
+        "low": "1288.00",
+        "close": "1291.00",
+        "volume": 17785223
+      },
+      "source_validation": [
+        "source SHA-256 matched the preserved Milestone 2H reconciliation",
+        "report date equals requested session date",
+        "parser selected NSE cash-market STK/EQ series rows where the UDiFF schema was present",
+        "symbol and ISIN matched the required RELIANCE identity",
+        "OHLC invariants and nonnegative volume passed source parser validation",
+        "source OHLCV exactly matches the previously reviewed Milestone 2H row"
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "source_path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20260615_F_0000.csv.zip",
+      "source_filename": "BhavCopy_NSE_CM_0_0_0_20260615_F_0000.csv.zip",
+      "source_sha256": "19be8fb43a2c5d67e5ebb00e136141e1fadded8312394186e9d6096e370572ba",
+      "source_row_id": "BhavCopy_NSE_CM_0_0_0_20260615_F_0000.csv.zip::BhavCopy_NSE_CM_0_0_0_20260615_F_0000.csv",
+      "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260615_F_0000.csv.zip",
+      "source_retrieved_at_utc": "2026-10-23T10:42:53.930000+00:00",
+      "source_timestamp_basis": "recorded_download_timestamp",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "series": "EQ",
+      "provider_value": null,
+      "provider_comparison": "no_provider_value",
+      "validation": "passed",
+      "disposition": "include_in_standalone_candidate_only",
+      "ohlcv": {
+        "open": "1315.30",
+        "high": "1325.00",
+        "low": "1303.30",
+        "close": "1307.00",
+        "volume": 18633321
+      },
+      "source_validation": [
+        "source SHA-256 matched the preserved Milestone 2H reconciliation",
+        "report date equals requested session date",
+        "parser selected NSE cash-market STK/EQ series rows where the UDiFF schema was present",
+        "symbol and ISIN matched the required RELIANCE identity",
+        "OHLC invariants and nonnegative volume passed source parser validation",
+        "source OHLCV exactly matches the previously reviewed Milestone 2H row"
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "source_path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20260616_F_0000.csv.zip",
+      "source_filename": "BhavCopy_NSE_CM_0_0_0_20260616_F_0000.csv.zip",
+      "source_sha256": "2200b17310b6ecdc43ddc7fc1bbb500248b86f214919a590d42e385ff6491f2c",
+      "source_row_id": "BhavCopy_NSE_CM_0_0_0_20260616_F_0000.csv.zip::BhavCopy_NSE_CM_0_0_0_20260616_F_0000.csv",
+      "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260616_F_0000.csv.zip",
+      "source_retrieved_at_utc": "2026-10-23T10:42:54.105000+00:00",
+      "source_timestamp_basis": "recorded_download_timestamp",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "series": "EQ",
+      "provider_value": null,
+      "provider_comparison": "no_provider_value",
+      "validation": "passed",
+      "disposition": "include_in_standalone_candidate_only",
+      "ohlcv": {
+        "open": "1313.40",
+        "high": "1333.40",
+        "low": "1306.40",
+        "close": "1328.80",
+        "volume": 18513223
+      },
+      "source_validation": [
+        "source SHA-256 matched the preserved Milestone 2H reconciliation",
+        "report date equals requested session date",
+        "parser selected NSE cash-market STK/EQ series rows where the UDiFF schema was present",
+        "symbol and ISIN matched the required RELIANCE identity",
+        "OHLC invariants and nonnegative volume passed source parser validation",
+        "source OHLCV exactly matches the previously reviewed Milestone 2H row"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "source_path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20260622_F_0000.csv.zip",
+      "source_filename": "BhavCopy_NSE_CM_0_0_0_20260622_F_0000.csv.zip",
+      "source_sha256": "ea7428e0e2600e9106a6c3545698e0905c2fe164632eb017188ca4a417b905c7",
+      "source_row_id": "BhavCopy_NSE_CM_0_0_0_20260622_F_0000.csv.zip::BhavCopy_NSE_CM_0_0_0_20260622_F_0000.csv",
+      "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260622_F_0000.csv.zip",
+      "source_retrieved_at_utc": "2026-10-23T10:42:54.336000+00:00",
+      "source_timestamp_basis": "recorded_download_timestamp",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "series": "EQ",
+      "provider_value": null,
+      "provider_comparison": "no_provider_value",
+      "validation": "passed",
+      "disposition": "include_in_standalone_candidate_only",
+      "ohlcv": {
+        "open": "1316.70",
+        "high": "1344.90",
+        "low": "1314.10",
+        "close": "1326.50",
+        "volume": 12931213
+      },
+      "source_validation": [
+        "source SHA-256 matched the preserved Milestone 2H reconciliation",
+        "report date equals requested session date",
+        "parser selected NSE cash-market STK/EQ series rows where the UDiFF schema was present",
+        "symbol and ISIN matched the required RELIANCE identity",
+        "OHLC invariants and nonnegative volume passed source parser validation",
+        "source OHLCV exactly matches the previously reviewed Milestone 2H row"
+      ]
+    }
+  ],
+  "source_failures": [],
+  "overall_evaluation_readiness": {
+    "decision": "BLOCKED",
+    "real_data_backtest_authorized": false,
+    "identity": {
+      "candidate_bars_have_verified_isin": true,
+      "full_history_provider_identity_verified": false,
+      "reason": "TejHQ canonical OHLCV history is symbol-only; source-borrowed candidate identities do not verify the rest of history.",
+      "provider_symbols": [
+        "RELIANCE"
+      ]
+    },
+    "corporate_actions": {
+      "source_registry_path": "reports/milestone_2h/corporate_action_evidence_registry.json",
+      "provider_action_rows": 25,
+      "complete_verified_coverage": false,
+      "missing_dividend_terms": 20,
+      "unsupported_event_types": [
+        "rights",
+        "demerger",
+        "merger",
+        "buyback",
+        "delisting"
+      ]
+    },
+    "cost_coverage": {
+      "profile_version": "zerodha-resident-individual-nse-delivery-observed-2026-10-23-v1",
+      "profile_status": "partial",
+      "checked_provider_session_count": 2166,
+      "uncovered_provider_session_count": 2166,
+      "first_uncovered_date": "2018-01-01",
+      "last_uncovered_date": "2026-10-22",
+      "checked_candidate_session_count": 8,
+      "uncovered_candidate_session_count": 8,
+      "candidate_session_dates_also_uncovered": true
+    },
+    "existing_milestone_2h_blockers": [
+      "TejHQ action feed is not completeness-verified; its 25 provider records are discovery evidence only.",
+      "Dividend payment dates and currency are absent; supported cash accounting cannot be sourced from provider response.",
+      "Rights and demerger events remain unsupported by the current position/cash accounting model.",
+      "Eight official NSE bars are confirmed absent from TejHQ and remain unmerged.",
+      "Historical action coverage from dataset start through latest session is not complete or independently verified.",
+      "A broker/DP tariff and complete date-effective statutory charge schedule with bases and rounding are not verified.",
+      "Current CostSchedule omits minimum brokerage, SEBI turnover fee, statutory rounding and broker-specific DP tariff details.",
+      "Historical universe membership and survivorship limitations remain; no point-in-time universe is supplied."
+    ]
+  }
+}

@@ -10,6 +10,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from .backtest import BacktestConfig, CostSchedule, export_result, run_backtest
+from .corporate_actions import load_action_manifest
 from .gap_audit import audit_gaps
 from .historical_data import DataValidationError, import_to_cache, load_historical_file
 from .risk import RiskConfig
@@ -92,6 +93,14 @@ def _parser() -> argparse.ArgumentParser:
         help="label this run cost-inclusive; requires a sourced, verified, non-zero dated profile",
     )
     backtest.add_argument("--benchmark-symbol")
+    backtest.add_argument(
+        "--actions-manifest",
+        type=Path,
+        help=(
+            "reviewed canonical action JSON with complete verified coverage "
+            "(required for real symbols)"
+        ),
+    )
     return parser
 
 
@@ -246,11 +255,21 @@ def main(argv: list[str] | None = None) -> int:
             costs=costs,
             cost_inclusive_evaluation=args.cost_inclusive,
         )
+        actions, action_coverage = (
+            load_action_manifest(args.actions_manifest) if args.actions_manifest else ((), None)
+        )
         result = run_backtest(
             records,
             config,
             input_fingerprint=summary.fingerprint,
             benchmark_symbol=args.benchmark_symbol,
+            corporate_actions=actions,
+            action_coverage=action_coverage,
+            synthetic_fixture=(
+                not args.actions_manifest
+                and args.input.resolve()
+                == (Path(__file__).parent / "data" / "synthetic_ohlcv.csv").resolve()
+            ),
         )
         result.manifest["cache_metadata"] = str(summary.metadata_path)
         export_result(result, args.output)

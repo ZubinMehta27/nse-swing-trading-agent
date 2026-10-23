@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "version": "synthetic-cost-arithmetic-v1",
+  "market": "NSE",
+  "segment": "cash_delivery",
+  "status": "synthetic_test_only",
+  "synthetic": true,
+  "provenance_manifest": null,
+  "required_components": [
+    {"component":"brokerage","sides":["BUY","SELL"]},
+    {"component":"stt","sides":["BUY","SELL"]},
+    {"component":"exchange","sides":["BUY","SELL"]},
+    {"component":"sebi","sides":["BUY","SELL"]},
+    {"component":"stamp","sides":["BUY"]},
+    {"component":"gst_services","sides":["BUY","SELL"]},
+    {"component":"dp","sides":["SELL"]},
+    {"component":"gst_dp","sides":["SELL"]}
+  ],
+  "rules": [
+    {"component":"brokerage","category":"broker","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"synthetic_test_only","rounding":"half_up_paise","effective_from":"2020-01-01","effective_to":null,"source_id":null,"rate":"0.001","minimum_amount":null,"cap_amount":null,"gst_treatment":"taxable"},
+    {"component":"stt","category":"statutory","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"synthetic_test_only","rounding":"half_up_paise","effective_from":"2020-01-01","effective_to":null,"source_id":null,"rate":"0.001","minimum_amount":null,"cap_amount":null,"gst_treatment":"not_taxable"},
+    {"component":"exchange","category":"exchange","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"synthetic_test_only","rounding":"half_up_paise","effective_from":"2020-01-01","effective_to":null,"source_id":null,"rate":"0.0001","minimum_amount":null,"cap_amount":null,"gst_treatment":"taxable"},
+    {"component":"sebi","category":"statutory","basis":"notional","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"synthetic_test_only","rounding":"half_up_paise","effective_from":"2020-01-01","effective_to":null,"source_id":null,"rate":"0.00001","minimum_amount":null,"cap_amount":null,"gst_treatment":"taxable"},
+    {"component":"stamp","category":"statutory","basis":"notional","aggregation":"per_fill","sides":["BUY"],"verification_status":"synthetic_test_only","rounding":"half_up_paise","effective_from":"2020-01-01","effective_to":null,"source_id":null,"rate":"0.0002","minimum_amount":null,"cap_amount":null,"gst_treatment":"not_taxable"},
+    {"component":"gst_services","category":"tax","basis":"component_sum","aggregation":"per_fill","sides":["BUY","SELL"],"verification_status":"synthetic_test_only","rounding":"half_up_paise","effective_from":"2020-01-01","effective_to":null,"source_id":null,"rate":"0.18","taxable_components":["brokerage","exchange","sebi"],"minimum_amount":null,"cap_amount":null,"gst_treatment":"separately_modelled"},
+    {"component":"dp","category":"depository","basis":"fixed","aggregation":"per_day_symbol","sides":["SELL"],"verification_status":"synthetic_test_only","rounding":"half_up_paise","effective_from":"2020-01-01","effective_to":null,"source_id":null,"fixed_amount":"13.00","minimum_amount":null,"cap_amount":null,"gst_treatment":"separately_modelled"},
+    {"component":"gst_dp","category":"tax","basis":"component_sum","aggregation":"per_day_symbol","sides":["SELL"],"verification_status":"synthetic_test_only","rounding":"half_up_paise","effective_from":"2020-01-01","effective_to":null,"source_id":null,"rate":"0.18","taxable_components":["dp"],"minimum_amount":null,"cap_amount":null,"gst_treatment":"separately_modelled"}
+  ],
+  "assumptions": ["Toy rates only; tests arithmetic and grouping and are not market tariffs."]
+}

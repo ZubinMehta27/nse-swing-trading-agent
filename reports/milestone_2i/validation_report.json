@@ -1,0 +1,70 @@
+{
+  "milestone": "2I",
+  "validation_only": true,
+  "profitability_evaluation_run": false,
+  "real_data_backtest_run": false,
+  "fixture": {
+    "path": "data/validation/milestone_2i/reliance_provider_sample.csv",
+    "sha256": "b3d636401a6ba06fdc85e6fee2ac1f64d991d115bb0b1e0fca787ce408b61559",
+    "rows": 6,
+    "symbol": "RELIANCE",
+    "date_range": [
+      "2024-10-01",
+      "2024-10-09"
+    ],
+    "schema_validation": "passed using existing canonical loader",
+    "source_status": "TejHQ provider-sourced; not independently bhavcopy-verified; ISIN unavailable",
+    "adjustment_status": "raw_unadjusted; no adjustment applied; provider action completeness is not established"
+  },
+  "exchange_calendar": {
+    "excerpt_path": "data/validation/milestone_2i/exchange_calendar_excerpt.csv",
+    "sha256": "37c24b47f54e236895b49ad7038e7411ceb5ae0239d957f0a5cc90c054be0ee6",
+    "audit_classifications": {
+      "2024-10-01": "unresolved",
+      "2024-10-02": "confirmed_exchange_holiday",
+      "2024-10-03": "unresolved",
+      "2024-10-04": "unresolved",
+      "2024-10-07": "unresolved",
+      "2024-10-08": "unresolved",
+      "2024-10-09": "unresolved",
+      "2024-10-10": "unresolved"
+    },
+    "automatic_fills": 0,
+    "2024-10-02": "holiday from NSE 2024 holiday-master evidence",
+    "2024-10-10": "expected session absent from six-row fixture; correctly unresolved, not synthesized",
+    "limitation": "Calendar SESSION dates derive from NSE weekly trading rule and holiday master; no daily bhavcopy supplied for sample OHLCV dates."
+  },
+  "evidence_categories": {
+    "independently_verified_historical_fact": "2024-10-02 exchange holiday, from retained NSE annual holiday-master response",
+    "provider_sourced_not_independently_verified": "six RELIANCE OHLCV observations from cached TejHQ daily response",
+    "synthetic_accounting_tests": "existing and extended pytest fixtures only; never presented as historical events",
+    "unverified_assumptions": [
+      "ISIN for sample rows",
+      "completeness of corporate-action history",
+      "complete historical transaction-cost profile"
+    ]
+  },
+  "accounting_validation": {
+    "fixtures": "synthetic unit data in tests/test_corporate_actions.py",
+    "production_changes": "none to event terms or strategy; existing split/bonus/dividend ledger is tested",
+    "fractional_entitlements": "blocked pending explicit cash-in-lieu terms",
+    "unsupported_events": [
+      "rights",
+      "demerger",
+      "merger",
+      "buyback",
+      "delisting"
+    ],
+    "future_action_leakage": "event is applied only at its ex-date; unit test asserts earlier pending decision remains earlier"
+  },
+  "cost_model": "INCOMPLETE_UNVERIFIED; no full historical cost-inclusive profile is authorized",
+  "existing_readiness_gate": {
+    "source": "reports/milestone_2h/readiness.json",
+    "decision": "BLOCKED",
+    "real_data_backtest_ready": false,
+    "unchanged_by_fixture_validation": true
+  },
+  "provenance_path": "data/validation/milestone_2i/provenance.json",
+  "provenance_sha256": "f928d7c3ca0ed1631313d9ac642e857d3db8c6ccdb80e48c40565ecd749aad22",
+  "gap_audit_schema_version": "1.0"
+}

@@ -1,0 +1,398 @@
+{
+  "report_version": "2F-1.0",
+  "decision": "BLOCKED",
+  "evaluation_run": false,
+  "dataset": "TejHQ RELIANCE raw_unadjusted; no modifications",
+  "gap_dates_total": 104,
+  "counts_by_classification": {
+    "confirmed_exchange_holiday": 100,
+    "provider_source_discrepancy": 4
+  },
+  "unresolved_dates": [],
+  "month_classification_counts": {
+    "2018-01": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2018-02": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2018-03": {
+      "confirmed_exchange_holiday": 3
+    },
+    "2018-05": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2018-08": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2018-09": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2018-10": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2018-11": {
+      "provider_source_discrepancy": 1,
+      "confirmed_exchange_holiday": 2
+    },
+    "2018-12": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2019-03": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2019-04": {
+      "confirmed_exchange_holiday": 3
+    },
+    "2019-05": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2019-06": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2019-08": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2019-09": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2019-10": {
+      "confirmed_exchange_holiday": 4
+    },
+    "2019-11": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2019-12": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2020-02": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2020-03": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2020-04": {
+      "confirmed_exchange_holiday": 4
+    },
+    "2020-05": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2020-10": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2020-11": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2020-12": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2021-01": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2021-03": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2021-04": {
+      "confirmed_exchange_holiday": 3
+    },
+    "2021-05": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2021-07": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2021-08": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2021-09": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2021-10": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2021-11": {
+      "provider_source_discrepancy": 1,
+      "confirmed_exchange_holiday": 2
+    },
+    "2022-01": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2022-03": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2022-04": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2022-05": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2022-08": {
+      "confirmed_exchange_holiday": 3
+    },
+    "2022-10": {
+      "confirmed_exchange_holiday": 2,
+      "provider_source_discrepancy": 1
+    },
+    "2022-11": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2023-01": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2023-03": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2023-04": {
+      "confirmed_exchange_holiday": 3
+    },
+    "2023-05": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2023-06": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2023-08": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2023-09": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2023-10": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2023-11": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2023-12": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2024-01": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2024-03": {
+      "confirmed_exchange_holiday": 3
+    },
+    "2024-04": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2024-05": {
+      "confirmed_exchange_holiday": 2
+    },
+    "2024-06": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2024-07": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2024-08": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2024-10": {
+      "confirmed_exchange_holiday": 1
+    },
+    "2024-11": {
+      "provider_source_discrepancy": 1,
+      "confirmed_exchange_holiday": 2
+    },
+    "2024-12": {
+      "confirmed_exchange_holiday": 1
+    }
+  },
+  "source_coverage": {
+    "dates_with_official_source_bar": 4,
+    "confirmed_holidays": 100,
+    "calendar_range": [
+      "2018-01-01",
+      "2024-12-31"
+    ],
+    "calendar_rows": 2557,
+    "calendar_file": "data\\reference\\nse_cm_calendar_2018_2024.csv",
+    "calendar_sha256": "b3632c83bd2e420ca4fe2739feafc03c32f2aeb0d9679c4c13c1e35ebf95e567",
+    "gap_calendar_sha256": "82a29ba30c2577c628f8d02c8e1e3b87631dee54ae5bf17004c26715af8627b4",
+    "official_calendar_year_api_responses": [
+      {
+        "year": 2018,
+        "provider": "NSE India holiday-master API, type=trading",
+        "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2018",
+        "applicable_year": 2018,
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:46:56.709000+00:00",
+        "http_status": 200,
+        "file": "data\\raw\\nse\\nse_holiday_master_trading_2018_20261023.json",
+        "sha256": "ed7315abded78e4a64bdb40545613eb08a29ee5c8a5a2d4167d8d93c0abf4eea",
+        "cm_rows": 18,
+        "special_session_circulars": [
+          {
+            "url": "https://nsearchives.nseindia.com/content/circulars/CMTR36475.pdf",
+            "file": "data\\raw\\nse\\NSE_CMTR36475_2018_holidays.pdf",
+            "sha256": "d80ac64d32806f9ada629bc96ba91c6d85546dfde405f4468bbfcb194fdb22fb",
+            "retrieved_at_utc_file_mtime": "2026-10-23T10:47:57.935000+00:00"
+          }
+        ],
+        "special_session_reports": [
+          {
+            "file": "data\\raw\\nse\\cm07NOV2018bhav.csv.zip",
+            "sha256": "34cb7742d962b69efaf6da9606dbd0386a0361c884bddfc63c3248a4d9c2b939",
+            "retrieved_at_utc_file_mtime": "2026-10-23T10:47:15.924000+00:00",
+            "validation": "date and RELIANCE EQ row reviewed"
+          }
+        ]
+      },
+      {
+        "year": 2019,
+        "provider": "NSE India holiday-master API, type=trading",
+        "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2019",
+        "applicable_year": 2019,
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:46:56.967000+00:00",
+        "http_status": 200,
+        "file": "data\\raw\\nse\\nse_holiday_master_trading_2019_20261023.json",
+        "sha256": "df86d24932c3ea1ad5b4d76cf0ebec2aab1f70403296555e15a0d541fed5183c",
+        "cm_rows": 21
+      },
+      {
+        "year": 2020,
+        "provider": "NSE India holiday-master API, type=trading",
+        "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2020",
+        "applicable_year": 2020,
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:46:57.206000+00:00",
+        "http_status": 200,
+        "file": "data\\raw\\nse\\nse_holiday_master_trading_2020_20261023.json",
+        "sha256": "592f334da08629c3a18d870f644288638d259502b96b8845ae656734de2914cf",
+        "cm_rows": 19
+      },
+      {
+        "year": 2021,
+        "provider": "NSE India holiday-master API, type=trading",
+        "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2021",
+        "applicable_year": 2021,
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:46:57.426000+00:00",
+        "http_status": 200,
+        "file": "data\\raw\\nse\\nse_holiday_master_trading_2021_20261023.json",
+        "sha256": "1cd27065bf5d8be5b6e8c6efbe2cc6857df569a4394d2779b77b91572f67a03b",
+        "cm_rows": 18,
+        "special_session_circulars": [
+          {
+            "url": "https://archives.nseindia.com/content/circulars/CMTR46623.pdf",
+            "file": "data\\raw\\nse\\NSE_CMTR46623_2021_holidays.pdf",
+            "sha256": "3c922e234ad2cbe8320cc34507e281477e0ce273ba9ee39d73da2a49d5629add",
+            "retrieved_at_utc_file_mtime": "2026-10-23T10:47:58.386000+00:00"
+          }
+        ],
+        "special_session_reports": [
+          {
+            "file": "data\\raw\\nse\\cm04NOV2021bhav.csv.zip",
+            "sha256": "3c6b0e631b0ff18946537ba98dd78a4307a9fbc60d70c85e8e529e8acd1de1d8",
+            "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.092000+00:00",
+            "validation": "date and RELIANCE EQ row reviewed"
+          }
+        ]
+      },
+      {
+        "year": 2022,
+        "provider": "NSE India holiday-master API, type=trading",
+        "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2022",
+        "applicable_year": 2022,
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:46:57.684000+00:00",
+        "http_status": 200,
+        "file": "data\\raw\\nse\\nse_holiday_master_trading_2022_20261023.json",
+        "sha256": "911c09514539c033ca8528d33a86733743af1a2ec2e3dab5533ecfcab1bc54e2",
+        "cm_rows": 17,
+        "special_session_circulars": [
+          {
+            "url": "https://nsearchives.nseindia.com/content/circulars/CMTR54023.pdf",
+            "file": "data\\raw\\nse\\NSE_CMTR54023_2022_muhurat.pdf",
+            "sha256": "01e579eac8e2dd4a870a9ebc9f08d60bc26fae28d0d35cf58891bf2a2964e0c7",
+            "retrieved_at_utc_file_mtime": "2026-10-23T10:47:58.787000+00:00"
+          }
+        ],
+        "special_session_reports": [
+          {
+            "file": "data\\raw\\nse\\cm24OCT2022bhav.csv.zip",
+            "sha256": "c8aa044e671cdb4dd8d2f312d3894a30a3201d8bc17287963a88c937fcb8c208",
+            "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.226000+00:00",
+            "validation": "date and RELIANCE EQ row reviewed"
+          }
+        ]
+      },
+      {
+        "year": 2023,
+        "provider": "NSE India holiday-master API, type=trading",
+        "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2023",
+        "applicable_year": 2023,
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:46:58.085000+00:00",
+        "http_status": 200,
+        "file": "data\\raw\\nse\\nse_holiday_master_trading_2023_20261023.json",
+        "sha256": "78a76bf4ea030e1c294ed9acd6255875d1eae4027bf9ea35ca5b5357e1b73797",
+        "cm_rows": 19
+      },
+      {
+        "year": 2024,
+        "provider": "NSE India holiday-master API, type=trading",
+        "url": "https://www.nseindia.com/api/holiday-master?type=trading&year=2024",
+        "applicable_year": 2024,
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:46:58.336000+00:00",
+        "http_status": 200,
+        "file": "data\\raw\\nse\\nse_holiday_master_trading_2024_20261023.json",
+        "sha256": "362ccb232694b28865d1f0e61af3cc3df04e713ccb1769fc2b3bd19aa6614e20",
+        "cm_rows": 22,
+        "special_session_circulars": [
+          {
+            "url": "https://nsearchives.nseindia.com/content/circulars/CMTR64628.pdf",
+            "file": "data\\raw\\nse\\NSE_CMTR64628_2024_muhurat.pdf",
+            "sha256": "dd1b8bc34a4b3c2900002341c41e4b8f165af862a74fd2a5bfb1355b0afec4a8",
+            "retrieved_at_utc_file_mtime": "2026-10-23T10:47:59.031000+00:00"
+          }
+        ],
+        "special_session_reports": [
+          {
+            "file": "data\\raw\\nse\\BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+            "sha256": "f45f1ee610a8b1f823682e0c19bb2a51286d11175eb4b0f1194318394cde9b7c",
+            "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.437000+00:00",
+            "validation": "date and RELIANCE EQ row reviewed"
+          }
+        ]
+      }
+    ],
+    "official_daily_report_files": [
+      {
+        "file": "data\\raw\\nse\\cm07NOV2018bhav.csv.zip",
+        "sha256": "34cb7742d962b69efaf6da9606dbd0386a0361c884bddfc63c3248a4d9c2b939",
+        "date": "2018-11-07",
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:47:15.924000+00:00",
+        "http_status": 200
+      },
+      {
+        "file": "data\\raw\\nse\\cm04NOV2021bhav.csv.zip",
+        "sha256": "3c6b0e631b0ff18946537ba98dd78a4307a9fbc60d70c85e8e529e8acd1de1d8",
+        "date": "2021-11-04",
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.092000+00:00",
+        "http_status": 200
+      },
+      {
+        "file": "data\\raw\\nse\\cm24OCT2022bhav.csv.zip",
+        "sha256": "c8aa044e671cdb4dd8d2f312d3894a30a3201d8bc17287963a88c937fcb8c208",
+        "date": "2022-10-24",
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.226000+00:00",
+        "http_status": 200
+      },
+      {
+        "file": "data\\raw\\nse\\BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+        "sha256": "f45f1ee610a8b1f823682e0c19bb2a51286d11175eb4b0f1194318394cde9b7c",
+        "date": "2024-11-01",
+        "retrieved_at_utc_file_mtime": "2026-10-23T10:47:16.437000+00:00",
+        "http_status": 200
+      }
+    ]
+  },
+  "limitations": [
+    "Ordinary weekday sessions are derived from NSE's general equities weekly schedule minus published holiday dates, not independently verified with an individual bhavcopy for every session.",
+    "Historical extraordinary closures not represented in the API could be missed; targeted date-specific source checks are available for the 104 gap dates.",
+    "Muhurat bars have a short special-session trading period and are not regular-session daily bars; they remain flagged SPECIAL_SESSION."
+  ],
+  "four_2026_gap_status": "Preserved from Milestone 2E; all four remain confirmed provider/source discrepancies with NSE bars available and no TejHQ rows. No merge performed.",
+  "remaining_blockers": [
+    "Do not merge recovered rows pending explicit user/data review; raw TejHQ response remains unchanged.",
+    "Implement and test corporate-action-aware quantity and cash treatment before evaluation.",
+    "Obtain sourced, date-effective, verified non-zero cost profiles before cost-inclusive evaluation."
+  ],
+  "next_step": "Review the four candidate replacement bars and their unadjusted-series compatibility, then separately implement/test corporate-action accounting and verify dated cost components. No real-data performance evaluation until all blockers are closed."
+}

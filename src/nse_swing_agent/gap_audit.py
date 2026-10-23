@@ -7,7 +7,7 @@ import hashlib
 import json
 import zipfile
 from dataclasses import dataclass
-from datetime import UTC, date, datetime
+from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
@@ -24,7 +24,7 @@ NSE_FIELDS = {
     "volume": "TtlTradgVol",
 }
 LEGACY_FIELDS = {
-    "date": "Date",
+    "date": "TIMESTAMP",
     "symbol": "SYMBOL",
     "isin": "ISIN",
     "open": "OPEN",
@@ -62,18 +62,26 @@ def _source_rows(path: Path) -> tuple[list[SourceRow], str]:
     if path.suffix.lower() == ".zip":
         with zipfile.ZipFile(path) as archive:
             names = [name for name in archive.namelist() if name.lower().endswith(".csv")]
-            if len(names) != 1:
-                raise DataValidationError(f"{path}: expected exactly one CSV member in ZIP")
-            with archive.open(names[0]) as raw:
-                import io
+            if not names:
+                raise DataValidationError(f"{path}: ZIP archive contains no CSV members")
+            rows = []
+            for name in names:
+                with archive.open(name) as raw:
+                    import io
 
-                text = io.TextIOWrapper(raw, encoding="utf-8-sig", newline="")
-                return _parse_source_csv(text, path, names[0]), digest
+                    text = io.TextIOWrapper(raw, encoding="utf-8-sig", newline="")
+                    rows.extend(_parse_source_csv(text, path, name))
+            return rows, digest
     try:
         with path.open(encoding="utf-8-sig", newline="") as handle:
             return _parse_source_csv(handle, path, path.name), digest
     except OSError as exc:
         raise DataValidationError(f"cannot read source file {path}: {exc}") from exc
+
+
+def read_official_bhavcopy(path: Path) -> tuple[list[SourceRow], str]:
+    """Read validated NSE rows and return the unchanged source-file SHA-256."""
+    return _source_rows(path)
 
 
 def _parse_source_csv(handle, path: Path, member: str) -> list[SourceRow]:
@@ -95,6 +103,8 @@ def _parse_source_csv(handle, path: Path, member: str) -> list[SourceRow]:
         if fields is NSE_FIELDS and (
             item.get("FinInstrmTp") != "STK" or item.get("SctySrs") != "EQ"
         ):
+            continue
+        if fields is LEGACY_FIELDS and item.get("SERIES") not in {None, "EQ"}:
             continue
         try:
             day = (
@@ -146,7 +156,7 @@ def audit_gaps(
     observed = load_historical_file(observed_path)
     relevant = [r for r in observed if r.bar.symbol == symbol.upper()]
     dates = {r.session_date: r for r in relevant}
-    calendar: dict[date, str] = {}
+    calendar: dict[date, dict[str, str]] = {}
     with calendar_path.open(encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         if not reader.fieldnames or not {"session_date", "status"}.issubset(reader.fieldnames):
@@ -159,16 +169,25 @@ def audit_gaps(
             try:
                 day = date.fromisoformat(row["session_date"])
                 status = row["status"].strip().upper()
-                if status not in {"SESSION", "HOLIDAY"} or not row["source"].strip():
-                    raise ValueError("status must be SESSION/HOLIDAY and source nonempty")
+                if (
+                    status
+                    not in {
+                        "SESSION",
+                        "SPECIAL_SESSION",
+                        "HOLIDAY",
+                        "WEEKEND",
+                        "WEEKEND_HOLIDAY",
+                    }
+                    or not row["source"].strip()
+                ):
+                    raise ValueError("unsupported calendar status or empty source")
                 if day in calendar:
                     raise ValueError("duplicate calendar date")
-                calendar[day] = status
+                calendar[day] = row
             except ValueError as exc:
                 raise DataValidationError(f"calendar row {line}: {exc}") from exc
     sources: dict[date, list[SourceRow]] = {}
     fingerprints = []
-    retrieved_at = datetime.now(UTC).isoformat()
     for path in source_paths:
         rows, fingerprint = _source_rows(path)
         fingerprints.append(
@@ -176,15 +195,15 @@ def audit_gaps(
                 "file": str(path),
                 "sha256": fingerprint,
                 "retrieved_at": None,
-                "audit_timestamp": retrieved_at,
-                "retrieval_status": "local file supplied; original retrieval time not asserted",
+                "retrieval_status": "local file supplied; consult source provenance manifest",
                 "validation_status": "valid",
             }
         )
         for row in rows:
             sources.setdefault(row.session_date, []).append(row)
     report = []
-    for day, calendar_status in sorted(calendar.items()):
+    for day, calendar_row in sorted(calendar.items()):
+        calendar_status = calendar_row["status"].strip().upper()
         local = dates.get(day)
         source_matches = [
             r
@@ -194,6 +213,9 @@ def audit_gaps(
         if calendar_status == "HOLIDAY":
             classification = "confirmed_exchange_holiday"
             reason = "explicit sourced calendar marks holiday"
+        elif calendar_status in {"WEEKEND", "WEEKEND_HOLIDAY"}:
+            classification = "confirmed_non_trading_date"
+            reason = "explicit calendar marks weekend/non-trading date"
         elif len(source_matches) > 1:
             identities = {
                 (x.symbol, x.isin, x.open, x.high, x.low, x.close, x.volume) for x in source_matches
@@ -232,24 +254,57 @@ def audit_gaps(
                     if equal
                     else ("provider_source_discrepancy", "official and observed OHLCV differ")
                 )
-        elif calendar_status == "SESSION" and day in sources:
+        elif calendar_status in {"SESSION", "SPECIAL_SESSION"} and day in sources:
             classification, reason = (
                 "confirmed_session_symbol_absent",
                 "official daily file retrieved but no matching symbol/ISIN row",
             )
         else:
             classification, reason = "unresolved", "session/source evidence unavailable"
+        if classification == "confirmed_exchange_holiday":
+            evidence_classification = "confirmed_exchange_holiday"
+        elif classification == "confirmed_non_trading_date":
+            evidence_classification = "confirmed_non_trading_date"
+        elif classification == "confirmed_session_symbol_absent":
+            evidence_classification = "confirmed_trading_session_without_reliance_row"
+        elif (
+            classification == "provider_source_discrepancy" and calendar_status == "SPECIAL_SESSION"
+        ):
+            evidence_classification = "confirmed_special_session_with_reliance_row"
+        elif classification == "provider_source_discrepancy":
+            evidence_classification = "confirmed_trading_session_with_reliance_row"
+        elif classification == "verified_bar_match":
+            evidence_classification = "verified_official_bar_matches_observed"
+        else:
+            evidence_classification = "unresolved"
         report.append(
             {
                 "session_date": day.isoformat(),
                 "calendar_status": calendar_status,
+                "calendar_description": calendar_row.get("description", ""),
+                "calendar_source": calendar_row.get("source", ""),
+                "calendar_source_url": calendar_row.get("source_url", ""),
                 "symbol": symbol.upper(),
                 "isin": isin,
                 "observed_bar": local is not None,
-                "official_file_retrieved": day in sources,
+                "official_daily_report_available": day in sources,
+                "daily_report_validation_status": (
+                    "valid"
+                    if day in sources
+                    else "not_requested_for_calendar_non_session"
+                    if calendar_status in {"HOLIDAY", "WEEKEND", "WEEKEND_HOLIDAY"}
+                    else "not_supplied"
+                ),
                 "classification": classification,
+                "evidence_classification": evidence_classification,
                 "reason": reason,
                 "official_source": source_matches[0].source if source_matches else "",
+                "official_isin": source_matches[0].isin if source_matches else "",
+                "official_open": str(source_matches[0].open) if source_matches else "",
+                "official_high": str(source_matches[0].high) if source_matches else "",
+                "official_low": str(source_matches[0].low) if source_matches else "",
+                "official_close": str(source_matches[0].close) if source_matches else "",
+                "official_volume": source_matches[0].volume if source_matches else "",
             }
         )
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -261,7 +316,6 @@ def audit_gaps(
         writer.writerows(report)
     summary = {
         "schema_version": "1.0",
-        "generated_at": retrieved_at,
         "symbol": symbol.upper(),
         "isin": isin,
         "observed_file": str(observed_path),

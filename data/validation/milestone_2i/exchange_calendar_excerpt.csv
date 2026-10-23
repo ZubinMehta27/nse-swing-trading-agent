@@ -1,0 +1,9 @@
+session_date,status,description,source,source_url
+2024-10-01,SESSION,Ordinary weekday per NSE equities trading rule; no declared holiday,NSE equities weekly trading rule + annual CM holiday API,https://www.nseindia.com/resources/exchange-communication-holidays
+2024-10-02,HOLIDAY,Mahatma Gandhi Jayanti,NSE annual CM trading-holiday API,https://www.nseindia.com/api/holiday-master?type=trading&year=2024
+2024-10-03,SESSION,Ordinary weekday per NSE equities trading rule; no declared holiday,NSE equities weekly trading rule + annual CM holiday API,https://www.nseindia.com/resources/exchange-communication-holidays
+2024-10-04,SESSION,Ordinary weekday per NSE equities trading rule; no declared holiday,NSE equities weekly trading rule + annual CM holiday API,https://www.nseindia.com/resources/exchange-communication-holidays
+2024-10-07,SESSION,Ordinary weekday per NSE equities trading rule; no declared holiday,NSE equities weekly trading rule + annual CM holiday API,https://www.nseindia.com/resources/exchange-communication-holidays
+2024-10-08,SESSION,Ordinary weekday per NSE equities trading rule; no declared holiday,NSE equities weekly trading rule + annual CM holiday API,https://www.nseindia.com/resources/exchange-communication-holidays
+2024-10-09,SESSION,Ordinary weekday per NSE equities trading rule; no declared holiday,NSE equities weekly trading rule + annual CM holiday API,https://www.nseindia.com/resources/exchange-communication-holidays
+2024-10-10,SESSION,Ordinary weekday per NSE equities trading rule; no declared holiday,NSE equities weekly trading rule + annual CM holiday API,https://www.nseindia.com/resources/exchange-communication-holidays

@@ -1,0 +1,13 @@
+{
+  "schema_version": "nse-effective-calendar-v1",
+  "source_calendar_path": "data/reference/nse_cm_calendar_2018_2024.csv",
+  "source_calendar_sha256": "b3632c83bd2e420ca4fe2739feafc03c32f2aeb0d9679c4c13c1e35ebf95e567",
+  "exception_registry_path": "data/reference/milestone_2o/session_calendar_exceptions_v1.json",
+  "exception_registry_sha256": "05e67c8f2d99e45bdb2c1cdec698cdbd28daacfcc128215e6f265fb4cdd33474",
+  "exceptions_applied": [
+    "NSE-CM-2024-01-20-MSD59999"
+  ],
+  "effective_calendar_sha256": "3bc2f8405ed2709fd1083300c97b5e2bf5bccdec1b06e4bef095549558db646f",
+  "original_calendar_modified": false,
+  "generated_at_utc": "2026-10-24T06:21:05.676171+00:00"
+}

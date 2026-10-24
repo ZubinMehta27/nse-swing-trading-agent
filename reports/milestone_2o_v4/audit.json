@@ -1,0 +1,316 @@
+{
+  "schema_version": "milestone-2o-session-calendar-data-readiness-v1",
+  "generated_at_utc": "2026-10-24T06:21:05.676171+00:00",
+  "decision": "BLOCKED",
+  "real_data_backtest_run": false,
+  "candidate_bars_merged": false,
+  "scope": {
+    "calendar_start": "2018-01-01",
+    "calendar_end": "2024-12-31",
+    "calendar_rows": 2557,
+    "provider_symbol": "RELIANCE",
+    "provider_rows": 2166
+  },
+  "inputs": {
+    "base_calendar": {
+      "path": "data/reference/nse_cm_calendar_2018_2024.csv",
+      "sha256": "b3632c83bd2e420ca4fe2739feafc03c32f2aeb0d9679c4c13c1e35ebf95e567"
+    },
+    "calendar_provenance": {
+      "path": "data/reference/nse_cm_calendar_2018_2024.provenance.json",
+      "sha256": "98c14f077f6e6fbdf2f182627fceb4c0848898f8093c64ffc35e7570dbc3f61a"
+    },
+    "exception_registry": {
+      "path": "data/reference/milestone_2o/session_calendar_exceptions_v1.json",
+      "sha256": "05e67c8f2d99e45bdb2c1cdec698cdbd28daacfcc128215e6f265fb4cdd33474"
+    },
+    "provider_dataset": {
+      "path": "data/processed/tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.csv",
+      "sha256": "916a10c4b0ad0fe856f3d78aad94374563dbbfb71f123eacf2e4114dfd94a045"
+    },
+    "provider_manifest": {
+      "path": "data/processed/tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.json",
+      "sha256": "aca70c5f6ccfceb3ab197677e2cfc2e8334343772649e31e8367b09af45ed825"
+    },
+    "provider_raw_response": {
+      "path": "data/raw/nse/tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.json",
+      "sha256": "fd48f50f69338ee1f9b705bd889af7e7f0c8767751dfa0ab5126be6c7e502633"
+    },
+    "candidate_dataset": {
+      "path": "data/validation/recovery_candidates/milestone_2j_a_v2/candidate_missing_bars.csv",
+      "sha256": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8"
+    },
+    "candidate_manifest": {
+      "path": "data/validation/recovery_candidates/milestone_2j_a_v2/recovery_manifest.json",
+      "sha256": "f263823a74c6ad9e4208a31f6723b8cc133814b19d23f09cb6ade7826ef90a55"
+    },
+    "prior_milestone_2k_audit": {
+      "path": "reports/milestone_2k_v4/audit.json",
+      "sha256": "d2937e80e9e20a2dd0f9f42c3cb55886aa70cadf20a617308fbe3ea140c85a16"
+    }
+  },
+  "calendar_corrections": [
+    {
+      "exception_id": "NSE-CM-2024-01-20-MSD59999",
+      "session_date": "2024-01-20",
+      "expected_base_status": "WEEKEND",
+      "corrected_status": "SPECIAL_SESSION",
+      "correction_kind": "special_session_override",
+      "verification_status": "verified",
+      "description": "NSE special live session on Saturday, 2024-01-20 in Equity and Equity Derivatives; intra-day primary-site to DR-site switch.",
+      "source": {
+        "issuer": "National Stock Exchange of India Limited",
+        "document_title": "Special Live trading session on Saturday, January 20, 2024 with intra day switch over to DR site",
+        "publication_date": "2023-12-28",
+        "url": "https://nsearchives.nseindia.com/content/circulars/MSD59999.pdf",
+        "archive_path": "data/reference/milestone_2k/source_archive/nse_special_session_2024_01_20_MSD59999.pdf",
+        "sha256": "614b965d1152ed636052e983a01206117ff6af224365348fa00b7165a6baa243",
+        "retrieved_at_utc": "2026-10-24T05:31:57.2895046Z",
+        "retrieval_timestamp_basis": "captured by prior Milestone 2K archive command",
+        "content_review": "PDF contents inspected; circular explicitly states special live trading on 2024-01-20 in the Capital Market Segment.",
+        "verified_local_sha256": "614b965d1152ed636052e983a01206117ff6af224365348fa00b7165a6baa243"
+      },
+      "data_note": "TejHQ has a RELIANCE row for this date, but the canonical row does not include ISIN/series and this circular is session evidence, not independent OHLCV verification."
+    }
+  ],
+  "calendar_classification_counts": {
+    "confirmed_exchange_holiday": 100,
+    "inferred_weekend_non_session_no_bar": 729,
+    "official_candidate_unmerged_confirms_session": 4,
+    "provider_bar_on_inferred_ordinary_session": 1723,
+    "provider_bar_on_verified_special_session": 1
+  },
+  "date_by_date_audit_path": "reports/milestone_2o_v4/date_by_date_calendar_audit.csv",
+  "unresolved_or_review_dates": [],
+  "bar_quality_review_dates": [
+    "2024-01-20"
+  ],
+  "unresolved_calendar_periods": [
+    {
+      "start": "2025-01-01",
+      "end": "2026-10-22",
+      "reason": "no full date-by-date official NSE session calendar is present after the sourced 2018-2024 calendar"
+    }
+  ],
+  "recovery_candidate_reconciliation": {
+    "candidate_rows": 8,
+    "all_sources_rehashed_and_matched": true,
+    "all_rows_match_existing_milestone_2k_reconciliation": true,
+    "merged": false,
+    "bars": [
+      {
+        "date": "2018-11-07",
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "exchange": "NSE",
+        "series": "EQ",
+        "source_url": "https://archives.nseindia.com/content/historical/EQUITIES/2018/NOV/cm07NOV2018bhav.csv.zip",
+        "source_filename": "cm07NOV2018bhav.csv.zip",
+        "source_sha256": "34cb7742d962b69efaf6da9606dbd0386a0361c884bddfc63c3248a4d9c2b939",
+        "source_retrieved_at_utc": null,
+        "source_timestamp_basis": "local_file_mtime_proxy_not_verified_download_time",
+        "ohlcv": {
+          "open": "1115",
+          "high": "1115",
+          "low": "1106.7",
+          "close": "1110.7",
+          "volume": 1283997
+        },
+        "validation": "passed",
+        "matched_existing_milestone_2k_reconciliation": true,
+        "merged": false
+      },
+      {
+        "date": "2021-11-04",
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "exchange": "NSE",
+        "series": "EQ",
+        "source_url": "https://archives.nseindia.com/content/historical/EQUITIES/2021/NOV/cm04NOV2021bhav.csv.zip",
+        "source_filename": "cm04NOV2021bhav.csv.zip",
+        "source_sha256": "3c6b0e631b0ff18946537ba98dd78a4307a9fbc60d70c85e8e529e8acd1de1d8",
+        "source_retrieved_at_utc": null,
+        "source_timestamp_basis": "local_file_mtime_proxy_not_verified_download_time",
+        "ohlcv": {
+          "open": "2492.95",
+          "high": "2504.9",
+          "low": "2490",
+          "close": "2498.85",
+          "volume": 787160
+        },
+        "validation": "passed",
+        "matched_existing_milestone_2k_reconciliation": true,
+        "merged": false
+      },
+      {
+        "date": "2022-10-24",
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "exchange": "NSE",
+        "series": "EQ",
+        "source_url": "https://archives.nseindia.com/content/historical/EQUITIES/2022/OCT/cm24OCT2022bhav.csv.zip",
+        "source_filename": "cm24OCT2022bhav.csv.zip",
+        "source_sha256": "c8aa044e671cdb4dd8d2f312d3894a30a3201d8bc17287963a88c937fcb8c208",
+        "source_retrieved_at_utc": null,
+        "source_timestamp_basis": "local_file_mtime_proxy_not_verified_download_time",
+        "ohlcv": {
+          "open": "2460",
+          "high": "2502.5",
+          "low": "2455.3",
+          "close": "2479.85",
+          "volume": 1555270
+        },
+        "validation": "passed",
+        "matched_existing_milestone_2k_reconciliation": true,
+        "merged": false
+      },
+      {
+        "date": "2024-11-01",
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "exchange": "NSE",
+        "series": "EQ",
+        "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+        "source_filename": "BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+        "source_sha256": "f45f1ee610a8b1f823682e0c19bb2a51286d11175eb4b0f1194318394cde9b7c",
+        "source_retrieved_at_utc": null,
+        "source_timestamp_basis": "local_file_mtime_proxy_not_verified_download_time",
+        "ohlcv": {
+          "open": "1333.05",
+          "high": "1341.95",
+          "low": "1333.00",
+          "close": "1338.65",
+          "volume": 2127335
+        },
+        "validation": "passed",
+        "matched_existing_milestone_2k_reconciliation": true,
+        "merged": false
+      },
+      {
+        "date": "2026-06-05",
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "exchange": "NSE",
+        "series": "EQ",
+        "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260605_F_0000.csv.zip",
+        "source_filename": "BhavCopy_NSE_CM_0_0_0_20260605_F_0000.csv.zip",
+        "source_sha256": "120156b35ac42eace0520882dd2efb376265f2e26139a7d6f32521074a6db903",
+        "source_retrieved_at_utc": "2026-10-23T10:42:53.642000+00:00",
+        "source_timestamp_basis": "recorded_download_timestamp",
+        "ohlcv": {
+          "open": "1304.50",
+          "high": "1306.00",
+          "low": "1288.00",
+          "close": "1291.00",
+          "volume": 17785223
+        },
+        "validation": "passed",
+        "matched_existing_milestone_2k_reconciliation": true,
+        "merged": false
+      },
+      {
+        "date": "2026-06-15",
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "exchange": "NSE",
+        "series": "EQ",
+        "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260615_F_0000.csv.zip",
+        "source_filename": "BhavCopy_NSE_CM_0_0_0_20260615_F_0000.csv.zip",
+        "source_sha256": "19be8fb43a2c5d67e5ebb00e136141e1fadded8312394186e9d6096e370572ba",
+        "source_retrieved_at_utc": "2026-10-23T10:42:53.930000+00:00",
+        "source_timestamp_basis": "recorded_download_timestamp",
+        "ohlcv": {
+          "open": "1315.30",
+          "high": "1325.00",
+          "low": "1303.30",
+          "close": "1307.00",
+          "volume": 18633321
+        },
+        "validation": "passed",
+        "matched_existing_milestone_2k_reconciliation": true,
+        "merged": false
+      },
+      {
+        "date": "2026-06-16",
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "exchange": "NSE",
+        "series": "EQ",
+        "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260616_F_0000.csv.zip",
+        "source_filename": "BhavCopy_NSE_CM_0_0_0_20260616_F_0000.csv.zip",
+        "source_sha256": "2200b17310b6ecdc43ddc7fc1bbb500248b86f214919a590d42e385ff6491f2c",
+        "source_retrieved_at_utc": "2026-10-23T10:42:54.105000+00:00",
+        "source_timestamp_basis": "recorded_download_timestamp",
+        "ohlcv": {
+          "open": "1313.40",
+          "high": "1333.40",
+          "low": "1306.40",
+          "close": "1328.80",
+          "volume": 18513223
+        },
+        "validation": "passed",
+        "matched_existing_milestone_2k_reconciliation": true,
+        "merged": false
+      },
+      {
+        "date": "2026-06-22",
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "exchange": "NSE",
+        "series": "EQ",
+        "source_url": "https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_20260622_F_0000.csv.zip",
+        "source_filename": "BhavCopy_NSE_CM_0_0_0_20260622_F_0000.csv.zip",
+        "source_sha256": "ea7428e0e2600e9106a6c3545698e0905c2fe164632eb017188ca4a417b905c7",
+        "source_retrieved_at_utc": "2026-10-23T10:42:54.336000+00:00",
+        "source_timestamp_basis": "recorded_download_timestamp",
+        "ohlcv": {
+          "open": "1316.70",
+          "high": "1344.90",
+          "low": "1314.10",
+          "close": "1326.50",
+          "volume": 12931213
+        },
+        "validation": "passed",
+        "matched_existing_milestone_2k_reconciliation": true,
+        "merged": false
+      }
+    ]
+  },
+  "instrument_identity": {
+    "scope": "RELIANCE/NSE only",
+    "provider": {
+      "symbol_field_present": true,
+      "isin_field_present": false,
+      "exchange_field_present": false,
+      "series_field_present": false,
+      "source_context": "https://api.tejhq.dev/v1/ohlcv/nse/RELIANCE?from=2018-01-01&to=2026-10-23",
+      "interpretation": "TejHQ response is requested through its NSE symbol endpoint, but its normalized canonical rows do not carry ISIN or EQ series. Do not claim per-row identity validation from symbol alone."
+    },
+    "recovery_candidates": {
+      "candidate_rows_have_symbol_isin_exchange_series": true,
+      "candidate_dates": 8,
+      "merged": false
+    },
+    "coverage_limit": "RELIANCE-only evidence does not establish all-market or point-in-time-universe coverage."
+  },
+  "data_gaps": [
+    "Provider canonical bars are symbol-only and lack per-row ISIN and EQ-series fields.",
+    "2024-01-20 is a verified live session, but the TejHQ OHLCV row was not compared with that day's official bhavcopy in this audit.",
+    "Ordinary weekdays are expected by the exchange-week rule plus holiday master; this is calendar inference, not date-specific bhavcopy validation.",
+    "Calendar audit stops at 2024-12-31; no full 2025-2026 calendar is supplied.",
+    "RELIANCE-only data does not establish full-market or point-in-time-universe coverage."
+  ],
+  "independent_readiness_gates": {
+    "corporate_action_completeness": "BLOCKED",
+    "historical_transaction_cost_coverage": "BLOCKED",
+    "instrument_universe_identity": "BLOCKED",
+    "historical_session_and_bar_coverage": "BLOCKED"
+  },
+  "source_calendar_modified": false,
+  "effective_calendar_path": "data/reference/milestone_2o/calendar_effective_v4.csv",
+  "outputs": {
+    "effective_calendar_sha256": "3bc2f8405ed2709fd1083300c97b5e2bf5bccdec1b06e4bef095549558db646f",
+    "effective_calendar_provenance_sha256": "b5da1940d1d968a4d96a4738558cfb8e935967a29a49a3abb41ecc711165a3fc",
+    "date_by_date_audit_sha256": "1c46b27793b53b4e7b1f260da0b28596c218fe2d03bdb8d14ffaa0a2524e136d"
+  }
+}

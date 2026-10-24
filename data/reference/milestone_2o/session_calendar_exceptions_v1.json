@@ -1,0 +1,39 @@
+{
+  "schema_version": "nse-session-calendar-exceptions-v1",
+  "registry_id": "nse-cm-calendar-corrections-2018-2024-v1",
+  "scope": "NSE Capital Market session calendar; date-specific exceptions only",
+  "base_calendar": {
+    "path": "data/reference/nse_cm_calendar_2018_2024.csv",
+    "sha256": "b3632c83bd2e420ca4fe2739feafc03c32f2aeb0d9679c4c13c1e35ebf95e567",
+    "preserve_immutable": true
+  },
+  "exceptions": [
+    {
+      "exception_id": "NSE-CM-2024-01-20-MSD59999",
+      "session_date": "2024-01-20",
+      "expected_base_status": "WEEKEND",
+      "corrected_status": "SPECIAL_SESSION",
+      "correction_kind": "special_session_override",
+      "verification_status": "verified",
+      "description": "NSE special live session on Saturday, 2024-01-20 in Equity and Equity Derivatives; intra-day primary-site to DR-site switch.",
+      "source": {
+        "issuer": "National Stock Exchange of India Limited",
+        "document_title": "Special Live trading session on Saturday, January 20, 2024 with intra day switch over to DR site",
+        "publication_date": "2023-12-28",
+        "url": "https://nsearchives.nseindia.com/content/circulars/MSD59999.pdf",
+        "archive_path": "data/reference/milestone_2k/source_archive/nse_special_session_2024_01_20_MSD59999.pdf",
+        "sha256": "614b965d1152ed636052e983a01206117ff6af224365348fa00b7165a6baa243",
+        "retrieved_at_utc": "2026-10-24T05:31:57.2895046Z",
+        "retrieval_timestamp_basis": "captured by prior Milestone 2K archive command",
+        "content_review": "PDF contents inspected; circular explicitly states special live trading on 2024-01-20 in the Capital Market Segment."
+      },
+      "data_note": "TejHQ has a RELIANCE row for this date, but the canonical row does not include ISIN/series and this circular is session evidence, not independent OHLCV verification."
+    }
+  ],
+  "policy": {
+    "source_calendar_is_modified": false,
+    "exceptions_are_applied_only_to_derived_effective_calendars": true,
+    "unlisted_weekends_are_not_promoted_to_sessions": true,
+    "missing_provider_bars_are_not_classified_as_holidays": true
+  }
+}

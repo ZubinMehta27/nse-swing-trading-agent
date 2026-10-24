@@ -254,6 +254,34 @@ overwrite existing outputs. Choose a new output directory for another run:
 python scripts/build_milestone_2m_audit.py --output reports/milestone_2m_v6
 ```
 
+## Milestone 2O — Session calendar and data-readiness audit
+
+`data/reference/milestone_2o/session_calendar_exceptions_v1.json` records verified,
+date-specific corrections separately from the immutable NSE 2018–2024 source calendar.
+It promotes 2024-01-20 from the base calendar's generic weekend label to
+`SPECIAL_SESSION`, based on archived NSE Circular MSD59999. The audit builder
+re-hashes the base calendar and source bytes, writes a separate effective calendar,
+and refuses to overwrite existing versioned outputs:
+
+```powershell
+python scripts/build_milestone_2o_audit.py --output reports/milestone_2o_v4
+```
+
+The current report is [Milestone 2O v4](reports/milestone_2o_v4/readiness.md), with
+[date-by-date audit](reports/milestone_2o_v4/date_by_date_calendar_audit.csv) and
+[machine-readable findings](reports/milestone_2o_v4/audit.json). The audit distinguishes
+verified holidays and special sessions from ordinary session expectations inferred
+from NSE's weekly rule and annual holiday master. It records observed TejHQ bars and
+unmerged official recovery candidates separately. It does not infer exchange closures
+from missing provider rows.
+
+The calendar covers 2018-01-01 through 2024-12-31. The provider history after that
+calendar ends at 2026-10-22 and lacks a full date-by-date official session calendar.
+Provider canonical bars identify symbol but lack ISIN and series; RELIANCE-only
+evidence does not establish full-market coverage. The eight recovery candidates remain
+standalone and are rehashed against their source files and Milestone 2K reconciliation.
+All global data, corporate-action and cost readiness gates remain blocked.
+
 ### Dividend payment timing
 
 Dividend actions distinguish `exact_date`, `documented_window`, and `unknown`

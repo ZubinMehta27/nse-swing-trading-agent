@@ -2,6 +2,12 @@
 
 Offline research tools for Indian NSE/BSE cash-equity swing trading. **PAPER TRADING ONLY.** The package contains local simulation code and an optional, explicit TejHQ historical-data fetcher. It has no broker API, credential handling, or live order submission. Historical backtest results do not guarantee future profitability. The starter strategy is an unvalidated research hypothesis, not financial advice.
 
+## Current Research Readiness
+
+**Status: NOT READY for real-data backtesting.** The latest documented NSE source-reconciliation milestones are [2P](reports/milestone_2p_v5/readiness.md) and [2Q](reports/milestone_2q_v1/readiness.md). Milestone 2P documents the calendar audit and independent verification of the 2024-01-20 RELIANCE bar. Milestone 2Q documents the official NSE 2025-10-21 Muhurat-session RELIANCE bar missing from TejHQ's raw and canonical data; that official record remains evidence-only and has not been merged.
+
+No strategy backtest or profitability evaluation has been run. Outstanding blockers include calendar/bar coverage, corporate-action completeness, verified historical costs, and instrument-universe identity.
+
 ## Install
 
 Python 3.11 or newer is required. CSV ingestion and simulation use the standard library. Parquet is optional:

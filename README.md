@@ -304,3 +304,29 @@ python scripts/build_m2m_payment_timing_readiness.py --output-dir reports/milest
 The readiness report classifies the 17 dividends as 0 exact dates, 3 bounded windows,
 and 14 unknown actionable timings (including 3 prose-only windows that lack explicit
 bounds). Window and unknown timing remain unsupported for portfolio simulation.
+
+## Milestone 2P — Bar verification and calendar extension
+
+The write-once [Milestone 2P readiness report](reports/milestone_2p_v5/readiness.md)
+contains a full date-by-date NSE cash-equity calendar audit through 2026-10-22 and an
+[audit manifest](reports/milestone_2p_v5/audit.json). Rebuild into a new output version;
+existing snapshots are never overwritten:
+
+```powershell
+python scripts/build_milestone_2p_audit.py --output reports/milestone_2p_v5
+```
+
+The extension uses archived NSE Capital Market circulars for the 2025 and 2026 holidays,
+the 2025-02-01 Saturday live session, the 2025-10-21 Muhurat session, and the
+2026-01-15 holiday correction. The official 2024-01-20 CM bhavcopy independently verifies
+the RELIANCE EQ / INE002A01018 OHLCV row. Original source bytes, retrieval timestamps,
+URLs and SHA-256 values are recorded in
+`data/reference/milestone_2p/source_archive_manifest_v1.json`; date-specific calendar
+rules are in `data/reference/milestone_2p/session_calendar_registry_v2.json`.
+
+Ordinary weekday sessions and weekends remain rule-based expectations using NSE's
+published equity weekly rule and the applicable CM holiday list; they are not individual
+daily bhavcopy confirmations. The audit reports TejHQ omissions separately and never
+classifies them as exchange closures. Provider rows still lack ISIN and series, evidence
+is RELIANCE-only, and all original recovery candidates remain unmerged. Corporate-action,
+historical-cost, instrument-universe and overall readiness gates remain blocked.

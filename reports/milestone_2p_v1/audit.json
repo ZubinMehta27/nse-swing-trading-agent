@@ -1,0 +1,314 @@
+{
+  "schema_version": "milestone-2p-independent-bar-calendar-audit-v1",
+  "generated_at_utc": "2026-10-24T13:01:15.524093+00:00",
+  "decision": "BLOCKED",
+  "backtest_run": false,
+  "candidate_bars_merged": false,
+  "scope": {
+    "start": "2018-01-01",
+    "end": "2026-10-22",
+    "calendar_rows": 3217,
+    "symbol": "RELIANCE",
+    "provider_rows": 2166
+  },
+  "jan_20_2024_bar_verification": {
+    "session_date": "2024-01-20",
+    "status": "independently_verified_ohlcv",
+    "instrument": {
+      "symbol": "RELIANCE",
+      "series": "EQ",
+      "isin": "INE002A01018"
+    },
+    "official_source_path": "data/reference/milestone_2p/source_archive/nse_cm_bhavcopy_2024_01_20.zip",
+    "official_source_sha256": "2c41ce167656f708e32e1106b98e0dbb68588cf26209b4a7486d747902a52c27",
+    "official_source_url": "https://archives.nseindia.com/content/historical/EQUITIES/2024/JAN/cm20JAN2024bhav.csv.zip",
+    "archive_member": "cm20JAN2024bhav.csv",
+    "official_ohlcv": {
+      "open": "2730",
+      "high": "2766.95",
+      "low": "2700",
+      "close": "2713.3",
+      "volume": 3641697
+    },
+    "provider_ohlcv": {
+      "open": "2730",
+      "high": "2766.95",
+      "low": "2700",
+      "close": "2713.3",
+      "volume": "3641697"
+    },
+    "field_matches": {
+      "open": true,
+      "high": true,
+      "low": true,
+      "close": true,
+      "volume": true
+    },
+    "all_fields_match": true,
+    "source_manifest_retrieved_at_utc": "2026-10-24T12:58:42.332862+00:00"
+  },
+  "source_archives": [
+    {
+      "source_id": "NSE-BHAVCOPY-2024-01-20",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_bhavcopy_2024_01_20.zip",
+      "url": "https://archives.nseindia.com/content/historical/EQUITIES/2024/JAN/cm20JAN2024bhav.csv.zip",
+      "publication_or_trading_date": "2024-01-20",
+      "retrieved_at_utc": "2026-10-24T12:58:42.332862+00:00",
+      "http_status": 200,
+      "content_type": "application/zip",
+      "byte_length": 97838,
+      "sha256": "2c41ce167656f708e32e1106b98e0dbb68588cf26209b4a7486d747902a52c27",
+      "content_review": "original NSE Capital Market daily bhavcopy; RELIANCE EQ and ISIN row reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-65587-2025",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_holidays_2025_CMTR65587.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR65587.pdf",
+      "publication_or_trading_date": "2024-12-13",
+      "retrieved_at_utc": "2026-10-24T12:58:42.697317+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 96234,
+      "sha256": "1e0f85615fbbcde9243dd6cafbbad4d9b581b8d2467fd9e27c0a4fe42a720c7d",
+      "content_review": "NSE Capital Market annual trading holidays 2025; contents reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-65729-2025",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_special_session_2025_02_01_CMTR65729.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR65729.pdf",
+      "publication_or_trading_date": "2024-12-23",
+      "retrieved_at_utc": "2026-10-24T12:58:42.879234+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 117525,
+      "sha256": "84d12e29654e75f77baa0b9064a26f6d0e4c3ff58e64df14e01247a0c15a91be",
+      "content_review": "NSE Capital Market live Saturday session 2025-02-01; contents reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-70319-2025",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_muhurat_2025_10_21_CMTR70319.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR70319.pdf",
+      "publication_or_trading_date": "2025-09-22",
+      "retrieved_at_utc": "2026-10-24T12:58:43.198992+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 87867,
+      "sha256": "19b7d88003cb05eb8c6abdc8d1bfad5df821a17e4f9ae36f75e327a68a48d258",
+      "content_review": "NSE Capital Market Muhurat session 2025-10-21; contents reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-71775-2026",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_holidays_2026_CMTR71775.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf",
+      "publication_or_trading_date": "2025-12-12",
+      "retrieved_at_utc": "2026-10-24T12:58:43.371346+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 176256,
+      "sha256": "aa97e0afc0ce394097f2fc62631c68e3c2e4c7c23541ed35f21d9fc06b0dcacb",
+      "content_review": "NSE Capital Market annual trading holidays 2026; contents reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-72260-2026",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_holiday_correction_2026_01_15_CMTR72260.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR72260.pdf",
+      "publication_or_trading_date": "2026-01-12",
+      "retrieved_at_utc": "2026-10-24T12:58:43.688023+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 78974,
+      "sha256": "c5d32a838b46d5044717b830a4793479a51a40f8e4e19d3896c65682d15b6ebc",
+      "content_review": "NSE Capital Market holiday correction for 2026-01-15; contents reviewed"
+    },
+    {
+      "source_id": "NSE-MARKET-HOLIDAYS-RULES-PAGE",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_market_holidays_rules_page.html",
+      "url": "https://www.nseindia.com/resources/exchange-communication-holidays?apiversion=v2",
+      "publication_or_trading_date": "page updated 2026",
+      "retrieved_at_utc": "2026-10-24T12:58:43.861633+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "byte_length": 321804,
+      "sha256": "038e4696ccd25a6094ca8b366838e901764d5534e7142c971ec457f0e68b6ece",
+      "content_review": "NSE equities weekly trading rule and holidays page; contents reviewed"
+    }
+  ],
+  "source_fingerprints": {
+    "registry": "526203eebf2864c5d349c55ac9efdb97ee3796a64028f672b3ef1d8b62e8f248",
+    "source_manifest": "975eb719d95a6eb2d5b2248129caa1b187510986f5e97ede46902d63ac9cabfc",
+    "provider_dataset": "916a10c4b0ad0fe856f3d78aad94374563dbbfb71f123eacf2e4114dfd94a045",
+    "provider_manifest": "aca70c5f6ccfceb3ab197677e2cfc2e8334343772649e31e8367b09af45ed825",
+    "provider_raw": "fd48f50f69338ee1f9b705bd889af7e7f0c8767751dfa0ab5126be6c7e502633",
+    "candidate_dataset": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8",
+    "candidate_manifest": "f263823a74c6ad9e4208a31f6723b8cc133814b19d23f09cb6ade7826ef90a55",
+    "base_calendar": "b3632c83bd2e420ca4fe2739feafc03c32f2aeb0d9679c4c13c1e35ebf95e567"
+  },
+  "calendar_evidence": {
+    "calendar_rule": {
+      "verification_status": "official_rule_reviewed; ordinary dates remain rule-inferred, not individually verified",
+      "source_url": "https://www.nseindia.com/resources/exchange-communication-holidays?apiversion=v2",
+      "source_archive_path": "data/reference/milestone_2p/source_archive/nse_market_holidays_rules_page.html",
+      "source_sha256": "038e4696ccd25a6094ca8b366838e901764d5534e7142c971ec457f0e68b6ece",
+      "rule": "Equities trade all days except Saturdays, Sundays and holidays declared by the Exchange in advance.",
+      "limitation": "A weekly rule and published holiday schedule do not independently attest every individual ordinary session or unannounced disruptions."
+    },
+    "cash_market_sources_only": true,
+    "f_and_o_sources_used": false,
+    "year_status_counts": {
+      "2018": {
+        "HOLIDAY": 15,
+        "SESSION": 245,
+        "SPECIAL_SESSION": 1,
+        "WEEKEND": 101,
+        "WEEKEND_HOLIDAY": 3
+      },
+      "2019": {
+        "HOLIDAY": 17,
+        "SESSION": 244,
+        "WEEKEND": 100,
+        "WEEKEND_HOLIDAY": 4
+      },
+      "2020": {
+        "HOLIDAY": 12,
+        "SESSION": 250,
+        "WEEKEND": 97,
+        "WEEKEND_HOLIDAY": 7
+      },
+      "2021": {
+        "HOLIDAY": 13,
+        "SESSION": 247,
+        "SPECIAL_SESSION": 1,
+        "WEEKEND": 99,
+        "WEEKEND_HOLIDAY": 5
+      },
+      "2022": {
+        "HOLIDAY": 12,
+        "SESSION": 247,
+        "SPECIAL_SESSION": 1,
+        "WEEKEND": 100,
+        "WEEKEND_HOLIDAY": 5
+      },
+      "2023": {
+        "HOLIDAY": 15,
+        "SESSION": 245,
+        "WEEKEND": 101,
+        "WEEKEND_HOLIDAY": 4
+      },
+      "2024": {
+        "HOLIDAY": 16,
+        "SESSION": 245,
+        "SPECIAL_SESSION": 2,
+        "WEEKEND": 97,
+        "WEEKEND_HOLIDAY": 6
+      },
+      "2025": {
+        "HOLIDAY": 13,
+        "SESSION": 247,
+        "SPECIAL_SESSION": 2,
+        "WEEKEND": 103
+      },
+      "2026": {
+        "HOLIDAY": 13,
+        "SESSION": 198,
+        "WEEKEND": 84
+      }
+    },
+    "classification_counts": {
+      "confirmed_exchange_holiday": 126,
+      "independently_verified_special_session_bar": 1,
+      "inferred_weekend_non_session_no_bar": 882,
+      "official_candidate_unmerged_confirms_session": 8,
+      "provider_bar_on_inferred_ordinary_session": 2164,
+      "provider_bar_on_verified_special_session": 1,
+      "provider_omission_on_verified_special_session": 1,
+      "unresolved_calendar_expectation": 34
+    },
+    "unresolved_calendar_dates": [
+      "2018-03-25",
+      "2018-04-14",
+      "2018-06-16",
+      "2019-01-26",
+      "2019-04-13",
+      "2019-04-14",
+      "2019-10-27",
+      "2020-01-26",
+      "2020-08-01",
+      "2020-08-15",
+      "2020-08-22",
+      "2020-08-30",
+      "2020-10-25",
+      "2020-11-14",
+      "2021-04-25",
+      "2021-05-01",
+      "2021-08-15",
+      "2021-10-02",
+      "2021-12-25",
+      "2022-04-10",
+      "2022-05-01",
+      "2022-07-10",
+      "2022-10-02",
+      "2022-12-25",
+      "2023-02-18",
+      "2023-04-22",
+      "2023-07-29",
+      "2023-11-12",
+      "2024-03-02",
+      "2024-04-14",
+      "2024-04-21",
+      "2024-09-07",
+      "2024-10-12",
+      "2024-11-02"
+    ],
+    "provider_omission_dates": [
+      "2025-10-21"
+    ],
+    "limitations": [
+      "Calendar sessions before 2025 are based on the existing 2O base calendar and its evidence/provenance.",
+      "For 2025-10-22 through 2026-10-22 ordinary dates are inferred from the official NSE weekly rule and the verified CM holiday notices; they are not each independently corroborated by daily bhavcopy.",
+      "The audit and all observed data are RELIANCE-only and do not establish market-wide coverage or point-in-time universe completeness.",
+      "Official calendar evidence cannot establish that a particular security traded; a missing RELIANCE row remains a provider omission or unresolved bar gap."
+    ]
+  },
+  "instrument_coverage": {
+    "symbol": "RELIANCE",
+    "provider_has_isin": false,
+    "provider_has_exchange_field": false,
+    "provider_has_series_field": false,
+    "official_verified_bar_identity": {
+      "symbol": "RELIANCE",
+      "exchange": "NSE",
+      "series": "EQ",
+      "isin": "INE002A01018"
+    },
+    "scope_warning": "RELIANCE-only evidence does not establish full-market or point-in-time-universe coverage."
+  },
+  "candidate_reconciliation": {
+    "rows": 8,
+    "sha256": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8",
+    "standalone": true,
+    "merged": false,
+    "dates": [
+      "2018-11-07",
+      "2021-11-04",
+      "2022-10-24",
+      "2024-11-01",
+      "2026-06-05",
+      "2026-06-15",
+      "2026-06-16",
+      "2026-06-22"
+    ]
+  },
+  "independent_readiness_gates": {
+    "historical_session_and_bar_coverage": "BLOCKED",
+    "corporate_action_completeness": "BLOCKED",
+    "historical_transaction_cost_coverage": "BLOCKED",
+    "instrument_universe_identity": "BLOCKED"
+  },
+  "effective_calendar_path": "data/reference/milestone_2p/calendar_2018_2026-10-22_v1.csv",
+  "outputs": {
+    "date_by_date_csv": "reports/milestone_2p_v1/date_by_date_audit.csv",
+    "date_by_date_csv_sha256": "f8347b5cb7241fed995fe107ac33ccb7641d3258bd10bf2488cfbb6f712d1fdb",
+    "effective_calendar_sha256": "4e506e6fefc8449ee59cf033d7b6ca5e779e73e06f44f1f24b429dd34224e4da",
+    "effective_calendar_provenance_sha256": "efd7238af16590267e325d316c212771e43acf96788e87725490ca94e14d6854"
+  }
+}

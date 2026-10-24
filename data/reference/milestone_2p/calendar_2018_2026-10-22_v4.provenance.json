@@ -1,0 +1,12 @@
+{
+  "schema_version": "nse-derived-cm-calendar-v1",
+  "calendar_path": "data/reference/milestone_2p/calendar_2018_2026-10-22_v4.csv",
+  "calendar_sha256": "4e506e6fefc8449ee59cf033d7b6ca5e779e73e06f44f1f24b429dd34224e4da",
+  "source_registry_path": "data/reference/milestone_2p/session_calendar_registry_v2.json",
+  "source_registry_sha256": "526203eebf2864c5d349c55ac9efdb97ee3796a64028f672b3ef1d8b62e8f248",
+  "source_manifest_path": "data/reference/milestone_2p/source_archive_manifest_v1.json",
+  "source_manifest_sha256": "975eb719d95a6eb2d5b2248129caa1b187510986f5e97ede46902d63ac9cabfc",
+  "source_calendar_2018_2024_unchanged": true,
+  "candidate_bars_merged": false,
+  "generated_at_utc": "2026-10-24T13:03:15.634479+00:00"
+}

@@ -1,0 +1,240 @@
+{
+  "schema_version": "nse-cm-session-calendar-registry-v2",
+  "registry_id": "nse-cm-calendar-evidence-2018-2026-10-22-v2",
+  "scope": "NSE Capital Market cash-equity trading sessions through 2026-10-22; not F&O or settlement calendar",
+  "cutoff_date": "2026-10-22",
+  "source_calendar_2018_2024": {
+    "path": "data/reference/nse_cm_calendar_2018_2024.csv",
+    "sha256": "b3632c83bd2e420ca4fe2739feafc03c32f2aeb0d9679c4c13c1e35ebf95e567",
+    "exception_registry_path": "data/reference/milestone_2o/session_calendar_exceptions_v1.json",
+    "exception_registry_sha256": "05e67c8f2d99e45bdb2c1cdec698cdbd28daacfcc128215e6f265fb4cdd33474",
+    "policy": "Original calendar remains immutable; its verified date-specific exceptions are applied only to derived output."
+  },
+  "sources_manifest": "data/reference/milestone_2p/source_archive_manifest_v1.json",
+  "ordinary_session_rule": {
+    "verification_status": "official_rule_reviewed; ordinary dates remain rule-inferred, not individually verified",
+    "source_url": "https://www.nseindia.com/resources/exchange-communication-holidays?apiversion=v2",
+    "source_archive_path": "data/reference/milestone_2p/source_archive/nse_market_holidays_rules_page.html",
+    "source_sha256": "038e4696ccd25a6094ca8b366838e901764d5534e7142c971ec457f0e68b6ece",
+    "rule": "Equities trade all days except Saturdays, Sundays and holidays declared by the Exchange in advance.",
+    "limitation": "A weekly rule and published holiday schedule do not independently attest every individual ordinary session or unannounced disruptions."
+  },
+  "annual_holidays": {
+    "2025": {
+      "source_id": "NSE-CMTR-65587-2025",
+      "source_path": "data/reference/milestone_2p/source_archive/nse_cm_holidays_2025_CMTR65587.pdf",
+      "source_sha256": "1e0f85615fbbcde9243dd6cafbbad4d9b581b8d2467fd9e27c0a4fe42a720c7d",
+      "source_url": "https://nsearchives.nseindia.com/content/circulars/CMTR65587.pdf",
+      "publication_date": "2024-12-13",
+      "dates": [
+        [
+          "2025-02-26",
+          "Mahashivratri"
+        ],
+        [
+          "2025-03-14",
+          "Holi"
+        ],
+        [
+          "2025-03-31",
+          "Id-Ul-Fitr (Ramadan Eid)"
+        ],
+        [
+          "2025-04-10",
+          "Shri Mahavir Jayanti"
+        ],
+        [
+          "2025-04-14",
+          "Dr. Baba Saheb Ambedkar Jayanti"
+        ],
+        [
+          "2025-04-18",
+          "Good Friday"
+        ],
+        [
+          "2025-05-01",
+          "Maharashtra Day"
+        ],
+        [
+          "2025-08-15",
+          "Independence Day"
+        ],
+        [
+          "2025-08-27",
+          "Ganesh Chaturthi"
+        ],
+        [
+          "2025-10-02",
+          "Mahatma Gandhi Jayanti/Dussehra"
+        ],
+        [
+          "2025-10-21",
+          "Diwali Laxmi Pujan (special session supersedes closure)"
+        ],
+        [
+          "2025-10-22",
+          "Diwali-Balipratipada"
+        ],
+        [
+          "2025-11-05",
+          "Prakash Gurpurb Sri Guru Nanak Dev"
+        ],
+        [
+          "2025-12-25",
+          "Christmas"
+        ]
+      ],
+      "weekend_holidays": [
+        [
+          "2025-01-26",
+          "Republic Day"
+        ],
+        [
+          "2025-04-06",
+          "Shri Ram Navami"
+        ],
+        [
+          "2025-06-07",
+          "Bakri Id"
+        ],
+        [
+          "2025-07-06",
+          "Muharram"
+        ]
+      ]
+    },
+    "2026": {
+      "source_id": "NSE-CMTR-71775-2026",
+      "source_path": "data/reference/milestone_2p/source_archive/nse_cm_holidays_2026_CMTR71775.pdf",
+      "source_sha256": "aa97e0afc0ce394097f2fc62631c68e3c2e4c7c23541ed35f21d9fc06b0dcacb",
+      "source_url": "https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf",
+      "publication_date": "2025-12-12",
+      "dates": [
+        [
+          "2026-01-26",
+          "Republic Day"
+        ],
+        [
+          "2026-03-03",
+          "Holi"
+        ],
+        [
+          "2026-03-26",
+          "Shri Ram Navami"
+        ],
+        [
+          "2026-03-31",
+          "Shri Mahavir Jayanti"
+        ],
+        [
+          "2026-04-03",
+          "Good Friday"
+        ],
+        [
+          "2026-04-14",
+          "Dr. Baba Saheb Ambedkar Jayanti"
+        ],
+        [
+          "2026-05-01",
+          "Maharashtra Day"
+        ],
+        [
+          "2026-05-28",
+          "Bakri Id"
+        ],
+        [
+          "2026-06-26",
+          "Muharram"
+        ],
+        [
+          "2026-09-14",
+          "Ganesh Chaturthi"
+        ],
+        [
+          "2026-10-02",
+          "Mahatma Gandhi Jayanti"
+        ],
+        [
+          "2026-10-20",
+          "Dussehra"
+        ]
+      ],
+      "weekend_holidays": [
+        [
+          "2026-02-15",
+          "Mahashivratri"
+        ],
+        [
+          "2026-03-21",
+          "Id-Ul-Fitr (Ramadan Eid)"
+        ],
+        [
+          "2026-08-15",
+          "Independence Day"
+        ]
+      ],
+      "out_of_scope_notice": [
+        "2026-11-08",
+        "Diwali Laxmi Pujan; outside requested cutoff, no calendar day emitted"
+      ]
+    }
+  },
+  "exceptions": [
+    {
+      "exception_id": "NSE-CM-2024-01-20-MSD59999",
+      "date": "2024-01-20",
+      "status": "SPECIAL_SESSION",
+      "verification_status": "verified_session_and_bar",
+      "source_ids": [
+        "NSE-MSD59999-2024",
+        "NSE-BHAVCOPY-2024-01-20"
+      ],
+      "details": "Saturday live CM session and RELIANCE EQ/INE002A01018 OHLCV row independently verified."
+    },
+    {
+      "exception_id": "NSE-CM-2025-02-01-CMTR65729",
+      "date": "2025-02-01",
+      "status": "SPECIAL_SESSION",
+      "verification_status": "verified_session_only",
+      "source_ids": [
+        "NSE-CMTR-65729-2025"
+      ],
+      "details": "Saturday live CM session for Union Budget; no claim that RELIANCE traded or has a bar."
+    },
+    {
+      "exception_id": "NSE-CM-2025-10-21-CMTR70319",
+      "date": "2025-10-21",
+      "status": "SPECIAL_SESSION",
+      "verification_status": "verified_session_only",
+      "source_ids": [
+        "NSE-CMTR-65587-2025",
+        "NSE-CMTR-70319-2025"
+      ],
+      "details": "Muhurat live session overrides annual holiday closure listing."
+    },
+    {
+      "exception_id": "NSE-CM-2026-01-15-CMTR72260",
+      "date": "2026-01-15",
+      "status": "HOLIDAY",
+      "verification_status": "verified",
+      "source_ids": [
+        "NSE-CMTR-72260-2026"
+      ],
+      "details": "Capital Market trading holiday added by partial modification to annual circular."
+    }
+  ],
+  "cash_market_identity_policy": "Only sources explicitly marked CAPITAL MARKET / CM / equities are used for trade-session classifications. F&O or currency holiday notices are excluded.",
+  "data_policy": {
+    "provider": "TejHQ",
+    "adjustment": "raw_unadjusted",
+    "candidate_bars_merged": false,
+    "source_inputs_immutable": true,
+    "missing_provider_bars_do_not_imply_exchange_closure": true
+  },
+  "limitations": [
+    "Calendar sessions before 2025 are based on the existing 2O base calendar and its evidence/provenance.",
+    "For 2025-10-22 through 2026-10-22 ordinary dates are inferred from the official NSE weekly rule and the verified CM holiday notices; they are not each independently corroborated by daily bhavcopy.",
+    "The audit and all observed data are RELIANCE-only and do not establish market-wide coverage or point-in-time universe completeness.",
+    "Official calendar evidence cannot establish that a particular security traded; a missing RELIANCE row remains a provider omission or unresolved bar gap."
+  ]
+}

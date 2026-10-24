@@ -1,0 +1,90 @@
+{
+  "schema_version": "nse-source-archive-manifest-v1",
+  "retrieval_method": "direct HTTPS GET via Python urllib.request; response bytes stored unchanged",
+  "sources": [
+    {
+      "source_id": "NSE-BHAVCOPY-2024-01-20",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_bhavcopy_2024_01_20.zip",
+      "url": "https://archives.nseindia.com/content/historical/EQUITIES/2024/JAN/cm20JAN2024bhav.csv.zip",
+      "publication_or_trading_date": "2024-01-20",
+      "retrieved_at_utc": "2026-10-24T12:58:42.332862+00:00",
+      "http_status": 200,
+      "content_type": "application/zip",
+      "byte_length": 97838,
+      "sha256": "2c41ce167656f708e32e1106b98e0dbb68588cf26209b4a7486d747902a52c27",
+      "content_review": "original NSE Capital Market daily bhavcopy; RELIANCE EQ and ISIN row reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-65587-2025",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_holidays_2025_CMTR65587.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR65587.pdf",
+      "publication_or_trading_date": "2024-12-13",
+      "retrieved_at_utc": "2026-10-24T12:58:42.697317+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 96234,
+      "sha256": "1e0f85615fbbcde9243dd6cafbbad4d9b581b8d2467fd9e27c0a4fe42a720c7d",
+      "content_review": "NSE Capital Market annual trading holidays 2025; contents reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-65729-2025",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_special_session_2025_02_01_CMTR65729.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR65729.pdf",
+      "publication_or_trading_date": "2024-12-23",
+      "retrieved_at_utc": "2026-10-24T12:58:42.879234+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 117525,
+      "sha256": "84d12e29654e75f77baa0b9064a26f6d0e4c3ff58e64df14e01247a0c15a91be",
+      "content_review": "NSE Capital Market live Saturday session 2025-02-01; contents reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-70319-2025",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_muhurat_2025_10_21_CMTR70319.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR70319.pdf",
+      "publication_or_trading_date": "2025-09-22",
+      "retrieved_at_utc": "2026-10-24T12:58:43.198992+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 87867,
+      "sha256": "19b7d88003cb05eb8c6abdc8d1bfad5df821a17e4f9ae36f75e327a68a48d258",
+      "content_review": "NSE Capital Market Muhurat session 2025-10-21; contents reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-71775-2026",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_holidays_2026_CMTR71775.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf",
+      "publication_or_trading_date": "2025-12-12",
+      "retrieved_at_utc": "2026-10-24T12:58:43.371346+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 176256,
+      "sha256": "aa97e0afc0ce394097f2fc62631c68e3c2e4c7c23541ed35f21d9fc06b0dcacb",
+      "content_review": "NSE Capital Market annual trading holidays 2026; contents reviewed"
+    },
+    {
+      "source_id": "NSE-CMTR-72260-2026",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_cm_holiday_correction_2026_01_15_CMTR72260.pdf",
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR72260.pdf",
+      "publication_or_trading_date": "2026-01-12",
+      "retrieved_at_utc": "2026-10-24T12:58:43.688023+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "byte_length": 78974,
+      "sha256": "c5d32a838b46d5044717b830a4793479a51a40f8e4e19d3896c65682d15b6ebc",
+      "content_review": "NSE Capital Market holiday correction for 2026-01-15; contents reviewed"
+    },
+    {
+      "source_id": "NSE-MARKET-HOLIDAYS-RULES-PAGE",
+      "archive_path": "data/reference/milestone_2p/source_archive/nse_market_holidays_rules_page.html",
+      "url": "https://www.nseindia.com/resources/exchange-communication-holidays?apiversion=v2",
+      "publication_or_trading_date": "page updated 2026",
+      "retrieved_at_utc": "2026-10-24T12:58:43.861633+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "byte_length": 321804,
+      "sha256": "038e4696ccd25a6094ca8b366838e901764d5534e7142c971ec457f0e68b6ece",
+      "content_review": "NSE equities weekly trading rule and holidays page; contents reviewed"
+    }
+  ]
+}

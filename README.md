@@ -330,3 +330,20 @@ daily bhavcopy confirmations. The audit reports TejHQ omissions separately and n
 classifies them as exchange closures. Provider rows still lack ISIN and series, evidence
 is RELIANCE-only, and all original recovery candidates remain unmerged. Corporate-action,
 historical-cost, instrument-universe and overall readiness gates remain blocked.
+
+## Milestone 2Q — 2025-10-21 RELIANCE source reconciliation
+
+The [single-date reconciliation](reports/milestone_2q_v1/readiness.md) confirms that
+the official NSE CM-UDiFF bhavcopy contains one RELIANCE EQ / INE002A01018 record for
+the Muhurat session. It reports open 1468.00, high 1474.00, low 1460.00, close 1465.20
+and volume 2,066,169. TejHQ has no canonical or raw-response row for that date. The
+official source remains an evidence-only record and was not merged. Its source metadata
+and SHA-256 are in `reports/milestone_2q_v1/provenance.json`; the downloaded raw ZIP is
+preserved under `data/raw/nse/`.
+
+To validate the archived source again and write another versioned report, choose a new
+output directory. The command performs no network access and refuses to overwrite reports:
+
+```powershell
+python scripts/build_milestone_2q_report.py --output reports/milestone_2q_v2
+```

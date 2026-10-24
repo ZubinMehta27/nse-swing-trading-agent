@@ -11,4 +11,8 @@ build/
 data/cache/
 data/raw/*
 !data/raw/README.md
+!data/raw/nse/
+data/raw/nse/*
+!data/raw/nse/BhavCopy_NSE_CM_0_0_0_20251021_F_0000.csv.zip
+!data/raw/nse/BhavCopy_NSE_CM_0_0_0_20251021_F_0000.csv.provenance.json
 backtest-output/

@@ -1,0 +1,1793 @@
+{
+  "schema_version": "milestone-2m-corporate-action-audit-v1",
+  "generated_at_utc": "2026-10-24T06:01:58.682602+00:00",
+  "prior_audit": {
+    "path": "reports/milestone_2l_v1/corporate_action_audit.json",
+    "sha256": "0cf3ce8ea7a53db26ef9899231fefd5b4d34ffb98a601de8241b1469bcd60062",
+    "preserved_unchanged": true
+  },
+  "decision": "BLOCKED",
+  "real_data_backtest_run": false,
+  "scope": {
+    "provider_rows": 25,
+    "economic_event_groups": 21,
+    "candidate_bars_merged": false,
+    "complete_action_history_established": false
+  },
+  "counts": {
+    "provider_rows": 25,
+    "economic_events": 21,
+    "duplicate_cross_exchange_representation_groups": 4,
+    "fully_verified_event_terms": 4,
+    "partially_corroborated_event_terms": 11,
+    "unresolved_event_terms": 6,
+    "dividend_exact_payment_dates_unresolved": 17,
+    "unresolved_field_counts": {
+      "ex_date": 1,
+      "payment_date": 17,
+      "record_date": 6
+    },
+    "dividend_events_with_exact_payment_date": 0,
+    "dividend_events_with_newly_archived_payment_window": 2,
+    "provider_action_feed_completeness_proven": false
+  },
+  "newly_verified_terms": {
+    "event_2010": {
+      "board_recommendation_date": "2010-04-23",
+      "amount_inr_per_share": "7.00",
+      "record_date": "2010-05-11",
+      "verified_against": [
+        "RIL annual report 2009-10",
+        "BSE-hosted RIL annual report 2009-10"
+      ],
+      "limitations": [
+        "AGM approval date not independently extracted from the retrieved report",
+        "ex-date still lacks primary-source confirmation",
+        "actual payment date/window remains unavailable"
+      ]
+    },
+    "payment_windows": {
+      "2020-07-02": {
+        "start": "2020-07-16",
+        "end": "2020-07-22",
+        "source_ids": [
+          "ril_2019_2020_annual_report"
+        ]
+      },
+      "2021-06-11": {
+        "start": "2021-06-24",
+        "end": "2021-06-30",
+        "source_ids": [
+          "ril_2020_2021_annual_report"
+        ]
+      }
+    }
+  },
+  "accounting_assessment": {
+    "supported_and_tested": [
+      "dividend entitlement from prior-close holding; ex-date receivable and payment-date cash",
+      "split and bonus quantity and basis scaling, plus stop/target rebasing",
+      "fractional share results block without cash-in-lieu terms"
+    ],
+    "blocked_and_tested": [
+      "rights issues",
+      "demergers",
+      "mergers",
+      "buybacks",
+      "delistings"
+    ],
+    "payment_window_policy": "Not supported as a cash-credit schedule. The current model requires an exact payment date, and the documented windows do not identify the actual posting date. Do not replace a window with its start or end date.",
+    "synthetic_tests_are_coverage_evidence": false
+  },
+  "bounded_window_assessment": {
+    "eligible_period": null,
+    "decision": "NO_WINDOW_PASSES_ALL_GATES",
+    "reasons": [
+      "issuer action-history completeness is not established for any proposed interval",
+      "dividend exact payment dates remain unavailable and payment windows are not modeled",
+      "rights and demerger accounting is unsupported where relevant",
+      "historical session/data identity gaps remain unresolved",
+      "complete date-effective historical transaction costs remain unverified"
+    ],
+    "does_not_weaken_global_readiness": true
+  },
+  "sources": {
+    "ril_2009_2010_annual_report": {
+      "url": "https://www.ril.com/sites/default/files/2022-12/2009-2010.pdf",
+      "publication_date": "2010-07 (annual report; exact publication day unavailable)",
+      "retrieved_at_utc": "2026-10-24T05:58:45.817929+00:00",
+      "retrieval_outcome": "source_bytes_archived_and_content_reviewed",
+      "retrieval_time_note": "No per-file retrieval timestamp was captured by the fetch command; do not infer it from file mtime.",
+      "archive_path": "data/reference/milestone_2m/source_archive/ril_2009_2010_annual_report.pdf",
+      "sha256": "01c9e39ffa4b49f3ddb79431b4988b41a238bb1ef531c50c16efd1c09c9298f8",
+      "bytes": 10805998,
+      "relevance": "Records the 2009-10 Board recommendation of INR 7 per share on 2010-04-23, subject to shareholder approval at the AGM. It does not establish the exact payment date in the inspected passages."
+    },
+    "bse_2009_2010_annual_report": {
+      "url": "https://www.bseindia.com/bseplus/AnnualReport/500325/5003250310.pdf",
+      "publication_date": "2010 (annual report; exact publication day unavailable)",
+      "retrieved_at_utc": "2026-10-24T06:01:02.855395+00:00",
+      "retrieval_outcome": "source_bytes_archived_and_content_reviewed",
+      "retrieval_time_note": "No per-file retrieval timestamp was captured by the fetch command; do not infer it from file mtime.",
+      "archive_path": "data/reference/milestone_2m/source_archive/bse_2009_2010_annual_report.pdf",
+      "sha256": "01c9e39ffa4b49f3ddb79431b4988b41a238bb1ef531c50c16efd1c09c9298f8",
+      "bytes": 10805998,
+      "relevance": "Issuer annual report hosted by BSE: recommends INR 7 per share and states eligible members as of 2010-05-11. This is an official issuer/exchange copy; the source does not itself establish the ex-date or actual payment date."
+    },
+    "ril_2019_2020_annual_report": {
+      "url": "https://www.ril.com/ar2019-20/pdf/RIL_Integrated-Annual-Report-2019-2020.pdf",
+      "publication_date": "2020 (annual report; exact publication day unavailable)",
+      "retrieved_at_utc": "2026-10-24T05:58:50.853395+00:00",
+      "retrieval_outcome": "source_bytes_archived_and_content_reviewed",
+      "retrieval_time_note": "No per-file retrieval timestamp was captured by the fetch command; do not infer it from file mtime.",
+      "archive_path": "data/reference/milestone_2m/source_archive/ril_2019_2020_annual_report.pdf",
+      "sha256": "03deaebfcedb1e642a5d4ac3afc55393038fe4d726f4c91aa795be6e8f4a1044",
+      "bytes": 12311737,
+      "relevance": "Issuer annual report specifies the electronic dividend payment window 2020-07-16 through 2020-07-22. It does not establish which day an individual account received funds."
+    },
+    "ril_2020_2021_annual_report": {
+      "url": "https://www.ril.com/ar2020-21/pdf/reliance-annual-report-21.pdf",
+      "publication_date": "2021 (annual report; exact publication day unavailable)",
+      "retrieved_at_utc": "2026-10-24T05:58:52.119865+00:00",
+      "retrieval_outcome": "source_bytes_archived_and_content_reviewed",
+      "retrieval_time_note": "No per-file retrieval timestamp was captured by the fetch command; do not infer it from file mtime.",
+      "archive_path": "data/reference/milestone_2m/source_archive/ril_2020_2021_annual_report.pdf",
+      "sha256": "47e95d2a34e69dc63dd938417aa5429b5b54f48382edef8efddb2a3dbc14f073",
+      "bytes": 21624023,
+      "relevance": "Issuer annual report specifies the electronic dividend payment window 2021-06-24 through 2021-06-30. It does not establish which day an individual account received funds."
+    }
+  },
+  "events": [
+    {
+      "event_group": "0cced65e2e86064d",
+      "source_row_ids": [
+        "tejhq-actions-row-07",
+        "tejhq-actions-row-08"
+      ],
+      "exchange_representations": [
+        "BSE",
+        "NSE"
+      ],
+      "representation_count": 2,
+      "duplicate_exchange_representation": true,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2024-08-19",
+        "record_date": "2024-08-19",
+        "type": "dividend",
+        "cash_amount": 10,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2024-08-19",
+        "record_date": "2024-08-19",
+        "type": "dividend",
+        "cash_amount": 10,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Dividend - Rs 10 Per Share",
+        "amount_inr_per_share": "10",
+        "payment_window": "within one week after the 2024-08-29 AGM; exact date not established in archived evidence",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_24_annual_report",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": {
+            "description": "within one week after the 2024-08-29 AGM; exact date not established in archived evidence",
+            "source_ids": [
+              "nse_actions_api",
+              "ril_2023_24_annual_report",
+              "ril_dividend_history"
+            ],
+            "exact_bounds_verified": false,
+            "inherited_from": "milestone_2l_v1/corporate_action_audit.json"
+          },
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "0f93df511080e00c",
+      "source_row_ids": [
+        "tejhq-actions-row-03",
+        "tejhq-actions-row-04"
+      ],
+      "exchange_representations": [
+        "BSE",
+        "NSE"
+      ],
+      "representation_count": 2,
+      "duplicate_exchange_representation": true,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2025-08-14",
+        "record_date": "2025-08-14",
+        "type": "dividend",
+        "cash_amount": 5.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2025-08-14",
+        "record_date": "2025-08-14",
+        "type": "dividend",
+        "cash_amount": 5.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Dividend - Rs 5.5 Per Share",
+        "amount_inr_per_share": "5.5",
+        "payment_window": "2025-08-29 through 2025-09-04; exact date not established",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2025_agm",
+        "ril_2025_annual_report",
+        "ril_2025_record",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "The earlier Aug 13 value came from a non-symbol-specific NSE page. Issuer filing and symbol-bound NSE API both give Aug 14; no RELIANCE correction notice was needed to resolve that misattributed value."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": {
+            "description": "2025-08-29 through 2025-09-04; exact date not established",
+            "source_ids": [
+              "nse_actions_api",
+              "ril_2025_agm",
+              "ril_2025_annual_report",
+              "ril_2025_record",
+              "ril_dividend_history"
+            ],
+            "exact_bounds_verified": false,
+            "inherited_from": "milestone_2l_v1/corporate_action_audit.json"
+          },
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "101cb3f69c1a30a8",
+      "source_row_ids": [
+        "tejhq-actions-row-09"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2023-08-21",
+        "record_date": "2023-08-21",
+        "type": "dividend",
+        "cash_amount": 9,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2023-08-21",
+        "record_date": "2023-08-21",
+        "type": "dividend",
+        "cash_amount": 9,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Dividend - Rs 9 Per Share",
+        "amount_inr_per_share": "9",
+        "payment_window": "within one week after the 2023-08-28 AGM; exact date not established",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_2023_record",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": {
+            "description": "within one week after the 2023-08-28 AGM; exact date not established",
+            "source_ids": [
+              "nse_actions_api",
+              "ril_2023_agm_notice",
+              "ril_2023_record",
+              "ril_dividend_history"
+            ],
+            "exact_bounds_verified": false,
+            "inherited_from": "milestone_2l_v1/corporate_action_audit.json"
+          },
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "1c7d0b26786fda6e",
+      "source_row_ids": [
+        "tejhq-actions-row-24"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2011-05-05",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 8,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2011-05-05",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 8,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Dividend-Rs.8/- Per Share",
+        "amount_inr_per_share": "8",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "unresolved",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date",
+        "record_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "29f1f82bd2810436",
+      "source_row_ids": [
+        "tejhq-actions-row-12"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2021-06-11",
+        "record_date": "2021-06-14",
+        "type": "dividend",
+        "cash_amount": 7,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2021-06-11",
+        "record_date": "2021-06-14",
+        "type": "dividend",
+        "cash_amount": 7,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": " Dividend - Rs 7 Per Share",
+        "amount_inr_per_share": "7",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": {
+            "start": "2021-06-24",
+            "end": "2021-06-30",
+            "source_ids": [
+              "ril_2020_2021_annual_report"
+            ]
+          },
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "2c68822d5e3e356e",
+      "source_row_ids": [
+        "tejhq-actions-row-21"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2014-05-16",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 9.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2014-05-16",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 9.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Dividend Rs. 9.50 Per Equity Share",
+        "amount_inr_per_share": "9.5",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "unresolved",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date",
+        "record_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "2f1a1dc95cd07ecc",
+      "source_row_ids": [
+        "tejhq-actions-row-10"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2023-07-20",
+        "record_date": "2023-07-20",
+        "type": "demerger",
+        "cash_amount": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "demerger",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2023-07-20",
+        "record_date": "2023-07-20",
+        "type": "demerger",
+        "cash_amount": null,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": "2023-07-01",
+        "payment_date": null,
+        "nse_subject": "Demerger",
+        "appointed_date": "2023-03-31",
+        "entitlement": "1 JFSL equity share for each eligible RIL equity share",
+        "child_security_identity": "Jio Financial Services Limited (JFSL); separate security"
+      },
+      "evidence_status": "fully_verified",
+      "verified_fields": [
+        "appointed_date",
+        "child_security_identity",
+        "effective_date",
+        "entitlement_ratio",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_24_annual_report"
+      ],
+      "accounting_status": "unsupported_demerger_portfolio_allocation_and_security_delivery; blocks overlapping evaluation",
+      "notes": [],
+      "provider_response_is_completeness_proof": false
+    },
+    {
+      "event_group": "35e6a5796137b8bd",
+      "source_row_ids": [
+        "tejhq-actions-row-17"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2017-09-07",
+        "record_date": "2017-09-09",
+        "type": "bonus",
+        "cash_amount": null,
+        "ratio_num": 1,
+        "ratio_den": 1,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "bonus",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2017-09-07",
+        "record_date": "2017-09-09",
+        "type": "bonus",
+        "cash_amount": null,
+        "ratio_num": 1,
+        "ratio_den": 1,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": " Bonus 1:1",
+        "ratio_new_per_old": "1"
+      },
+      "evidence_status": "fully_verified",
+      "verified_fields": [
+        "ex_date",
+        "isin",
+        "ratio",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice"
+      ],
+      "accounting_status": "supported_bonus_policy; full historical completeness still unverified",
+      "notes": [],
+      "provider_response_is_completeness_proof": false
+    },
+    {
+      "event_group": "4f529ec69b4f9334",
+      "source_row_ids": [
+        "tejhq-actions-row-20"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2015-05-08",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 10,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2015-05-08",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 10,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Dividend - Rs 10/- Per Share",
+        "amount_inr_per_share": "10",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "unresolved",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date",
+        "record_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "5061a9fcd61e1c1b",
+      "source_row_ids": [
+        "tejhq-actions-row-25"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2010-05-10",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 7,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2010-05-10",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 7,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "amount_inr_per_share": "7",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "unresolved",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "isin",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "ex_date",
+        "payment_date",
+        "record_date"
+      ],
+      "source_ids": [
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "No matching row in the retained symbol-bound NSE API response; this is not evidence the action did not occur.",
+        "Older event lacks a matching row in the retained NSE API response; provider dates remain discovery-only."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "source_resolution": "partially_resolved_same_existing_economic_event",
+        "same_group_as_milestone_2l": true,
+        "declaration_or_recommendation": {
+          "date": "2010-04-23",
+          "meaning": "Board recommendation; shareholder approval is a separate event",
+          "source_ids": [
+            "ril_2009_2010_annual_report",
+            "bse_2009_2010_annual_report"
+          ]
+        },
+        "record_date": "2010-05-11",
+        "record_date_source_ids": [
+          "bse_2009_2010_annual_report"
+        ],
+        "amount_inr_per_share": "7.00",
+        "amount_source_ids": [
+          "ril_2009_2010_annual_report",
+          "bse_2009_2010_annual_report"
+        ],
+        "unresolved": [
+          "primary-source ex-date confirmation",
+          "shareholder approval date evidence in the retrieved annual-report copy",
+          "exact dividend payment date or documented issuer payment window"
+        ],
+        "relationship": "This is the existing provider row/group; it is not a twenty-second event. The absence from the retained 20-row NSE API response remains a source-coverage limitation, not evidence of non-occurrence.",
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "5d631d33531750f4",
+      "source_row_ids": [
+        "tejhq-actions-row-18"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2017-07-13",
+        "record_date": "2017-07-14",
+        "type": "dividend",
+        "cash_amount": 11,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2017-07-13",
+        "record_date": "2017-07-14",
+        "type": "dividend",
+        "cash_amount": 11,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": " Dividend -  Rs 11/- Per Share",
+        "amount_inr_per_share": "11",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "614c97cd36da2831",
+      "source_row_ids": [
+        "tejhq-actions-row-14"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2020-05-13",
+        "record_date": "2020-05-14",
+        "type": "rights",
+        "cash_amount": null,
+        "ratio_num": 1,
+        "ratio_den": 15,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "rights",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2020-05-13",
+        "record_date": "2020-05-14",
+        "type": "rights",
+        "cash_amount": null,
+        "ratio_num": 1,
+        "ratio_den": 15,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": " Rights 1:15 @ Premium Rs 1247",
+        "entitlement_ratio": "1 new share for 15 existing shares",
+        "subscription_price_inr_per_share": "1257",
+        "payment_schedule": [
+          {
+            "amount_inr": "314.25",
+            "stage": "application (25%)"
+          },
+          {
+            "amount_inr": "314.25",
+            "stage": "first call (25%)",
+            "timing": "May 2021"
+          },
+          {
+            "amount_inr": "628.50",
+            "stage": "final call (50%)",
+            "timing": "November 2021"
+          }
+        ]
+      },
+      "evidence_status": "fully_verified",
+      "verified_fields": [
+        "call_schedule",
+        "entitlement_ratio",
+        "ex_date",
+        "isin",
+        "record_date",
+        "subscription_price",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [],
+      "source_ids": [
+        "nse_2020_rights",
+        "nse_actions_api",
+        "ril_2020_rights_offer",
+        "ril_2026_annual_report"
+      ],
+      "accounting_status": "unsupported_rights_cash_calls_entitlement_election_and_new_security_accounting; blocks overlapping evaluation",
+      "notes": [],
+      "provider_response_is_completeness_proof": false
+    },
+    {
+      "event_group": "7ca5e80968974ac8",
+      "source_row_ids": [
+        "tejhq-actions-row-16"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2018-06-27",
+        "record_date": "2018-06-28",
+        "type": "dividend",
+        "cash_amount": 6,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2018-06-27",
+        "record_date": "2018-06-28",
+        "type": "dividend",
+        "cash_amount": 6,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": " Dividend- Rs 6 Per Share",
+        "amount_inr_per_share": "6",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "7dfd54e43a715f44",
+      "source_row_ids": [
+        "tejhq-actions-row-13"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2020-07-02",
+        "record_date": "2020-07-03",
+        "type": "dividend",
+        "cash_amount": 6.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2020-07-02",
+        "record_date": "2020-07-03",
+        "type": "dividend",
+        "cash_amount": 6.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": " Dividend - Rs 6.50  Per Share",
+        "amount_inr_per_share": "6.5",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": {
+            "start": "2020-07-16",
+            "end": "2020-07-22",
+            "source_ids": [
+              "ril_2019_2020_annual_report"
+            ]
+          },
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "81f9fd66fb26d912",
+      "source_row_ids": [
+        "tejhq-actions-row-19"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2016-03-17",
+        "record_date": "2016-03-18",
+        "type": "dividend",
+        "cash_amount": 10.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2016-03-17",
+        "record_date": "2016-03-18",
+        "type": "dividend",
+        "cash_amount": 10.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": " Interim Dividend - Rs 10.50/- Per Share (Purpose Revised)",
+        "amount_inr_per_share": "10.5",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "93dd6caa7648cd70",
+      "source_row_ids": [
+        "tejhq-actions-row-05",
+        "tejhq-actions-row-06"
+      ],
+      "exchange_representations": [
+        "BSE",
+        "NSE"
+      ],
+      "representation_count": 2,
+      "duplicate_exchange_representation": true,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2024-10-28",
+        "record_date": "2024-10-28",
+        "type": "bonus",
+        "cash_amount": null,
+        "ratio_num": 1,
+        "ratio_den": 1,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "bonus",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2024-10-28",
+        "record_date": "2024-10-28",
+        "type": "bonus",
+        "cash_amount": null,
+        "ratio_num": 1,
+        "ratio_den": 1,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Bonus 1:1",
+        "ratio_new_per_old": "1",
+        "allotment_date": "2024-10-29"
+      },
+      "evidence_status": "fully_verified",
+      "verified_fields": [
+        "ex_date",
+        "isin",
+        "ratio",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [],
+      "source_ids": [
+        "nse_2024_bonus_allotment",
+        "nse_actions_api",
+        "ril_2024_bonus_filing"
+      ],
+      "accounting_status": "supported_bonus_policy; verified 1:1 event terms; overlapping period still subject to full action coverage gate",
+      "notes": [],
+      "provider_response_is_completeness_proof": false
+    },
+    {
+      "event_group": "d0c254b4bfbb3d57",
+      "source_row_ids": [
+        "tejhq-actions-row-15"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2019-08-02",
+        "record_date": "2019-08-05",
+        "type": "dividend",
+        "cash_amount": 6.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2019-08-02",
+        "record_date": "2019-08-05",
+        "type": "dividend",
+        "cash_amount": 6.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": " Annual General Meeting/Dividend - Rs 6.50 Per Share",
+        "amount_inr_per_share": "6.5",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "f7496fa4b1303950",
+      "source_row_ids": [
+        "tejhq-actions-row-22"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2013-05-10",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 9,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2013-05-10",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 9,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Annual General Meeting/ Dividend Rs. 9 Per Equity Share",
+        "amount_inr_per_share": "9",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "unresolved",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date",
+        "record_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "fa6f158c9b9364de",
+      "source_row_ids": [
+        "tejhq-actions-row-01",
+        "tejhq-actions-row-02"
+      ],
+      "exchange_representations": [
+        "BSE",
+        "NSE"
+      ],
+      "representation_count": 2,
+      "duplicate_exchange_representation": true,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2026-06-05",
+        "record_date": "2026-06-05",
+        "type": "dividend",
+        "cash_amount": 6,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2026-06-05",
+        "record_date": "2026-06-05",
+        "type": "dividend",
+        "cash_amount": 6,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Dividend - Rs 6 Per Share",
+        "amount_inr_per_share": "6",
+        "payment_window": "within seven days after AGM on 2026-06-19; exact date not established",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2026_annual_report",
+        "ril_2026_record",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": {
+            "description": "within seven days after AGM on 2026-06-19; exact date not established",
+            "source_ids": [
+              "nse_actions_api",
+              "ril_2026_annual_report",
+              "ril_2026_record",
+              "ril_dividend_history"
+            ],
+            "exact_bounds_verified": false,
+            "inherited_from": "milestone_2l_v1/corporate_action_audit.json"
+          },
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "fa850ca0911204ff",
+      "source_row_ids": [
+        "tejhq-actions-row-23"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2012-05-31",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 8.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2012-05-31",
+        "record_date": null,
+        "type": "dividend",
+        "cash_amount": 8.5,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Annual General Meeting And Dividend Rs.8.50 Per Share",
+        "amount_inr_per_share": "8.5",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "unresolved",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date",
+        "record_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    },
+    {
+      "event_group": "fee5296415988348",
+      "source_row_ids": [
+        "tejhq-actions-row-11"
+      ],
+      "exchange_representations": [
+        "NSE"
+      ],
+      "representation_count": 1,
+      "duplicate_exchange_representation": false,
+      "provider_terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2022-08-18",
+        "record_date": "2022-08-19",
+        "type": "dividend",
+        "cash_amount": 8,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null
+      },
+      "event_type": "dividend",
+      "instrument": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018"
+      },
+      "terms": {
+        "symbol": "RELIANCE",
+        "isin": "INE002A01018",
+        "ex_date": "2022-08-18",
+        "record_date": "2022-08-19",
+        "type": "dividend",
+        "cash_amount": 8,
+        "ratio_num": null,
+        "ratio_den": null,
+        "subscription_price": null,
+        "effective_date": null,
+        "payment_date": null,
+        "nse_subject": "Dividend - Rs 8 Per Share",
+        "amount_inr_per_share": "8",
+        "actual_payment_date": null,
+        "gross_dividend_accounting": "payment-date cash credit cannot be applied without exact verified payment date"
+      },
+      "evidence_status": "partially_corroborated",
+      "verified_fields": [
+        "amount",
+        "currency",
+        "ex_date",
+        "isin",
+        "record_date",
+        "symbol",
+        "type"
+      ],
+      "unresolved_fields": [
+        "payment_date"
+      ],
+      "source_ids": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_dividend_history"
+      ],
+      "accounting_status": "blocked_missing_exact_payment_date",
+      "notes": [
+        "Exact dividend payment date is absent from the retained official evidence."
+      ],
+      "provider_response_is_completeness_proof": false,
+      "milestone_2m_supplement": {
+        "payment_evidence": {
+          "exact_payment_date_verified": false,
+          "documented_window": null,
+          "accounting_effect": "Existing model requires exact payment_date; window bounds cannot be silently substituted. Cash timing remains unsupported for this event."
+        }
+      }
+    }
+  ],
+  "next_actions": [
+    "Obtain symbol-bound issuer/exchange evidence for remaining missing ex/record dates and the 2010 ex-date.",
+    "Obtain exact payment dates or implement and test a separately modeled receivable/payment-window policy that never advances cash before the documented bound.",
+    "Establish action-history completeness from primary issuer/exchange records independently of the provider feed.",
+    "Implement verified rights and demerger consideration/basis accounting or continue blocking affected windows.",
+    "Resolve historical bars, instrument identity, exchange calendar, and date-effective transaction-cost gates before considering a bounded validation window."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "milestone-2m-source-manifest-v1",
+  "previous_milestone_2l_manifest_preserved": true,
+  "supplemental_sources": {
+    "ril_2009_2010_annual_report": {
+      "url": "https://www.ril.com/sites/default/files/2022-12/2009-2010.pdf",
+      "publication_date": "2010-07 (annual report; exact publication day unavailable)",
+      "retrieved_at_utc": null,
+      "retrieval_outcome": "source_bytes_archived_and_content_reviewed",
+      "retrieval_time_note": "No per-file retrieval timestamp was captured by the fetch command; do not infer it from file mtime.",
+      "archive_path": "data/reference/milestone_2m/source_archive/ril_2009_2010_annual_report.pdf",
+      "sha256": "01c9e39ffa4b49f3ddb79431b4988b41a238bb1ef531c50c16efd1c09c9298f8",
+      "bytes": 10805998,
+      "relevance": "Records the 2009-10 Board recommendation of INR 7 per share on 2010-04-23, subject to shareholder approval at the AGM. It does not establish the exact payment date in the inspected passages."
+    },
+    "bse_2009_2010_annual_report": {
+      "url": "https://www.bseindia.com/bseplus/AnnualReport/500325/5003250310.pdf",
+      "publication_date": "2010 (annual report; exact publication day unavailable)",
+      "retrieved_at_utc": null,
+      "retrieval_outcome": "source_bytes_archived_and_content_reviewed",
+      "retrieval_time_note": "No per-file retrieval timestamp was captured by the fetch command; do not infer it from file mtime.",
+      "archive_path": "data/reference/milestone_2m/source_archive/bse_2009_2010_annual_report.pdf",
+      "sha256": "01c9e39ffa4b49f3ddb79431b4988b41a238bb1ef531c50c16efd1c09c9298f8",
+      "bytes": 10805998,
+      "relevance": "Issuer annual report hosted by BSE: recommends INR 7 per share and states eligible members as of 2010-05-11. This is an official issuer/exchange copy; the source does not itself establish the ex-date or actual payment date."
+    },
+    "ril_2019_2020_annual_report": {
+      "url": "https://www.ril.com/ar2019-20/pdf/RIL_Integrated-Annual-Report-2019-2020.pdf",
+      "publication_date": "2020 (annual report; exact publication day unavailable)",
+      "retrieved_at_utc": null,
+      "retrieval_outcome": "source_bytes_archived_and_content_reviewed",
+      "retrieval_time_note": "No per-file retrieval timestamp was captured by the fetch command; do not infer it from file mtime.",
+      "archive_path": "data/reference/milestone_2m/source_archive/ril_2019_2020_annual_report.pdf",
+      "sha256": "03deaebfcedb1e642a5d4ac3afc55393038fe4d726f4c91aa795be6e8f4a1044",
+      "bytes": 12311737,
+      "relevance": "Issuer annual report specifies the electronic dividend payment window 2020-07-16 through 2020-07-22. It does not establish which day an individual account received funds."
+    },
+    "ril_2020_2021_annual_report": {
+      "url": "https://www.ril.com/ar2020-21/pdf/reliance-annual-report-21.pdf",
+      "publication_date": "2021 (annual report; exact publication day unavailable)",
+      "retrieved_at_utc": null,
+      "retrieval_outcome": "source_bytes_archived_and_content_reviewed",
+      "retrieval_time_note": "No per-file retrieval timestamp was captured by the fetch command; do not infer it from file mtime.",
+      "archive_path": "data/reference/milestone_2m/source_archive/ril_2020_2021_annual_report.pdf",
+      "sha256": "47e95d2a34e69dc63dd938417aa5429b5b54f48382edef8efddb2a3dbc14f073",
+      "bytes": 21624023,
+      "relevance": "Issuer annual report specifies the electronic dividend payment window 2021-06-24 through 2021-06-30. It does not establish which day an individual account received funds."
+    }
+  },
+  "retrieval_failures": [],
+  "non_findings": [
+    "The original 25-row TejHQ response was not modified.",
+    "The NSE symbol-bound response's omission of the 2010 row is not proof the event did not occur.",
+    "No retrieval timestamp was fabricated for Milestone 2L source files."
+  ]
+}

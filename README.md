@@ -229,3 +229,27 @@ Run `python scripts/build_milestone_2l_audit.py --output reports/milestone_2l_v1
 The audit resolves the 2025 RIL dividend record date to August 14, 2025 using the issuer filing and symbol-bound NSE data. The August 13 observation in an older note came from an unfiltered NSE page and was not a RELIANCE-specific conflict. The exact payment date remains unknown. For the 2026 dividend, RIL confirms ₹6/share, the June 5 record date, and a seven-day payment window after the June 19 AGM, but the actual payment date is not established. Exact payment dates remain unresolved for all 17 dividend events. Four event-term records are fully verified (the 2017 and 2024 bonuses, 2020 rights, and 2023 JFSL demerger), 11 are partially corroborated, and six older dividend records remain unresolved on dates; rights and demerger accounting are still unsupported. Historical costs, full action coverage, and broader data-integrity gates continue to block readiness. See [the report](reports/milestone_2l_v1/readiness.md), [event audit](reports/milestone_2l_v1/corporate_action_audit.json), and [source manifest](reports/milestone_2l_v1/source_manifest.json). No backtest or profitability evaluation was run.
 
 \n
+## Milestone 2M — RELIANCE action accounting and coverage audit
+
+The Milestone 2M audit preserves the prior Milestone 2L artifacts and adds archived
+issuer/exchange annual reports. The 2010 provider dividend is tied to its existing
+event group. Reviewed annual-report copies support the Board recommendation date,
+₹7 per share and 2010-05-11 record date; primary-source ex-date confirmation,
+shareholder approval evidence and the payment date/window remain unresolved. The
+2020 and 2021 issuer annual reports document payment windows, not exact account
+posting dates.
+
+The current dividend accounting requires an exact payment date and does not substitute
+a window boundary for cash availability. Rights and demerger accounting remains
+unsupported and blocks affected evaluation periods. No bounded real-data period meets
+all corporate-action, data, calendar and verified-cost gates. No real-data backtest was
+run. See [Milestone 2M readiness](reports/milestone_2m_v4/readiness.md), its
+[machine-readable audit](reports/milestone_2m_v4/corporate_action_audit.json), and
+[source manifest](reports/milestone_2m_v4/source_manifest.json).
+
+The write-once audit builder defaults to `reports/milestone_2m_v2` and refuses to
+overwrite existing outputs. Choose a new output directory for another run:
+
+```powershell
+python scripts/build_milestone_2m_audit.py --output reports/milestone_2m_v5
+```

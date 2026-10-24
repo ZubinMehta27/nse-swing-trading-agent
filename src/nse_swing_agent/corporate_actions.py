@@ -27,6 +27,50 @@ class ActionKind(StrEnum):
     DELISTING = "delisting"
 
 
+class PaymentTimingKind(StrEnum):
+    EXACT_DATE = "exact_date"
+    DOCUMENTED_WINDOW = "documented_window"
+    UNKNOWN = "unknown"
+
+
+@dataclass(frozen=True, slots=True)
+class DividendPaymentTiming:
+    """Evidence-backed dividend cash timing; a window is never an exact date."""
+
+    kind: PaymentTimingKind
+    evidence_reference: str
+    exact_date: date | None = None
+    earliest_date: date | None = None
+    latest_date: date | None = None
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.kind, PaymentTimingKind):
+            raise ValueError("payment timing kind must be a PaymentTimingKind")
+        if not isinstance(self.evidence_reference, str) or not self.evidence_reference.strip():
+            raise ValueError("payment timing evidence_reference is required")
+        if self.kind == PaymentTimingKind.EXACT_DATE:
+            if not isinstance(self.exact_date, date) or isinstance(self.exact_date, datetime):
+                raise ValueError("exact-date timing requires an exact date")
+            if self.earliest_date is not None or self.latest_date is not None:
+                raise ValueError("exact-date timing cannot also specify window bounds")
+        elif self.kind == PaymentTimingKind.DOCUMENTED_WINDOW:
+            if (
+                not isinstance(self.earliest_date, date)
+                or isinstance(self.earliest_date, datetime)
+                or not isinstance(self.latest_date, date)
+                or isinstance(self.latest_date, datetime)
+            ):
+                raise ValueError("documented-window timing requires earliest and latest dates")
+            if self.earliest_date > self.latest_date:
+                raise ValueError("payment window earliest_date must not follow latest_date")
+            if self.exact_date is not None:
+                raise ValueError("documented-window timing cannot specify an exact date")
+        elif any(
+            value is not None for value in (self.exact_date, self.earliest_date, self.latest_date)
+        ):
+            raise ValueError("unknown payment timing cannot specify payment dates")
+
+
 SUPPORTED_ACTIONS = {ActionKind.DIVIDEND, ActionKind.SPLIT, ActionKind.BONUS}
 
 
@@ -73,6 +117,7 @@ class CorporateAction:
     ratio_new_per_old: Decimal | None = None
     cash_per_share: Decimal | None = None
     currency: str | None = None
+    payment_timing: DividendPaymentTiming | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.kind, ActionKind):
@@ -95,16 +140,32 @@ class CorporateAction:
             ):
                 raise ValueError(f"{self.kind} requires explicit ratio_new_per_old")
         if self.kind == ActionKind.DIVIDEND:
-            if (
-                not isinstance(self.cash_per_share, Decimal)
-                or self.payment_date is None
-                or not self.currency
-            ):
-                raise ValueError("dividend requires cash_per_share, currency and payment_date")
+            if not isinstance(self.cash_per_share, Decimal) or not self.currency:
+                raise ValueError("dividend requires cash_per_share and currency")
             if not self.cash_per_share.is_finite() or self.cash_per_share <= 0:
                 raise ValueError("dividend cash_per_share must be finite and positive")
             if self.currency != "INR":
                 raise ValueError("only explicitly denominated INR dividends are supported")
+            timing = self.payment_timing
+            if timing is None:
+                if self.payment_date is None:
+                    raise ValueError(
+                        "dividend requires explicit payment_timing or a legacy payment_date"
+                    )
+                timing = DividendPaymentTiming(
+                    PaymentTimingKind.EXACT_DATE,
+                    f"{self.source} sha256:{self.source_fingerprint}",
+                    exact_date=self.payment_date,
+                )
+                object.__setattr__(self, "payment_timing", timing)
+            if not isinstance(timing, DividendPaymentTiming):
+                raise ValueError("dividend payment_timing must be validated")
+            if timing.kind == PaymentTimingKind.EXACT_DATE:
+                if self.payment_date is not None and self.payment_date != timing.exact_date:
+                    raise ValueError("payment_date conflicts with exact payment_timing")
+                object.__setattr__(self, "payment_date", timing.exact_date)
+            elif self.payment_date is not None:
+                raise ValueError("payment_date conflicts with non-exact payment_timing")
         if self.record_date is not None and self.record_date < self.ex_date:
             raise ValueError("action record_date cannot precede ex_date")
         if self.payment_date is not None and self.payment_date < self.ex_date:
@@ -115,6 +176,25 @@ class CorporateAction:
             and self.payment_date < self.record_date
         ):
             raise ValueError("action payment_date cannot precede record_date")
+        if self.kind == ActionKind.DIVIDEND:
+            assert self.payment_timing is not None
+            timing_dates = (
+                (self.payment_timing.exact_date,)
+                if self.payment_timing.kind == PaymentTimingKind.EXACT_DATE
+                else (
+                    (self.payment_timing.earliest_date, self.payment_timing.latest_date)
+                    if self.payment_timing.kind == PaymentTimingKind.DOCUMENTED_WINDOW
+                    else ()
+                )
+            )
+            for timing_date in timing_dates:
+                assert timing_date is not None
+                if timing_date < self.ex_date:
+                    raise ValueError("payment timing cannot precede ex_date")
+                if self.record_date is not None and timing_date < self.record_date:
+                    raise ValueError("payment timing cannot precede record_date")
+        elif self.payment_timing is not None:
+            raise ValueError("payment_timing is only valid for dividend actions")
         if self.verification_status != "verified":
             raise ValueError("ambiguous or unverified corporate actions cannot be applied")
 
@@ -147,9 +227,68 @@ class ActionCoverage:
 class DividendReceivable:
     symbol: str
     ex_date: date
-    payment_date: date
+    payment_date: date | None
     amount: Decimal
     source_fingerprint: str
+    payment_timing: DividendPaymentTiming
+
+    def __post_init__(self) -> None:
+        if not self.amount.is_finite() or self.amount <= 0:
+            raise ValueError("dividend receivable amount must be positive and finite")
+        if self.payment_timing.kind == PaymentTimingKind.EXACT_DATE:
+            if self.payment_date != self.payment_timing.exact_date:
+                raise ValueError("receivable payment_date conflicts with payment timing")
+        elif self.payment_date is not None:
+            raise ValueError("non-exact receivable cannot carry an exact payment_date")
+
+
+class UncertainDividendPaymentTimingError(ValueError):
+    """A held dividend position has a window or unknown cash timing."""
+
+    def __init__(self, receivable: DividendReceivable) -> None:
+        self.receivable = receivable
+        timing = receivable.payment_timing
+        self.ledger_entry = {
+            "symbol": receivable.symbol,
+            "type": "dividend_payment_timing_block",
+            "ex_date": receivable.ex_date.isoformat(),
+            "amount": str(receivable.amount),
+            "timing_kind": timing.kind.value,
+            "earliest_date": timing.earliest_date.isoformat() if timing.earliest_date else None,
+            "latest_date": timing.latest_date.isoformat() if timing.latest_date else None,
+            "payment_date": None,
+            "cash_credited": False,
+            "evidence_reference": timing.evidence_reference,
+            "source_fingerprint": receivable.source_fingerprint,
+            "status": "blocked_uncertain_cash_timing",
+        }
+        if timing.kind == PaymentTimingKind.DOCUMENTED_WINDOW:
+            detail = f"window {timing.earliest_date} through {timing.latest_date}"
+        else:
+            detail = "unknown payment date"
+        super().__init__(
+            f"backtest blocked by dividend {detail} for {receivable.symbol} "
+            f"on {receivable.ex_date}; evidence: {timing.evidence_reference}"
+        )
+
+
+def _load_payment_timing(value: Any) -> DividendPaymentTiming | None:
+    if value is None:
+        return None
+    if not isinstance(value, dict):
+        raise ValueError("payment_timing must be an object")
+    try:
+        return DividendPaymentTiming(
+            kind=PaymentTimingKind(value["kind"]),
+            evidence_reference=str(value["evidence_reference"]),
+            exact_date=_day(value.get("exact_date"), "payment_timing.exact_date", optional=True),
+            earliest_date=_day(
+                value.get("earliest_date"), "payment_timing.earliest_date", optional=True
+            ),
+            latest_date=_day(value.get("latest_date"), "payment_timing.latest_date", optional=True),
+        )
+    except (KeyError, ValueError) as exc:
+        raise ValueError(f"invalid payment_timing: {exc}") from exc
 
 
 def load_action_manifest(path: Path) -> tuple[tuple[CorporateAction, ...], ActionCoverage]:
@@ -196,6 +335,7 @@ def load_action_manifest(path: Path) -> tuple[tuple[CorporateAction, ...], Actio
                 payment_date=_day(
                     row.get("payment_date"), f"events[{index}].payment_date", optional=True
                 ),
+                payment_timing=_load_payment_timing(row.get("payment_timing")),
                 ratio_new_per_old=_decimal(
                     row.get("ratio_new_per_old"), "ratio_new_per_old", optional=True
                 ),

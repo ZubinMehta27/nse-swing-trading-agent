@@ -17,6 +17,7 @@ from nse_swing_agent.corporate_actions import (
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports/milestone_2m_v4/corporate_action_audit.json"
 MANIFEST = ROOT / "reports/milestone_2m_v4/source_manifest.json"
+TIMING_READINESS = ROOT / "reports/milestone_2m_v5/payment_timing_readiness.json"
 
 
 def test_2010_provider_event_is_reconciled_without_creating_a_new_group() -> None:
@@ -76,3 +77,18 @@ def test_rights_and_demerger_remain_explicitly_unsupported(kind: ActionKind) -> 
     reason = unsupported_action_reason(event)
     assert reason is not None
     assert kind.value in reason
+
+
+def test_payment_timing_readiness_distinguishes_dates_windows_and_unknowns() -> None:
+    report = json.loads(TIMING_READINESS.read_text(encoding="utf-8"))
+    assert report["payment_timing_counts"] == {
+        "EXACT_DATE": 0,
+        "DOCUMENTED_WINDOW": 3,
+        "UNKNOWN": 14,
+    }
+    assert report["accounting_support"]["DOCUMENTED_WINDOW"].startswith("unsupported")
+    assert report["cash_safety"]["credit_at_earliest_window_date"] is False
+    assert report["cash_safety"]["credit_at_latest_window_date_as_exact"] is False
+    assert report["overall_readiness"] == "BLOCKED"
+    assert report["eligible_historical_window"] is None
+    assert report["real_data_backtest_run"] is False

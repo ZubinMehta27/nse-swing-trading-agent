@@ -17,6 +17,8 @@ from .corporate_actions import (
     ActionKind,
     CorporateAction,
     DividendReceivable,
+    PaymentTimingKind,
+    UncertainDividendPaymentTimingError,
     split_quantity,
     unsupported_action_reason,
     validate_actions,
@@ -574,18 +576,27 @@ def run_backtest(
                 )
             elif action.kind == ActionKind.DIVIDEND:
                 if pos is not None:
-                    assert action.cash_per_share is not None and action.payment_date is not None
+                    assert action.cash_per_share is not None and action.payment_timing is not None
                     amount = action.cash_per_share * pos.quantity
-                    # Entitlement is recognized separately; cash is credited only on payment date.
-                    receivables.append(
-                        DividendReceivable(
-                            action.symbol,
-                            session,
-                            action.payment_date,
-                            amount,
-                            action.source_fingerprint,
-                        )
+                    payment_date = (
+                        action.payment_timing.exact_date
+                        if action.payment_timing.kind == PaymentTimingKind.EXACT_DATE
+                        else None
                     )
+                    receivable = DividendReceivable(
+                        action.symbol,
+                        session,
+                        payment_date,
+                        amount,
+                        action.source_fingerprint,
+                        action.payment_timing,
+                    )
+                    if action.payment_timing.kind != PaymentTimingKind.EXACT_DATE:
+                        # Expose a structured audit record on the exception; no cash or
+                        # portfolio path is produced under uncertain payment timing.
+                        raise UncertainDividendPaymentTimingError(receivable)
+                    # Entitlement is a receivable, separate from spendable cash.
+                    receivables.append(receivable)
                     gross_dividend_income += amount
                     if pos.stop <= action.cash_per_share or pos.target <= action.cash_per_share:
                         raise ValueError(
@@ -601,6 +612,8 @@ def run_backtest(
                             "quantity": pos.quantity,
                             "gross_amount": str(amount),
                             "payment_date": action.payment_date,
+                            "payment_timing_kind": action.payment_timing.kind.value,
+                            "payment_evidence_reference": action.payment_timing.evidence_reference,
                             "status": "receivable",
                             "source_fingerprint": action.source_fingerprint,
                         }
@@ -612,7 +625,7 @@ def run_backtest(
                     "signals wait for renewed warm-up"
                 )
         for receivable in list(receivables):
-            if receivable.payment_date <= session:
+            if receivable.payment_date is not None and receivable.payment_date <= session:
                 cash += receivable.amount
                 receivables.remove(receivable)
                 action_ledger.append(
@@ -1040,7 +1053,9 @@ def run_backtest(
         "corporate_action_policy": (
             "splits/bonuses scale whole-share quantity and inversely scale price/cost basis; "
             "fractional results block; dividends accrue on ex-date for prior-close holdings, "
-            "cash is credited on payment date; protective levels shift by the per-share dividend; "
+            "exact-date cash is credited only on that date; a held dividend with window or "
+            "unknown timing blocks the run and exposes a structured timing ledger entry; "
+            "protective levels shift by the per-share dividend; "
             "raw indicators reset after split/bonus/dividend ex-dates"
         ),
         "config": _config_dict(config),

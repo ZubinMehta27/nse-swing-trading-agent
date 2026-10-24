@@ -10,6 +10,9 @@ from nse_swing_agent.corporate_actions import (
     ActionCoverage,
     ActionKind,
     CorporateAction,
+    DividendPaymentTiming,
+    PaymentTimingKind,
+    UncertainDividendPaymentTimingError,
     load_action_manifest,
     split_quantity,
 )
@@ -20,7 +23,7 @@ HASH = "a" * 64
 RETRIEVED = datetime(2026, 10, 23, tzinfo=UTC)
 
 
-def action(kind, *, ex=date(2025, 1, 5), ratio=None, cash=None, payment=None):
+def action(kind, *, ex=date(2025, 1, 5), ratio=None, cash=None, payment=None, payment_timing=None):
     return CorporateAction(
         symbol="AAA",
         isin="INE000A01000",
@@ -31,6 +34,7 @@ def action(kind, *, ex=date(2025, 1, 5), ratio=None, cash=None, payment=None):
         ratio_new_per_old=ratio,
         cash_per_share=cash,
         currency="INR" if cash is not None else None,
+        payment_timing=payment_timing,
         source="unit test fixture",
         source_fingerprint=HASH,
         retrieved_at=RETRIEVED,
@@ -196,6 +200,176 @@ def test_dividend_entitlement_uses_prior_close_and_cash_waits_for_payment_date()
         entitlement["gross_amount"]
     )
     assert result.manifest["corporate_action_policy"]
+    assert (
+        next(
+            row for row in result.corporate_action_ledger if row["type"] == "dividend_entitlement"
+        )["payment_timing_kind"]
+        == "exact_date"
+    )
+    assert next(
+        row for row in result.corporate_action_ledger if row["type"] == "dividend_entitlement"
+    )["payment_evidence_reference"].startswith("unit test fixture sha256:")
+
+
+def test_documented_payment_window_blocks_without_early_or_invented_cash_credit():
+    records = rising_records(day5=("13.8", "14.2", "13.5", "13.9"))
+    timing = DividendPaymentTiming(
+        PaymentTimingKind.DOCUMENTED_WINDOW,
+        "synthetic fixture: documented window",
+        earliest_date=date(2025, 1, 6),
+        latest_date=date(2025, 1, 10),
+    )
+    event = action(ActionKind.DIVIDEND, cash=D("0.25"), payment_timing=timing)
+    with pytest.raises(UncertainDividendPaymentTimingError) as caught:
+        run_backtest(
+            records,
+            config(),
+            corporate_actions=(event,),
+            action_coverage=coverage(records),
+            synthetic_fixture=True,
+        )
+    block = caught.value.ledger_entry
+    assert str(caught.value.receivable.amount) == block["amount"]
+    assert caught.value.receivable.payment_date is None
+    assert block["timing_kind"] == "documented_window"
+    assert block["earliest_date"] == "2025-01-06"
+    assert block["latest_date"] == "2025-01-10"
+    assert "exact_date" not in block
+    assert block["payment_date"] is None
+    assert block["cash_credited"] is False
+    assert block["status"] == "blocked_uncertain_cash_timing"
+    assert "window 2025-01-06 through 2025-01-10" in str(caught.value)
+
+
+def test_unknown_payment_timing_blocks_entitled_holding():
+    records = rising_records(day5=("13.8", "14.2", "13.5", "13.9"))
+    event = action(
+        ActionKind.DIVIDEND,
+        cash=D("0.25"),
+        payment_timing=DividendPaymentTiming(
+            PaymentTimingKind.UNKNOWN,
+            "synthetic fixture: payment timing unavailable",
+        ),
+    )
+    with pytest.raises(UncertainDividendPaymentTimingError, match="unknown payment date"):
+        run_backtest(
+            records,
+            config(),
+            corporate_actions=(event,),
+            action_coverage=coverage(records),
+            synthetic_fixture=True,
+        )
+
+
+def test_exact_dividend_runs_produce_deterministic_ledger_and_equity():
+    records = rising_records(day5=("13.8", "14.2", "13.5", "13.9"))
+    event = action(ActionKind.DIVIDEND, cash=D("0.25"), payment=date(2025, 1, 6))
+    first = run_backtest(
+        records,
+        config(),
+        corporate_actions=(event,),
+        action_coverage=coverage(records),
+        synthetic_fixture=True,
+    )
+    second = run_backtest(
+        records,
+        config(),
+        corporate_actions=(event,),
+        action_coverage=coverage(records),
+        synthetic_fixture=True,
+    )
+    assert first.corporate_action_ledger == second.corporate_action_ledger
+    assert first.equity_curve == second.equity_curve
+
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        {"exact_date": date(2025, 1, 8), "earliest_date": date(2025, 1, 8)},
+        {"earliest_date": date(2025, 1, 9), "latest_date": date(2025, 1, 8)},
+    ],
+)
+def test_payment_window_rejects_conflicting_or_invalid_fields(kwargs):
+    with pytest.raises(ValueError):
+        DividendPaymentTiming(
+            PaymentTimingKind.DOCUMENTED_WINDOW,
+            "synthetic timing evidence",
+            **kwargs,
+        )
+
+
+def test_documented_window_requires_evidence_reference():
+    with pytest.raises(ValueError, match="evidence_reference"):
+        DividendPaymentTiming(
+            PaymentTimingKind.DOCUMENTED_WINDOW,
+            "",
+            earliest_date=date(2025, 1, 8),
+            latest_date=date(2025, 1, 9),
+        )
+
+
+def test_window_dates_must_not_precede_action_dates():
+    timing = DividendPaymentTiming(
+        PaymentTimingKind.DOCUMENTED_WINDOW,
+        "synthetic evidence",
+        earliest_date=date(2025, 1, 3),
+        latest_date=date(2025, 1, 8),
+    )
+    with pytest.raises(ValueError, match="cannot precede ex_date"):
+        action(ActionKind.DIVIDEND, cash=D("0.25"), payment_timing=timing)
+
+
+def test_exact_payment_date_and_window_fields_cannot_conflict():
+    timing = DividendPaymentTiming(
+        PaymentTimingKind.EXACT_DATE,
+        "synthetic exact payment evidence",
+        exact_date=date(2025, 1, 8),
+    )
+    with pytest.raises(ValueError, match="conflicts with exact payment_timing"):
+        action(
+            ActionKind.DIVIDEND,
+            cash=D("0.25"),
+            payment=date(2025, 1, 9),
+            payment_timing=timing,
+        )
+
+
+def test_action_manifest_loads_documented_payment_window(tmp_path):
+    manifest = {
+        "schema_version": "1.0",
+        "source": "reviewed local fixture",
+        "source_fingerprint": HASH,
+        "retrieved_at": "2026-10-23T00:00:00+00:00",
+        "coverage": {
+            "from": "2025-01-01",
+            "to": "2025-01-10",
+            "complete": True,
+            "verified": True,
+        },
+        "events": [
+            {
+                "symbol": "AAA",
+                "type": "dividend",
+                "ex_date": "2025-01-05",
+                "record_date": "2025-01-05",
+                "cash_per_share": "1",
+                "currency": "INR",
+                "payment_timing": {
+                    "kind": "documented_window",
+                    "earliest_date": "2025-01-06",
+                    "latest_date": "2025-01-10",
+                    "evidence_reference": "fixture.pdf sha256:abc",
+                },
+                "verification_status": "verified",
+            }
+        ],
+    }
+    path = tmp_path / "actions_with_window.json"
+    path.write_text(json.dumps(manifest), encoding="utf-8")
+    actions, _ = load_action_manifest(path)
+    assert actions[0].payment_timing is not None
+    assert actions[0].payment_timing.kind == PaymentTimingKind.DOCUMENTED_WINDOW
+    assert actions[0].payment_date is None
 
 
 def test_dividend_does_not_entitle_position_entered_after_exdate_close():
@@ -357,6 +531,7 @@ def test_canonical_dividend_requires_payment_date_and_currency(tmp_path):
                 "type": "dividend",
                 "ex_date": "2025-01-05",
                 "cash_per_share": "1",
+                "currency": "INR",
                 "verification_status": "verified",
             }
         ],

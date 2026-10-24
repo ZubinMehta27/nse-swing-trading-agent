@@ -1,0 +1,296 @@
+{
+  "schema_version": "milestone-2m-payment-timing-readiness-v1",
+  "input_audit": {
+    "path": "reports/milestone_2m_v4/corporate_action_audit.json",
+    "sha256": "73add29b9b7b32ed636a051206739d6377e5f34abb8eda92a6637990ee2a4524"
+  },
+  "payment_timing_counts": {
+    "EXACT_DATE": 0,
+    "DOCUMENTED_WINDOW": 3,
+    "UNKNOWN": 14
+  },
+  "descriptive_unbounded_window_notes": 3,
+  "accounting_support": {
+    "EXACT_DATE": "supported and covered by regression tests",
+    "DOCUMENTED_WINDOW": "unsupported for portfolio simulation; affected runs fail closed",
+    "UNKNOWN": "unsupported for portfolio simulation; affected runs fail closed"
+  },
+  "cash_safety": {
+    "credit_at_earliest_window_date": false,
+    "credit_at_latest_window_date_as_exact": false,
+    "portfolio_path_returned_for_held_window_or_unknown_dividend": false
+  },
+  "overall_readiness": "BLOCKED",
+  "eligible_historical_window": null,
+  "independent_blockers_remain": [
+    "corporate-action history completeness not established",
+    "rights and demerger accounting unsupported",
+    "historical costs remain incomplete or unverified",
+    "historical bar, instrument-identity and session coverage gates remain unresolved"
+  ],
+  "real_data_backtest_run": false,
+  "events": [
+    {
+      "event_group": "0cced65e2e86064d",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2024-08-19",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": [
+        "nse_actions_api",
+        "ril_2023_24_annual_report",
+        "ril_dividend_history"
+      ],
+      "evidence_description": "within one week after the 2024-08-29 AGM; exact date not established in archived evidence",
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "0f93df511080e00c",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2025-08-14",
+      "status": "DOCUMENTED_WINDOW",
+      "exact_date": null,
+      "earliest_date": "2025-08-29",
+      "latest_date": "2025-09-04",
+      "evidence_reference": [
+        "nse_actions_api",
+        "ril_2025_agm",
+        "ril_2025_annual_report",
+        "ril_2025_record",
+        "ril_dividend_history"
+      ],
+      "evidence_description": "2025-08-29 through 2025-09-04; exact date not established",
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "101cb3f69c1a30a8",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2023-08-21",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": [
+        "nse_actions_api",
+        "ril_2023_agm_notice",
+        "ril_2023_record",
+        "ril_dividend_history"
+      ],
+      "evidence_description": "within one week after the 2023-08-28 AGM; exact date not established",
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "1c7d0b26786fda6e",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2011-05-05",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "29f1f82bd2810436",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2021-06-11",
+      "status": "DOCUMENTED_WINDOW",
+      "exact_date": null,
+      "earliest_date": "2021-06-24",
+      "latest_date": "2021-06-30",
+      "evidence_reference": [
+        "ril_2020_2021_annual_report"
+      ],
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "2c68822d5e3e356e",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2014-05-16",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "4f529ec69b4f9334",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2015-05-08",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "5061a9fcd61e1c1b",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2010-05-10",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "5d631d33531750f4",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2017-07-13",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "7ca5e80968974ac8",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2018-06-27",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "7dfd54e43a715f44",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2020-07-02",
+      "status": "DOCUMENTED_WINDOW",
+      "exact_date": null,
+      "earliest_date": "2020-07-16",
+      "latest_date": "2020-07-22",
+      "evidence_reference": [
+        "ril_2019_2020_annual_report"
+      ],
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "81f9fd66fb26d912",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2016-03-17",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "d0c254b4bfbb3d57",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2019-08-02",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "f7496fa4b1303950",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2013-05-10",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "fa6f158c9b9364de",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2026-06-05",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": [
+        "nse_actions_api",
+        "ril_2026_annual_report",
+        "ril_2026_record",
+        "ril_dividend_history"
+      ],
+      "evidence_description": "within seven days after AGM on 2026-06-19; exact date not established",
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "fa850ca0911204ff",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2012-05-31",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    },
+    {
+      "event_group": "fee5296415988348",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "ex_date": "2022-08-18",
+      "status": "UNKNOWN",
+      "exact_date": null,
+      "earliest_date": null,
+      "latest_date": null,
+      "evidence_reference": null,
+      "evidence_description": null,
+      "accounting_supported": false,
+      "accounting_policy": "Fail closed when a dividend entitlement is held; no portfolio path returned"
+    }
+  ]
+}

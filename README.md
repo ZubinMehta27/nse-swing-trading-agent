@@ -251,5 +251,28 @@ The write-once audit builder defaults to `reports/milestone_2m_v2` and refuses t
 overwrite existing outputs. Choose a new output directory for another run:
 
 ```powershell
-python scripts/build_milestone_2m_audit.py --output reports/milestone_2m_v5
+python scripts/build_milestone_2m_audit.py --output reports/milestone_2m_v6
 ```
+
+### Dividend payment timing
+
+Dividend actions distinguish `exact_date`, `documented_window`, and `unknown`
+payment timing. Legacy actions with an explicit `payment_date` preserve exact-date
+cash credit and receive an evidence reference from their source and fingerprint.
+Window actions require ordered earliest/latest dates and a source reference; those
+dates never become an exact payment date. When a position is entitled to a dividend
+with window or unknown timing, the backtester raises a structured blocking error and
+returns no portfolio path. It does not credit cash at either bound. The error carries
+the receivable amount, timing state, bounds, evidence reference and source fingerprint.
+
+The preserved versioned payment-timing readiness addendum is under
+`reports/milestone_2m_v5/`. Its builder refuses to overwrite it. To create another
+snapshot, select a new output path:
+
+```powershell
+python scripts/build_m2m_payment_timing_readiness.py --output-dir reports/milestone_2m_v6/payment_timing
+```
+
+The readiness report classifies the 17 dividends as 0 exact dates, 3 bounded windows,
+and 14 unknown actionable timings (including 3 prose-only windows that lack explicit
+bounds). Window and unknown timing remain unsupported for portfolio simulation.

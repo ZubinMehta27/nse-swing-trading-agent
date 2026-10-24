@@ -1,0 +1,74 @@
+{
+  "milestone": "2J-A",
+  "paper_only": true,
+  "profitability_evaluation_run": false,
+  "real_data_backtest_ready": false,
+  "decision": "BLOCKED",
+  "candidate_recovery": {
+    "status": "complete",
+    "rows": 8,
+    "dates": [
+      "2018-11-07",
+      "2021-11-04",
+      "2022-10-24",
+      "2024-11-01",
+      "2026-06-05",
+      "2026-06-15",
+      "2026-06-16",
+      "2026-06-22"
+    ],
+    "standalone": true,
+    "merged": false,
+    "path": "data/validation/recovery_candidates/milestone_2j_a_v2/candidate_missing_bars.csv",
+    "sha256": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8"
+  },
+  "dataset_identity": {
+    "candidate_bars_have_verified_isin": true,
+    "full_history_provider_identity_verified": false,
+    "reason": "TejHQ canonical OHLCV history is symbol-only; source-borrowed candidate identities do not verify the rest of history.",
+    "provider_symbols": [
+      "RELIANCE"
+    ]
+  },
+  "adjustment_compatibility": {
+    "provider": "raw_unadjusted per preserved Milestone 2H import metadata",
+    "nse_bhavcopy": "official exchange session OHLCV; no corporate-action adjustment applied by this builder",
+    "compatibility": "price conventions are raw; do not merge until corporate-action continuity and all-date action coverage are resolved",
+    "merge_authorized": false
+  },
+  "corporate_action_readiness": {
+    "source_registry_path": "reports/milestone_2h/corporate_action_evidence_registry.json",
+    "provider_action_rows": 25,
+    "complete_verified_coverage": false,
+    "missing_dividend_terms": 20,
+    "unsupported_event_types": [
+      "rights",
+      "demerger",
+      "merger",
+      "buyback",
+      "delisting"
+    ]
+  },
+  "cost_profile": {
+    "path": "config/cost_profiles/zerodha_resident_individual_nse_delivery_hypothetical.json",
+    "sha256": "a67f42e176b5665daee7e8f5a20eb7b42ed931d12d736eb6f274f25fb796e32c",
+    "provenance_manifest": "data/reference/cost_profiles/source_archive/manifest.json",
+    "provenance_manifest_sha256": "7e1da2f1aa05a161ea46ff9f3bdf4d537e8607cf9d32806c14e5baacbfb67f2a",
+    "version": "zerodha-resident-individual-nse-delivery-observed-2026-10-23-v1",
+    "status": "partial",
+    "all_history_dates_covered": false,
+    "candidate_dates_covered": false,
+    "provider_uncovered_sessions": 2166,
+    "candidate_uncovered_sessions": 8
+  },
+  "blockers": [
+    "Full-history TejHQ identity has no ISIN; eight verified candidate rows do not establish the identity of all provider rows.",
+    "The provider action feed is discovery-only and not completeness-verified; dividend dates/currency remain absent in 20 records.",
+    "Rights, demerger, merger, buyback and delisting accounting remain unsupported or unverified.",
+    "Eight NSE bars are available only in a separate candidate dataset and are not merged.",
+    "No complete date-effective, verified cost profile covers all historical sessions; the hypothetical profile fails closed.",
+    "The existing Milestone 2H historical action-coverage and point-in-time-universe blockers remain."
+  ],
+  "source_failures": [],
+  "prior_readiness_artifacts_modified": false
+}

@@ -1,0 +1,443 @@
+{
+  "captured_before_milestone_2k_reports": "true",
+  "file_count": 109,
+  "files": [
+    {
+      "path": "config/cost_profiles/zerodha_resident_individual_delivery_v2_partial.json",
+      "sha256": "974fa56f63be1c709598edea10681664cd06e282157743cb21e72141b3808f68"
+    },
+    {
+      "path": "config/cost_profiles/zerodha_resident_individual_delivery_v3_partial.json",
+      "sha256": "4592a558341ad5693635f2dd3c403a2378e25cd417ff37a09d4aeaffd7c831f9"
+    },
+    {
+      "path": "config/cost_profiles/zerodha_resident_individual_nse_delivery_hypothetical.json",
+      "sha256": "a67f42e176b5665daee7e8f5a20eb7b42ed931d12d736eb6f274f25fb796e32c"
+    },
+    {
+      "path": "data/processed/tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.csv",
+      "sha256": "916a10c4b0ad0fe856f3d78aad94374563dbbfb71f123eacf2e4114dfd94a045"
+    },
+    {
+      "path": "data/processed/tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.json",
+      "sha256": "aca70c5f6ccfceb3ab197677e2cfc2e8334343772649e31e8367b09af45ed825"
+    },
+    {
+      "path": "data/processed/tejhq_RELIANCE_2025-01-01_2025-01-10_20261023T102442Z_e6f86fafcf.csv",
+      "sha256": "fd8ec8362afb925d98a4d1b956a285b1a7a6e422f4d84d3303c23e721e9a157b"
+    },
+    {
+      "path": "data/processed/tejhq_RELIANCE_2025-01-01_2025-01-10_20261023T102442Z_e6f86fafcf.json",
+      "sha256": "ff1560b22ec75e167c339d9816a153712d1dfd13aaae36f9db1d4b14286abeff"
+    },
+    {
+      "path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20241101_F_0000.csv.zip",
+      "sha256": "f45f1ee610a8b1f823682e0c19bb2a51286d11175eb4b0f1194318394cde9b7c"
+    },
+    {
+      "path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20260605_F_0000.csv.zip",
+      "sha256": "120156b35ac42eace0520882dd2efb376265f2e26139a7d6f32521074a6db903"
+    },
+    {
+      "path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20260615_F_0000.csv.zip",
+      "sha256": "19be8fb43a2c5d67e5ebb00e136141e1fadded8312394186e9d6096e370572ba"
+    },
+    {
+      "path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20260616_F_0000.csv.zip",
+      "sha256": "2200b17310b6ecdc43ddc7fc1bbb500248b86f214919a590d42e385ff6491f2c"
+    },
+    {
+      "path": "data/raw/nse/BhavCopy_NSE_CM_0_0_0_20260622_F_0000.csv.zip",
+      "sha256": "ea7428e0e2600e9106a6c3545698e0905c2fe164632eb017188ca4a417b905c7"
+    },
+    {
+      "path": "data/raw/nse/cm04NOV2021bhav.csv.zip",
+      "sha256": "3c6b0e631b0ff18946537ba98dd78a4307a9fbc60d70c85e8e529e8acd1de1d8"
+    },
+    {
+      "path": "data/raw/nse/cm07NOV2018bhav.csv.zip",
+      "sha256": "34cb7742d962b69efaf6da9606dbd0386a0361c884bddfc63c3248a4d9c2b939"
+    },
+    {
+      "path": "data/raw/nse/cm24OCT2022bhav.csv.zip",
+      "sha256": "c8aa044e671cdb4dd8d2f312d3894a30a3201d8bc17287963a88c937fcb8c208"
+    },
+    {
+      "path": "data/raw/nse/NSE_CMTR36475_2018_holidays.pdf",
+      "sha256": "d80ac64d32806f9ada629bc96ba91c6d85546dfde405f4468bbfcb194fdb22fb"
+    },
+    {
+      "path": "data/raw/nse/NSE_CMTR46623_2021_holidays.pdf",
+      "sha256": "3c922e234ad2cbe8320cc34507e281477e0ce273ba9ee39d73da2a49d5629add"
+    },
+    {
+      "path": "data/raw/nse/NSE_CMTR54023_2022_muhurat.pdf",
+      "sha256": "01e579eac8e2dd4a870a9ebc9f08d60bc26fae28d0d35cf58891bf2a2964e0c7"
+    },
+    {
+      "path": "data/raw/nse/NSE_CMTR64628_2024_muhurat.pdf",
+      "sha256": "dd1b8bc34a4b3c2900002341c41e4b8f165af862a74fd2a5bfb1355b0afec4a8"
+    },
+    {
+      "path": "data/raw/nse/nse_holiday_master_trading_2018_20261023.json",
+      "sha256": "ed7315abded78e4a64bdb40545613eb08a29ee5c8a5a2d4167d8d93c0abf4eea"
+    },
+    {
+      "path": "data/raw/nse/nse_holiday_master_trading_2019_20261023.json",
+      "sha256": "df86d24932c3ea1ad5b4d76cf0ebec2aab1f70403296555e15a0d541fed5183c"
+    },
+    {
+      "path": "data/raw/nse/nse_holiday_master_trading_2020_20261023.json",
+      "sha256": "592f334da08629c3a18d870f644288638d259502b96b8845ae656734de2914cf"
+    },
+    {
+      "path": "data/raw/nse/nse_holiday_master_trading_2021_20261023.json",
+      "sha256": "1cd27065bf5d8be5b6e8c6efbe2cc6857df569a4394d2779b77b91572f67a03b"
+    },
+    {
+      "path": "data/raw/nse/nse_holiday_master_trading_2022_20261023.json",
+      "sha256": "911c09514539c033ca8528d33a86733743af1a2ec2e3dab5533ecfcab1bc54e2"
+    },
+    {
+      "path": "data/raw/nse/nse_holiday_master_trading_2023_20261023.json",
+      "sha256": "78a76bf4ea030e1c294ed9acd6255875d1eae4027bf9ea35ca5b5357e1b73797"
+    },
+    {
+      "path": "data/raw/nse/nse_holiday_master_trading_2024_20261023.json",
+      "sha256": "362ccb232694b28865d1f0e61af3cc3df04e713ccb1769fc2b3bd19aa6614e20"
+    },
+    {
+      "path": "data/raw/nse/nse_holiday_master_trading_retrieved_20261023.json",
+      "sha256": "933cf5dc6dd4efe3b8db8ce6ecd6ecb2582929f5e0b4faffdb88e11cf4efdfbe"
+    },
+    {
+      "path": "data/raw/nse/tejhq_actions_RELIANCE_20261023T103451Z_4b305e0765.json",
+      "sha256": "4b305e0765bd8a1b0e32ee4074d7343c81cefd99e8231e1275a9e793952bf777"
+    },
+    {
+      "path": "data/raw/nse/tejhq_RELIANCE_2018-01-01_2026-10-23_20261023T103334Z_fd48f50f69.json",
+      "sha256": "fd48f50f69338ee1f9b705bd889af7e7f0c8767751dfa0ab5126be6c7e502633"
+    },
+    {
+      "path": "data/raw/nse/tejhq_RELIANCE_2025-01-01_2025-01-10_20261023T102442Z_e6f86fafcf.json",
+      "sha256": "e6f86fafcf0763c3cb91bdf2afe093371f4ec9d14f59930689dfb106b24e0e2d"
+    },
+    {
+      "path": "data/raw/nse/tejhq_status_20261023T103747Z_566af175d4.json",
+      "sha256": "566af175d4e2e1366311db508f3b8cba8c083be6a65d3797c8005f6714dfd991"
+    },
+    {
+      "path": "data/reference/cost_profiles/milestone_2j_b/provenance_manifest.json",
+      "sha256": "f8786e54fd59bf17f38825302a63e7c80b3c2f900ca5779fe01f611fc48ac334"
+    },
+    {
+      "path": "data/reference/cost_profiles/milestone_2j_b/source_archive/bse_equity_segment_master_circular_2023-06-30.pdf",
+      "sha256": "ed8a653d85b988d071bbded9d3a32f902b5fa3343857bd0caf19084fb2aba00d"
+    },
+    {
+      "path": "data/reference/cost_profiles/milestone_2j_b/source_archive/cdsl_dp_operating_instructions_2026-03-31.pdf",
+      "sha256": "48993d832c35aa86d5ca322b928ff156279e43bec2fbeea1de3e054a42420df5"
+    },
+    {
+      "path": "data/reference/cost_profiles/milestone_2j_b/source_archive/sebi_stock_brokers_regulations_2025-03-10.pdf",
+      "sha256": "6e4dcc7cf8cc522fbfa894f1fe6eb75fb50f69ad22e0d0880535c5a6c7711013"
+    },
+    {
+      "path": "data/reference/cost_profiles/milestone_2j_c/provenance_manifest.json",
+      "sha256": "14a44d23098221d074d309e83bf763c02699c096cf208b9db04540673eaefc99"
+    },
+    {
+      "path": "data/reference/cost_profiles/milestone_2j_c/source_inventory.json",
+      "sha256": "adb3afb0854adb5de5693e3dd750de847c66092350eeb276f9f50184e8b7c600"
+    },
+    {
+      "path": "data/reference/cost_profiles/source_archive/manifest.json",
+      "sha256": "7e1da2f1aa05a161ea46ff9f3bdf4d537e8607cf9d32806c14e5baacbfb67f2a"
+    },
+    {
+      "path": "data/reference/cost_profiles/source_archive/nse_fa64232_2024.pdf",
+      "sha256": "85b816208f33bdd1c6c0d827b1ba996aba1fe08fe883a6d31c6a2c0ad55304a4"
+    },
+    {
+      "path": "data/reference/cost_profiles/source_archive/nse_fa73061_2026.pdf",
+      "sha256": "6085601a26177ed61e37e5347960b936d71464ab625d6a0d9fe72b2ec838ac09"
+    },
+    {
+      "path": "data/reference/cost_profiles/source_archive/sebi_true_to_label_2024.html",
+      "sha256": "7e372d1b57c266545d13549c66bc1e5df5ab5203d2e412d041b64cc03e781a2a"
+    },
+    {
+      "path": "data/reference/cost_profiles/source_archive/zerodha_charges.html",
+      "sha256": "3a77f7d0487550efbc70065645da9262e09059303acbfb145abfade496bda1fd"
+    },
+    {
+      "path": "data/reference/cost_profiles/source_archive/zerodha_dp_charges.html",
+      "sha256": "bce7409fc17980907f22c86b49c05403a99c6427a8ef985adac437aea3caef73"
+    },
+    {
+      "path": "data/reference/cost_profiles/source_archive/zerodha_gst_sebi.html",
+      "sha256": "35f2778bd5783fb1056638db02948830af02363c33cd57953d2ca037272f401a"
+    },
+    {
+      "path": "data/reference/nse_cm_calendar_2018_2024.csv",
+      "sha256": "b3632c83bd2e420ca4fe2739feafc03c32f2aeb0d9679c4c13c1e35ebf95e567"
+    },
+    {
+      "path": "data/reference/nse_cm_calendar_2018_2024.provenance.json",
+      "sha256": "98c14f077f6e6fbdf2f182627fceb4c0848898f8093c64ffc35e7570dbc3f61a"
+    },
+    {
+      "path": "data/reference/nse_gap_calendar_2018_2024.csv",
+      "sha256": "82a29ba30c2577c628f8d02c8e1e3b87631dee54ae5bf17004c26715af8627b4"
+    },
+    {
+      "path": "data/validation/recovery_candidates/milestone_2j/candidate_missing_bars.csv",
+      "sha256": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8"
+    },
+    {
+      "path": "data/validation/recovery_candidates/milestone_2j/recovery_manifest.json",
+      "sha256": "cec6e8d22469c5259b7c1f4ddc410715baae3903f46cce75199728542d328c34"
+    },
+    {
+      "path": "data/validation/recovery_candidates/milestone_2j_a/candidate_missing_bars.csv",
+      "sha256": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8"
+    },
+    {
+      "path": "data/validation/recovery_candidates/milestone_2j_a/recovery_manifest.json",
+      "sha256": "5ab2ec821e9454967506b8034f953f085c9a328fa617ad21829168724c0d9b8f"
+    },
+    {
+      "path": "data/validation/recovery_candidates/milestone_2j_a_v2/candidate_missing_bars.csv",
+      "sha256": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8"
+    },
+    {
+      "path": "data/validation/recovery_candidates/milestone_2j_a_v2/recovery_manifest.json",
+      "sha256": "f263823a74c6ad9e4208a31f6723b8cc133814b19d23f09cb6ade7826ef90a55"
+    },
+    {
+      "path": "data/validation/recovery_candidates/milestone_2j_v2/candidate_missing_bars.csv",
+      "sha256": "15736362fb99df90dbb7e77004dbf8fe74d58dbe25358319174be166ba076aa8"
+    },
+    {
+      "path": "data/validation/recovery_candidates/milestone_2j_v2/recovery_manifest.json",
+      "sha256": "9773f00109a53c10083233cd5a84f82d1e07df083810bb8d3b6480f408e42273"
+    },
+    {
+      "path": "docs/milestone_2j_b_cost_model.md",
+      "sha256": "2c6ab493eb2c3fc141ca68322bc7e7383f55a292806a39ec90c3000db3802846"
+    },
+    {
+      "path": "docs/milestone_2j_c_tariff_reconciliation.md",
+      "sha256": "ec123461d4c9a8e541c9b3c0944f28372a9d442e50df5cd650cfbeac8656785d"
+    },
+    {
+      "path": "docs/milestone_2j_cost_profile.md",
+      "sha256": "d61067ac0ecc1a7df4a2ac799484dc09ae76800c915645bb45fcb399c46f14bd"
+    },
+    {
+      "path": "reports/milestone_2d_readiness.json",
+      "sha256": "0cfd6ca57dbd969bc579eab70085f6191572439bc18dc7d2d14d88c5b1e72423"
+    },
+    {
+      "path": "reports/milestone_2d_readiness.md",
+      "sha256": "f074a84638dc11d3b3a810d22e1f6c222e20b37ef64a16fbf42e5d22d9fdab38"
+    },
+    {
+      "path": "reports/milestone_2e_official_gap_evidence.json",
+      "sha256": "48b2e3197d50d6bc527dfc849f29e3e9c93baaaaaa8c509cb567c66c694972ae"
+    },
+    {
+      "path": "reports/milestone_2e_readiness.json",
+      "sha256": "95667bdc6be3abd7a161e58da9c8b4e7d9807bcabadafb6dd69f8a51caa58825"
+    },
+    {
+      "path": "reports/milestone_2e_readiness.md",
+      "sha256": "745fbf69545d59531d3a23986120d2ff84cd7bdc442c15fe5492611ce429debe"
+    },
+    {
+      "path": "reports/milestone_2f/audit-2018-2024/gap_audit.csv",
+      "sha256": "00d683d2d67d79b757bcf3fc4e7f23227645e3aa24bd1d509fefba401f41f764"
+    },
+    {
+      "path": "reports/milestone_2f/audit-2018-2024/gap_audit.json",
+      "sha256": "8971852d80b87533b560c3be5eafbf5990f3a18ef2d664dd079f62dbc7a7a062"
+    },
+    {
+      "path": "reports/milestone_2f/audit-2018-2024/gap_audit.md",
+      "sha256": "6ef6f4749ad651c074e063868bc0bb3730c283b1e1f59553ec93a40d02fe79b5"
+    },
+    {
+      "path": "reports/milestone_2f/readiness.json",
+      "sha256": "5a96a0f31d8133f0001b96135d8e041fd794975062aa878a1938b72454bd65f9"
+    },
+    {
+      "path": "reports/milestone_2f/readiness.md",
+      "sha256": "8d514514b1594ba7b771e7b6a91222d0bf81a6c02517f42d6ea8541345e930b0"
+    },
+    {
+      "path": "reports/milestone_2f/recovery_manifest.json",
+      "sha256": "78bddb6fd7edb1923316e8892eaf9304adc5a5e57e8f6f3c359e0c6768c0661d"
+    },
+    {
+      "path": "reports/milestone_2g_corporate_action_audit.json",
+      "sha256": "9d9c816360416f1e12c911e340010b33c07260069361030cf2d0c9ac3b8475d2"
+    },
+    {
+      "path": "reports/milestone_2g_readiness.md",
+      "sha256": "bda483c5f0df569a5102bc238935d42ed9c64fbe9cb2cc7fb41047da812152d0"
+    },
+    {
+      "path": "reports/milestone_2h/bar_reconciliation.csv",
+      "sha256": "460f1555fea3ef3c8de66128e1de76c865202a70c54de35a09321da3b6ef3dfa"
+    },
+    {
+      "path": "reports/milestone_2h/bar_reconciliation.json",
+      "sha256": "28ef9f8554dbd00a54877bab5571e9bbc665b7533db0c2181a064922a54e2134"
+    },
+    {
+      "path": "reports/milestone_2h/corporate_action_evidence_registry.json",
+      "sha256": "208eb5dddd8ef2c1161aca0a0d9e29a50eab5ad628c30f800c6463b8397b4592"
+    },
+    {
+      "path": "reports/milestone_2h/cost_schedule_evidence.json",
+      "sha256": "3d14c934c1bc3f31a2999f503844c8bf0854d3fab4f6c33016102dbaa05ea3d1"
+    },
+    {
+      "path": "reports/milestone_2h/readiness.json",
+      "sha256": "73996bc13bcd526ef3663bc355eff01c0dbbd6447f43d00a2094514785ec166a"
+    },
+    {
+      "path": "reports/milestone_2h/readiness.md",
+      "sha256": "7a1ac8a8b31fc861ebb2d4b4f1944f1985d825577841bf01ce0603ea10169544"
+    },
+    {
+      "path": "reports/milestone_2i/validation_report.json",
+      "sha256": "0eeed26c54e2bcb69a9226f19b9b07ae3fcd48d453d60e2a5ada2d52f87bd54c"
+    },
+    {
+      "path": "reports/milestone_2i/validation_report.md",
+      "sha256": "9c1bbe9cba61ea8c8aabf5c6117d43ae0ae1589cc9eb55edae479f69e584f92c"
+    },
+    {
+      "path": "reports/milestone_2j/evidence_integrity.json",
+      "sha256": "52f5cd46667aeb443b1a2755039df434c5cff048f9110e877038fff5de044bee"
+    },
+    {
+      "path": "reports/milestone_2j/readiness.json",
+      "sha256": "ed6b58bcf91af00ab68019e5001875c51aaa29a2e9164a619a29316e4c1907dc"
+    },
+    {
+      "path": "reports/milestone_2j/readiness.md",
+      "sha256": "adfb37ada9ff4e5412aa3e31c215ae22f795360fb73ec58a2374865881c4d6d5"
+    },
+    {
+      "path": "reports/milestone_2j_a/corporate_action_coverage.json",
+      "sha256": "7ca88c1c8f3772f8f12ec7f1cd6caa3fc7cda8e1db49bf86a5b723e39b33fb22"
+    },
+    {
+      "path": "reports/milestone_2j_a/corporate_action_coverage.md",
+      "sha256": "b90c3d134e50f4acb08149af3a113dcf62927b5bb7f9c11dbc79d932864a994f"
+    },
+    {
+      "path": "reports/milestone_2j_a_v2/corporate_action_coverage.json",
+      "sha256": "cc9abcf371d27bb14cd4ebc7dc6bc8533664d7cca8f504303f88844ccfd1ca3b"
+    },
+    {
+      "path": "reports/milestone_2j_a_v2/corporate_action_coverage.md",
+      "sha256": "c5d88500d9c662e268eeab404e6fc7f68f4a296debb16d15e566b58de8b3d657"
+    },
+    {
+      "path": "reports/milestone_2j_a_v2/evidence_integrity.json",
+      "sha256": "52f5cd46667aeb443b1a2755039df434c5cff048f9110e877038fff5de044bee"
+    },
+    {
+      "path": "reports/milestone_2j_a_v2/readiness.json",
+      "sha256": "b2a89aadf8220e6c70161cf71b47bb51a7dca3010aa94f5e4c241dbfbdc48837"
+    },
+    {
+      "path": "reports/milestone_2j_a_v2/readiness.md",
+      "sha256": "07527bde7d88067260927a6f042ebc407d4e78379ebbbaafa64696837b7e2cc1"
+    },
+    {
+      "path": "reports/milestone_2j_a_v3/corporate_action_coverage.json",
+      "sha256": "0e2baed7ca712a6bd8c7b56f597af4bf6e02eb9958805bc346a01bab387403b0"
+    },
+    {
+      "path": "reports/milestone_2j_a_v3/corporate_action_coverage.md",
+      "sha256": "57665e04f6056c536feee2d456175bfa9e670c4e52d11b5f9300cf174bf6b104"
+    },
+    {
+      "path": "reports/milestone_2j_a_v3/evidence_integrity.json",
+      "sha256": "52f5cd46667aeb443b1a2755039df434c5cff048f9110e877038fff5de044bee"
+    },
+    {
+      "path": "reports/milestone_2j_a_v3/readiness.json",
+      "sha256": "b2a89aadf8220e6c70161cf71b47bb51a7dca3010aa94f5e4c241dbfbdc48837"
+    },
+    {
+      "path": "reports/milestone_2j_a_v3/readiness.md",
+      "sha256": "07527bde7d88067260927a6f042ebc407d4e78379ebbbaafa64696837b7e2cc1"
+    },
+    {
+      "path": "reports/milestone_2j_a_v4/corporate_action_coverage.json",
+      "sha256": "87a49506d3c0f2038106e8c68ce6f8a99a6adfc27f68a3a8b209d614a8c97b4c"
+    },
+    {
+      "path": "reports/milestone_2j_a_v4/corporate_action_coverage.md",
+      "sha256": "7895b7c7eabd6c902d7202054dd5c8a27d8e24b9cd97d4a1dd4d86248527b693"
+    },
+    {
+      "path": "reports/milestone_2j_a_v4/evidence_integrity.json",
+      "sha256": "52f5cd46667aeb443b1a2755039df434c5cff048f9110e877038fff5de044bee"
+    },
+    {
+      "path": "reports/milestone_2j_a_v4/readiness.json",
+      "sha256": "c199dc9fa84080ee8abd74e4f5576a9882d51ad9090584331166c341714b8763"
+    },
+    {
+      "path": "reports/milestone_2j_a_v4/readiness.md",
+      "sha256": "407d8ff47a2a7900e7218a15e80073416dff6cf3dd5fe602cfe863ca260d5e75"
+    },
+    {
+      "path": "reports/milestone_2j_b/coverage.json",
+      "sha256": "815ea83bb29db4b8a3240f6f0f7916a04c2029cc9e899002656888d517109617"
+    },
+    {
+      "path": "reports/milestone_2j_b/evidence_integrity.json",
+      "sha256": "52f5cd46667aeb443b1a2755039df434c5cff048f9110e877038fff5de044bee"
+    },
+    {
+      "path": "reports/milestone_2j_b/readiness.md",
+      "sha256": "799f62daa07956cae4f890c6f4eaddd5bd7997d67fa16b0d344980ec71c8adf1"
+    },
+    {
+      "path": "reports/milestone_2j_c/coverage.json",
+      "sha256": "40965fcaaee2cc2d6ec40664afc11031bfc00e21ad5ce4e0648b2dd4b63a5fdf"
+    },
+    {
+      "path": "reports/milestone_2j_c/evidence_integrity.json",
+      "sha256": "52f5cd46667aeb443b1a2755039df434c5cff048f9110e877038fff5de044bee"
+    },
+    {
+      "path": "reports/milestone_2j_c/readiness.md",
+      "sha256": "93755ed8d82f9ff0d505b4f32e1ee9a222d7662eceff031ee428302b5baa8867"
+    },
+    {
+      "path": "reports/milestone_2j_v2/readiness.json",
+      "sha256": "03890fa41a76cf81eac51a36684debbc50be29b322c5b1aa69573817d8ce227b"
+    },
+    {
+      "path": "reports/milestone_2j_v2/readiness.md",
+      "sha256": "c9cb13bb1c2403515d40babb2adb20ad065e80123e6b74aa227278670db925d7"
+    },
+    {
+      "path": "reports/nse_raw_validation_report.json",
+      "sha256": "0c99e5d14374122720077121e374bc7465ebccbff37d7638eb23406e5defcd14"
+    },
+    {
+      "path": "reports/nse_raw_validation_report.md",
+      "sha256": "82fb7d97f253c3f77178d4e7e3064d280cb21852a4a613719545a6049a380176"
+    }
+  ],
+  "schema_version": "1.0"
+}

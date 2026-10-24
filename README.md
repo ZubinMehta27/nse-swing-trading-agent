@@ -216,4 +216,10 @@ The CLI accepts an explicit versioned profile with `--cost-profile`, `--cost-exc
 
 The historical Zerodha delivery tariff reconciliation is documented in [docs/milestone_2j_c_tariff_reconciliation.md](docs/milestone_2j_c_tariff_reconciliation.md). Its versioned profile, [coverage report](reports/milestone_2j_c/readiness.md), and provenance manifest are partial and fail closed. No real-data backtest or profitability evaluation was run; source retrieval failures and missing rounding/BSE inputs keep readiness BLOCKED.
 
+## Milestone 2K historical readiness audit
+
+The reproducible audit command is `python scripts/build_milestone_2k_readiness_audit.py --output reports/milestone_2k_v4`. It compares RELIANCE provider rows with the retained, sourced NSE calendar for 2018–2024, fingerprints the provider dataset, calendar, separate eight-bar recovery candidate, corporate-action registry/raw response and the Milestone 2K official-document archive, then writes CSV, JSON and Markdown evidence. The output directory is write-once; select a new versioned `--output` path if it already exists. The audit does not merge candidates or run a strategy/backtest. NSE circular MSD59999 is retained and identifies 2024-01-20 as a special live equity session, correcting the baseline calendar's generic Saturday label in this report only.
+
+The audit is RELIANCE-only. Provider data extends through 2026-10-22, but the day-by-day calendar comparison ends in 2024; retained 2025/2026 holiday circulars and issuer filings are selected evidence, not a full later calendar or proof of corporate-action completeness. Corporate-action feed rows are reconciled to their raw fingerprint, while missing terms, conflicting evidence, unsupported rights/demerger accounting and events absent from the discovery feed remain blockers. Cost profile coverage is unchanged and incomplete. See [the Milestone 2K readiness report](reports/milestone_2k_v4/readiness.md) and machine-readable [audit](reports/milestone_2k_v4/audit.json). Readiness remains BLOCKED; no real-data performance evaluation was run.
+
 \n

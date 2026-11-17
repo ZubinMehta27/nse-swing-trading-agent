@@ -342,7 +342,16 @@ def test_export_cli_and_synthetic_label(tmp_path: Path) -> None:
     cache = tmp_path / "cache"
     assert main(["validate", str(source), "--cache-dir", str(cache)]) == 0
     output = tmp_path / "results"
-    code = main(["backtest", str(source), "--output", str(output)])
+    code = main(
+        [
+            "backtest",
+            str(source),
+            "--output",
+            str(output),
+            "--cache-dir",
+            str(cache),
+        ]
+    )
     assert code == 0
     assert json.loads((output / "manifest.json").read_text(encoding="utf-8"))["synthetic"] is True
     assert (output / "equity_curve.csv").exists()
@@ -485,6 +494,8 @@ def test_cli_rejects_verified_cost_profile_missing_explicit_rate_fields(tmp_path
                 str(source),
                 "--output",
                 str(tmp_path / "out"),
+                "--cache-dir",
+                str(tmp_path / "cache"),
                 "--costs-json",
                 str(profile),
                 "--cost-inclusive",
